@@ -1,9 +1,11 @@
 Subject "System verification and testing / Formal model checking" as part of the Master of Software Engineering
 
-|Article/Book|  |
+|Article/Book| Authors |
 |--|--|
-| A theory of timed automata |  |
+|  | Alur, Dill |
+
+
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzM5MDk1MzgwLC0yNzQ3MzYyNjhdfQ==
+eyJoaXN0b3J5IjpbMTEwMzYwMjkwOSwtMjc0NzM2MjY4XX0=
 -->
