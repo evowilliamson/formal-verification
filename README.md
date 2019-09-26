@@ -1,10 +1,9 @@
 Subject "System verification and testing / Formal model checking" as part of the Master of Software Engineering
 
-fdsafs
-f
-sdaf
-s
-dfsadf
+|Article/Book|  |
+|--|--|
+| A theory of timed automata |  |
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI3NDczNjI2OF19
+eyJoaXN0b3J5IjpbNzM5MDk1MzgwLC0yNzQ3MzYyNjhdfQ==
 -->
