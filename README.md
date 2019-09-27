@@ -4,8 +4,8 @@ Subject "System verification and testing / Formal model checking" as part of the
 |Article/Book| Authors |  Comments 
 |--|--|--|
 [Timed Automata](https://github.com/evowilliamson/model-checking-research/blob/master/Timed%20automata.pdf) | Alur | A survey of the theory of timed automata, 2003
-[A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) | Alur, Dill || 
-[Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) | Clarke | | 
+[A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) | Alur, Dill |
+[Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) | Clarke | Textbook used in the course | 
  [Model-Checking for Real-Time Systems](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20for%20Real-Time%20Systems%20-%20Larsen%20Pettersson%20Yi.pdf) | Larsen, Pettersson, Yi | Creators of UPPAAL, 2005
 
 
@@ -19,7 +19,7 @@ Subject "System verification and testing / Formal model checking" as part of the
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTUyMjM3NDQ3NCwtMTE3NTIyODM1LC0xND
+eyJoaXN0b3J5IjpbMTcxNDg4NjUxMCwtMTE3NTIyODM1LC0xND
 E2MjcxNjM1LC0xOTQ4MDAyMTg4LC05NTgwNDU5NjcsLTY5NDM0
 ODk0MiwxMTAzNjAyOTA5LC0yNzQ3MzYyNjhdfQ==
 -->
