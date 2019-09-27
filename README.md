@@ -1,5 +1,6 @@
 Subject "System verification and testing / Formal model checking" as part of the Master of Software Engineering
 
+#References
 |Article/Book| Authors |  Comments | Depends on
 |--|--|--|--|
 [Timed Automata](https://github.com/evowilliamson/model-checking-research/blob/master/Timed%20automata.pdf) | Alur | A survey of the theory of timed automata, 2003| 
@@ -9,9 +10,12 @@ Subject "System verification and testing / Formal model checking" as part of the
 
 
 
+Study notes
+
+
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNzUyMjgzNSwtMTQxNjI3MTYzNSwtMT
-k0ODAwMjE4OCwtOTU4MDQ1OTY3LC02OTQzNDg5NDIsMTEwMzYw
-MjkwOSwtMjc0NzM2MjY4XX0=
+eyJoaXN0b3J5IjpbMzg4OTc2ODE4LC0xMTc1MjI4MzUsLTE0MT
+YyNzE2MzUsLTE5NDgwMDIxODgsLTk1ODA0NTk2NywtNjk0MzQ4
+OTQyLDExMDM2MDI5MDksLTI3NDczNjI2OF19
 -->
