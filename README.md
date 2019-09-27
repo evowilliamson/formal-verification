@@ -13,13 +13,13 @@ Subject "System verification and testing / Formal model checking" as part of the
 |Date| Note |
 |--|--|
 | 09/15/2019 | Started with Clarke's [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf), finished chapter 1 |
-| 09/20/2019 | Started with Clarke's , finished chapter 2 |
-| 09/25/2019 | Started with Clarke's [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf), finished chapter 2 |
+| 09/20/2019 | Finished chapter 2 of  [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) |
+| 09/25/2019 | Chapter 17 of Clarke's [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) raised some doubts regarding relationship between states and location.  |
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU3MDI2MDY2NCwtMTE3NTIyODM1LC0xND
+eyJoaXN0b3J5IjpbMTcxNzY3Nzc1OSwtMTE3NTIyODM1LC0xND
 E2MjcxNjM1LC0xOTQ4MDAyMTg4LC05NTgwNDU5NjcsLTY5NDM0
 ODk0MiwxMTAzNjAyOTA5LC0yNzQ3MzYyNjhdfQ==
 -->
