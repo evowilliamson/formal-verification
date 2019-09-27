@@ -12,13 +12,14 @@ Subject "System verification and testing / Formal model checking" as part of the
 ### Study notes
 |Date| Note |
 |--|--|
-| 09/15/2019 | Started with Clarke's [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf), chapter 1 & 2. OK |
-| 09/15/2019 | Started with Clarke's [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf), chapter 1 & 2. OK |
+| 09/15/2019 | Started with Clarke's [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf), finished chapter 1 |
+| 09/20/2019 | Started with Clarke's , finished chapter 2 |
+| 09/25/2019 | Started with Clarke's [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf), finished chapter 2 |
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI2MjUwMjEzLC0xMTc1MjI4MzUsLTE0MT
-YyNzE2MzUsLTE5NDgwMDIxODgsLTk1ODA0NTk2NywtNjk0MzQ4
-OTQyLDExMDM2MDI5MDksLTI3NDczNjI2OF19
+eyJoaXN0b3J5IjpbLTU3MDI2MDY2NCwtMTE3NTIyODM1LC0xND
+E2MjcxNjM1LC0xOTQ4MDAyMTg4LC05NTgwNDU5NjcsLTY5NDM0
+ODk0MiwxMTAzNjAyOTA5LC0yNzQ3MzYyNjhdfQ==
 -->
