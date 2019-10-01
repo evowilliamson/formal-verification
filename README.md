@@ -17,6 +17,7 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 09/25/2019 | Chapter 17 of Clarke's [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) raised some doubts regarding relationship between states and location. Used the references in the book and decided to read [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) first. Also [Model-Checking for Real-Time Systems](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20for%20Real-Time%20Systems%20-%20Larsen%20Pettersson%20Yi.pdf) by the creators of UPPAAL seems to be a good reference regarding timed automata|
 | 09/26/2019 | Video about overview of timed transition systems and a demo about UPPAAL: [https://www.youtube.com/watch?v=tUSxi_rSXwo](https://www.youtube.com/watch?v=tUSxi_rSXwo)
 | 09/27/2019 | [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) mentions that timed automata must be able to accept ω-regular languages. This video explains a bit about Buchi automata (one form of ω-automata): [https://www.youtube.com/watch?v=KOu6IUssxbs](https://www.youtube.com/watch?v=KOu6IUssxbs) |
+| 09/28/2019 | [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) read until paragraph 3.5 |
 
 
 
