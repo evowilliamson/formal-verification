@@ -18,12 +18,13 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 09/26/2019 | Video about overview of timed transition systems and a demo about UPPAAL: [https://www.youtube.com/watch?v=tUSxi_rSXwo](https://www.youtube.com/watch?v=tUSxi_rSXwo)
 | 09/27/2019 | [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) mentions that timed automata must be able to accept ω-regular languages. This video explains a bit about Buchi automata (one form of ω-automata): [https://www.youtube.com/watch?v=KOu6IUssxbs](https://www.youtube.com/watch?v=KOu6IUssxbs) |
 | 09/28/2019 | [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) read until paragraph 3.5 |
+| 10/03/2019 | [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) read until paragraph 3.5 |
 
 
 
-
+[https://hal.archives-ouvertes.fr/hal-01889280/document](https://hal.archives-ouvertes.fr/hal-01889280/document)
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk4NzA4MTE1NywtMTgyMTE5MTk2MywtMT
+eyJoaXN0b3J5IjpbLTM0MzI3ODE0NSwtMTgyMTE5MTk2MywtMT
 M0MzE4OTI4LDE3MTQ4ODY1MTAsLTExNzUyMjgzNSwtMTQxNjI3
 MTYzNSwtMTk0ODAwMjE4OCwtOTU4MDQ1OTY3LC02OTQzNDg5ND
 IsMTEwMzYwMjkwOSwtMjc0NzM2MjY4XX0=
