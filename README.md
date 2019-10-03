@@ -6,10 +6,9 @@ Subject "System verification and testing / Formal model checking" as part of the
 [Timed Automata](https://github.com/evowilliamson/model-checking-research/blob/master/Timed%20automata.pdf) | Alur | A survey of the theory of timed automata, 2003
 [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) | Alur, Dill |
 [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) | Clarke | Textbook used in the course | 
- [Model-Checking for Real-Time Systems](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20for%20Real-Time%20Systems%20-%20Larsen%20Pettersson%20Yi.pdf) | Larsen, Pettersson, Yi | Creators of UPPAAL, 2005
+ [Model-Checking for Real-Time Systems](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20for%20Real-Time%20Systems%20-%20Larsen%20Pettersson%20Yi.pdf) | Larsen, Pettersson, Yi | Creators of UPPAAL, 2005 |
  [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf) | Patricia Bouyer | Presentation |
- [Model Checking Real-Time Systems](https://hal.archives-ouvertes.fr/hal-01889280/document](https://hal.archives-ouvertes.fr/hal-01889280/document) | Patricia Bouyer, Uli Fahrenberg, Kim Larsen, Nicolas Markey, Joël Ouaknine, James Worrell | Article on which [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf) was based  |
-
+ [An introduction to timed automata](https://hal.archives-ouvertes.fr/hal-01889280/document) | Patricia Bouyer, Uli Fahrenberg, Kim Larsen, Nicolas Markey, Joël Ouaknine, James Worrell | Article on which [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf) was based  |
 
 ### Study notes
 |Date| Note |
@@ -23,9 +22,8 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 10/03/2019 | [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf), presentation by Patricia Bouyer explains well the concepts, especially region equivalence and relation between locations in timed automata and states in state transitions diagrams. Also based on the paper [https://hal.archives-ouvertes.fr/hal-01889280/document](https://hal.archives-ouvertes.fr/hal-01889280/document) |
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTcwOTg3NzM3NCwtODExNTc4Mzg2LC0xOD
-IxMTkxOTYzLC0xMzQzMTg5MjgsMTcxNDg4NjUxMCwtMTE3NTIy
-ODM1LC0xNDE2MjcxNjM1LC0xOTQ4MDAyMTg4LC05NTgwNDU5Nj
-csLTY5NDM0ODk0MiwxMTAzNjAyOTA5LC0yNzQ3MzYyNjhdfQ==
-
+eyJoaXN0b3J5IjpbOTEwMTQzNDMxLC04MTE1NzgzODYsLTE4Mj
+ExOTE5NjMsLTEzNDMxODkyOCwxNzE0ODg2NTEwLC0xMTc1MjI4
+MzUsLTE0MTYyNzE2MzUsLTE5NDgwMDIxODgsLTk1ODA0NTk2Ny
+wtNjk0MzQ4OTQyLDExMDM2MDI5MDksLTI3NDczNjI2OF19
 -->
