@@ -7,6 +7,7 @@ Subject "System verification and testing / Formal model checking" as part of the
 [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) | Alur, Dill |
 [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) | Clarke | Textbook used in the course | 
  [Model-Checking for Real-Time Systems](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20for%20Real-Time%20Systems%20-%20Larsen%20Pettersson%20Yi.pdf) | Larsen, Pettersson, Yi | Creators of UPPAAL, 2005
+ [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf) | Larsen, Pettersson, Yi | Creators of UPPAAL, 2005
 
 
 ### Study notes
@@ -21,8 +22,8 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 10/03/2019 | [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf), presentation by Patricia Bouyer explains well the concepts, especially region equivalence and relation between locations in timed automata and states in state transitions diagrams. Also based on the paper [https://hal.archives-ouvertes.fr/hal-01889280/document](https://hal.archives-ouvertes.fr/hal-01889280/document) |
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzUxNzEzMjAyLC0xODIxMTkxOTYzLC0xMz
-QzMTg5MjgsMTcxNDg4NjUxMCwtMTE3NTIyODM1LC0xNDE2Mjcx
-NjM1LC0xOTQ4MDAyMTg4LC05NTgwNDU5NjcsLTY5NDM0ODk0Mi
-wxMTAzNjAyOTA5LC0yNzQ3MzYyNjhdfQ==
+eyJoaXN0b3J5IjpbLTIxNTQ5MzcxMywtMTgyMTE5MTk2MywtMT
+M0MzE4OTI4LDE3MTQ4ODY1MTAsLTExNzUyMjgzNSwtMTQxNjI3
+MTYzNSwtMTk0ODAwMjE4OCwtOTU4MDQ1OTY3LC02OTQzNDg5ND
+IsMTEwMzYwMjkwOSwtMjc0NzM2MjY4XX0=
 -->
