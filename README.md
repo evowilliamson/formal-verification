@@ -8,7 +8,7 @@ Subject "System verification and testing / Formal model checking" as part of the
 [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) | Clarke | Textbook used in the course | 
  [Model-Checking for Real-Time Systems](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20for%20Real-Time%20Systems%20-%20Larsen%20Pettersson%20Yi.pdf) | Larsen, Pettersson, Yi | Creators of UPPAAL, 2005
  [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf) | Patricia Bouyer | Presentation |
- [Model Checking Real-Time Systems]([https://hal.archives-ouvertes.fr/hal-01889280/document](https://hal.archives-ouvertes.fr/hal-01889280/document)) | Patricia Bouyer, Uli Fahrenberg, Kim Larsen, Nicolas Markey, Joël Ouaknine, James Worrell | Article on which [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf)  was based  |
+ [Model Checking Real-Time Systems](https://hal.archives-ouvertes.fr/hal-01889280/document](https://hal.archives-ouvertes.fr/hal-01889280/document) | Patricia Bouyer, Uli Fahrenberg, Kim Larsen, Nicolas Markey, Joël Ouaknine, James Worrell | Article on which [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf) was based  |
 
 
 ### Study notes
@@ -23,8 +23,9 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 10/03/2019 | [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf), presentation by Patricia Bouyer explains well the concepts, especially region equivalence and relation between locations in timed automata and states in state transitions diagrams. Also based on the paper [https://hal.archives-ouvertes.fr/hal-01889280/document](https://hal.archives-ouvertes.fr/hal-01889280/document) |
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTgxMTU3ODM4NiwtMTgyMTE5MTk2MywtMT
-M0MzE4OTI4LDE3MTQ4ODY1MTAsLTExNzUyMjgzNSwtMTQxNjI3
-MTYzNSwtMTk0ODAwMjE4OCwtOTU4MDQ1OTY3LC02OTQzNDg5ND
-IsMTEwMzYwMjkwOSwtMjc0NzM2MjY4XX0=
+eyJoaXN0b3J5IjpbLTcwOTg3NzM3NCwtODExNTc4Mzg2LC0xOD
+IxMTkxOTYzLC0xMzQzMTg5MjgsMTcxNDg4NjUxMCwtMTE3NTIy
+ODM1LC0xNDE2MjcxNjM1LC0xOTQ4MDAyMTg4LC05NTgwNDU5Nj
+csLTY5NDM0ODk0MiwxMTAzNjAyOTA5LC0yNzQ3MzYyNjhdfQ==
+
 -->
