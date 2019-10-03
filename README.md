@@ -19,11 +19,13 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 09/26/2019 | Video about overview of timed transition systems and a demo about UPPAAL: [https://www.youtube.com/watch?v=tUSxi_rSXwo](https://www.youtube.com/watch?v=tUSxi_rSXwo)
 | 09/27/2019 | [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) mentions that timed automata must be able to accept ω-regular languages. This video explains a bit about Buchi automata (one form of ω-automata): [https://www.youtube.com/watch?v=KOu6IUssxbs](https://www.youtube.com/watch?v=KOu6IUssxbs) |
 | 09/28/2019 | [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) read until paragraph 3.5 |
-| 10/03/2019 | [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf), presentation by Patricia Bouyer explains well the concepts, especially region equivalence and relation between locations in timed automata and states in state transitions diagrams. Also based on the paper [https://hal.archives-ouvertes.fr/hal-01889280/document](https://hal.archives-ouvertes.fr/hal-01889280/document) |
+| 10/03/2019 | [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf), presentation by Patricia Bouyer explains well the concepts, especially region equivalence and relation between locations in timed automata and states in state transitions diagrams. Also based on the paper [Model Checking Real-Time Systems - Patricia Bouyer](https://github.com/evowilliamson/model-checking-research/blob/master/Model%20Checking%20Real-Time%20Systems%20-%20Patricia%20Bouyer.pdf) |
+
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzE5NjI5NzEsLTgxMTU3ODM4NiwtMTgyMT
-E5MTk2MywtMTM0MzE4OTI4LDE3MTQ4ODY1MTAsLTExNzUyMjgz
-NSwtMTQxNjI3MTYzNSwtMTk0ODAwMjE4OCwtOTU4MDQ1OTY3LC
-02OTQzNDg5NDIsMTEwMzYwMjkwOSwtMjc0NzM2MjY4XX0=
+eyJoaXN0b3J5IjpbNDkwOTU2OTM1LDMxOTYyOTcxLC04MTE1Nz
+gzODYsLTE4MjExOTE5NjMsLTEzNDMxODkyOCwxNzE0ODg2NTEw
+LC0xMTc1MjI4MzUsLTE0MTYyNzE2MzUsLTE5NDgwMDIxODgsLT
+k1ODA0NTk2NywtNjk0MzQ4OTQyLDExMDM2MDI5MDksLTI3NDcz
+NjI2OF19
 -->
