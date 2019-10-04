@@ -23,12 +23,12 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 09/28/2019 | [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) read until paragraph 3.5 |
 | 10/03/2019 | [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf), presentation by Patricia Bouyer explains well the concepts, especially region equivalence and relation between locations in timed automata and states in state transitions diagrams. Also based on the paper [Model Checking Real-Time Systems - Patricia Bouyer](https://github.com/evowilliamson/model-checking-research/blob/master/Model%20Checking%20Real-Time%20Systems%20-%20Patricia%20Bouyer.pdf) |
 | 10/04/2019 | [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) mentions bisimulation, but chapter 11 of that book doesn't explain quiet clearly the concept. Found another reference: [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) by Davide Sangiorgi |
-| 10/04/2019 | Started reading [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) by Davide Sangiorgi to get more acquinted with LTS  |
+| 10/04/2019 | Started reading [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) by Davide Sangiorgi to get more acquinted with LTS equivalence and the concept of bisimulation. These terms are prerequisites in order to continue with [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf)|
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwNjMxMzc5NjMsMjAwNzIzMDU0MiwtMj
+eyJoaXN0b3J5IjpbLTEzOTgyNzczNzcsMjAwNzIzMDU0MiwtMj
 Q2MTg1ODYwLC0xMDU2MjEwNTc3LDMxOTYyOTcxLC04MTE1Nzgz
 ODYsLTE4MjExOTE5NjMsLTEzNDMxODkyOCwxNzE0ODg2NTEwLC
 0xMTc1MjI4MzUsLTE0MTYyNzE2MzUsLTE5NDgwMDIxODgsLTk1
