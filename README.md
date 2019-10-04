@@ -9,7 +9,7 @@ Subject "System verification and testing / Formal model checking" as part of the
  [Model-Checking for Real-Time Systems](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20for%20Real-Time%20Systems%20-%20Larsen%20Pettersson%20Yi.pdf) | Larsen, Pettersson, Yi | Creators of UPPAAL, 2005 |
  [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf) | Patricia Bouyer | Presentation |
  [Model Checking Real-Time Systems - Patricia Bouyer](https://github.com/evowilliamson/model-checking-research/blob/master/Model%20Checking%20Real-Time%20Systems%20-%20Patricia%20Bouyer.pdf) | Patricia Bouyer, Uli Fahrenberg, Kim Larsen, Nicolas Markey, Joël Ouaknine, James Worrell | Article on which the presentation [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf) was based  |
-[An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) | Davide Sangiorgi | Article on which the presentation [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf) was based  
+[An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) | Davide Sangiorgi |   
  
  
 ### Study notes
@@ -28,7 +28,7 @@ Subject "System verification and testing / Formal model checking" as part of the
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU1NTMyMjgxMiwtMTA1NjIxMDU3NywzMT
+eyJoaXN0b3J5IjpbLTI0NjE4NTg2MCwtMTA1NjIxMDU3NywzMT
 k2Mjk3MSwtODExNTc4Mzg2LC0xODIxMTkxOTYzLC0xMzQzMTg5
 MjgsMTcxNDg4NjUxMCwtMTE3NTIyODM1LC0xNDE2MjcxNjM1LC
 0xOTQ4MDAyMTg4LC05NTgwNDU5NjcsLTY5NDM0ODk0MiwxMTAz
