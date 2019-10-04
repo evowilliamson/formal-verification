@@ -20,11 +20,14 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 09/27/2019 | [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) mentions that timed automata must be able to accept ω-regular languages. This video explains a bit about Buchi automata (one form of ω-automata): [https://www.youtube.com/watch?v=KOu6IUssxbs](https://www.youtube.com/watch?v=KOu6IUssxbs) |
 | 09/28/2019 | [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) read until paragraph 3.5 |
 | 10/03/2019 | [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf), presentation by Patricia Bouyer explains well the concepts, especially region equivalence and relation between locations in timed automata and states in state transitions diagrams. Also based on the paper [Model Checking Real-Time Systems - Patricia Bouyer](https://github.com/evowilliamson/model-checking-research/blob/master/Model%20Checking%20Real-Time%20Systems%20-%20Patricia%20Bouyer.pdf) |
+| 10/04/2019 | [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) mentions bisimulation, but chapter 11 of that book doesn't explain quiet clearly the concept. Found another reference:  |
+
+
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNTYyMTA1NzcsMzE5NjI5NzEsLTgxMT
-U3ODM4NiwtMTgyMTE5MTk2MywtMTM0MzE4OTI4LDE3MTQ4ODY1
-MTAsLTExNzUyMjgzNSwtMTQxNjI3MTYzNSwtMTk0ODAwMjE4OC
-wtOTU4MDQ1OTY3LC02OTQzNDg5NDIsMTEwMzYwMjkwOSwtMjc0
-NzM2MjY4XX0=
+eyJoaXN0b3J5IjpbMTU4NjM1MTMyNywtMTA1NjIxMDU3NywzMT
+k2Mjk3MSwtODExNTc4Mzg2LC0xODIxMTkxOTYzLC0xMzQzMTg5
+MjgsMTcxNDg4NjUxMCwtMTE3NTIyODM1LC0xNDE2MjcxNjM1LC
+0xOTQ4MDAyMTg4LC05NTgwNDU5NjcsLTY5NDM0ODk0MiwxMTAz
+NjAyOTA5LC0yNzQ3MzYyNjhdfQ==
 -->
