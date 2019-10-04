@@ -22,15 +22,15 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 09/27/2019 | [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) mentions that timed automata must be able to accept ω-regular languages. This video explains a bit about Buchi automata (one form of ω-automata): [https://www.youtube.com/watch?v=KOu6IUssxbs](https://www.youtube.com/watch?v=KOu6IUssxbs) |
 | 09/28/2019 | [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) read until paragraph 3.5 |
 | 10/03/2019 | [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf), presentation by Patricia Bouyer explains well the concepts, especially region equivalence and relation between locations in timed automata and states in state transitions diagrams. Also based on the paper [Model Checking Real-Time Systems - Patricia Bouyer](https://github.com/evowilliamson/model-checking-research/blob/master/Model%20Checking%20Real-Time%20Systems%20-%20Patricia%20Bouyer.pdf) |
-| 10/04/2019 | [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) mentions bisimulation, but chapter 11 of that book doesn't explain quiet clearly the concept. Found another reference: [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) by Davide Sangiorgi
+| 10/04/2019 | [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) mentions bisimulation, but chapter 11 of that book doesn't explain quiet clearly the concept. Found another reference: ffsdfsadf
  |
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI0NjE4NTg2MCwtMTA1NjIxMDU3NywzMT
-k2Mjk3MSwtODExNTc4Mzg2LC0xODIxMTkxOTYzLC0xMzQzMTg5
-MjgsMTcxNDg4NjUxMCwtMTE3NTIyODM1LC0xNDE2MjcxNjM1LC
-0xOTQ4MDAyMTg4LC05NTgwNDU5NjcsLTY5NDM0ODk0MiwxMTAz
-NjAyOTA5LC0yNzQ3MzYyNjhdfQ==
+eyJoaXN0b3J5IjpbLTE4NTQ4MzkzNTYsLTI0NjE4NTg2MCwtMT
+A1NjIxMDU3NywzMTk2Mjk3MSwtODExNTc4Mzg2LC0xODIxMTkx
+OTYzLC0xMzQzMTg5MjgsMTcxNDg4NjUxMCwtMTE3NTIyODM1LC
+0xNDE2MjcxNjM1LC0xOTQ4MDAyMTg4LC05NTgwNDU5NjcsLTY5
+NDM0ODk0MiwxMTAzNjAyOTA5LC0yNzQ3MzYyNjhdfQ==
 -->
