@@ -22,16 +22,17 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 09/27/2019 | [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) mentions that timed automata must be able to accept ω-regular languages. This video explains a bit about Buchi automata (one form of ω-automata): [https://www.youtube.com/watch?v=KOu6IUssxbs](https://www.youtube.com/watch?v=KOu6IUssxbs). The concept of ω-automata is important in the light of model-checking as it introduces the problem of infinite runs  |
 | 09/28/2019 | [A theory of timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/A%20theory%20of%20timed%20automata.pdf) read until paragraph 3.5 |
 | 10/03/2019 | [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf), presentation by Patricia Bouyer explains well the concepts, especially region equivalence and relation between locations in timed automata and states in state transitions diagrams. Also based on the paper [Model Checking Real-Time Systems - Patricia Bouyer](https://github.com/evowilliamson/model-checking-research/blob/master/Model%20Checking%20Real-Time%20Systems%20-%20Patricia%20Bouyer.pdf) |
-| 10/04/2019 | [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) ***mentions bisimulation, but chapter 11 of that book doesn't explain quiet clearly the concept***. Found another reference: [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) by Davide Sangiorgi |
+| 10/04/2019 | [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) ***mentions bisimulation, but chapter 11 of that book doesn't explain quiet clearly the concept***. Found another reference: [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) by Davide Sangiorgi 
 | 10/04/2019 | Started reading [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) by Davide Sangiorgi to get more acquinted with LTS equivalence and the concept of bisimulation. These terms are prerequisites in order to continue with [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf)|
+| 10/05/2019 | After reading [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) the notion of bisimularition is understood|
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIzMjQ1NjMyMiwtMTM5ODI3NzM3NywyMD
-A3MjMwNTQyLC0yNDYxODU4NjAsLTEwNTYyMTA1NzcsMzE5NjI5
-NzEsLTgxMTU3ODM4NiwtMTgyMTE5MTk2MywtMTM0MzE4OTI4LD
-E3MTQ4ODY1MTAsLTExNzUyMjgzNSwtMTQxNjI3MTYzNSwtMTk0
-ODAwMjE4OCwtOTU4MDQ1OTY3LC02OTQzNDg5NDIsMTEwMzYwMj
-kwOSwtMjc0NzM2MjY4XX0=
+eyJoaXN0b3J5IjpbMTY3MTcyNDAzLDEyMzI0NTYzMjIsLTEzOT
+gyNzczNzcsMjAwNzIzMDU0MiwtMjQ2MTg1ODYwLC0xMDU2MjEw
+NTc3LDMxOTYyOTcxLC04MTE1NzgzODYsLTE4MjExOTE5NjMsLT
+EzNDMxODkyOCwxNzE0ODg2NTEwLC0xMTc1MjI4MzUsLTE0MTYy
+NzE2MzUsLTE5NDgwMDIxODgsLTk1ODA0NTk2NywtNjk0MzQ4OT
+QyLDExMDM2MDI5MDksLTI3NDczNjI2OF19
 -->
