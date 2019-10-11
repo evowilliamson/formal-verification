@@ -9,9 +9,12 @@ Subject "System verification and testing / Formal model checking" as part of the
  [Model-Checking for Real-Time Systems](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20for%20Real-Time%20Systems%20-%20Larsen%20Pettersson%20Yi.pdf) | Larsen, Pettersson, Yi | Creators of UPPAAL, 2005 |
  [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf) | Patricia Bouyer | Presentation |
  [Model Checking Real-Time Systems - Patricia Bouyer](https://github.com/evowilliamson/model-checking-research/blob/master/Model%20Checking%20Real-Time%20Systems%20-%20Patricia%20Bouyer.pdf) | Patricia Bouyer, Uli Fahrenberg, Kim Larsen, Nicolas Markey, Joël Ouaknine, James Worrell | Article on which the presentation [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf) was based  |
-[An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) | Davide Sangiorgi |   
+[An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) | Davide Sangiorgi 
+[UPPAAL tutorial]( https://github.com/evowilliamson/model-checking-research/blob/master/uppaal-tutorial.pdf
+) | Davide Sangiorgi |   
  
  
+
 ### Study notes
 |Date| Note |
 |--|--|
@@ -29,10 +32,11 @@ Subject "System verification and testing / Formal model checking" as part of the
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY3MTcyNDAzLDEyMzI0NTYzMjIsLTEzOT
-gyNzczNzcsMjAwNzIzMDU0MiwtMjQ2MTg1ODYwLC0xMDU2MjEw
-NTc3LDMxOTYyOTcxLC04MTE1NzgzODYsLTE4MjExOTE5NjMsLT
-EzNDMxODkyOCwxNzE0ODg2NTEwLC0xMTc1MjI4MzUsLTE0MTYy
-NzE2MzUsLTE5NDgwMDIxODgsLTk1ODA0NTk2NywtNjk0MzQ4OT
-QyLDExMDM2MDI5MDksLTI3NDczNjI2OF19
+eyJoaXN0b3J5IjpbLTE4NTA3NTQ3NTUsMTY3MTcyNDAzLDEyMz
+I0NTYzMjIsLTEzOTgyNzczNzcsMjAwNzIzMDU0MiwtMjQ2MTg1
+ODYwLC0xMDU2MjEwNTc3LDMxOTYyOTcxLC04MTE1NzgzODYsLT
+E4MjExOTE5NjMsLTEzNDMxODkyOCwxNzE0ODg2NTEwLC0xMTc1
+MjI4MzUsLTE0MTYyNzE2MzUsLTE5NDgwMDIxODgsLTk1ODA0NT
+k2NywtNjk0MzQ4OTQyLDExMDM2MDI5MDksLTI3NDczNjI2OF19
+
 -->
