@@ -27,15 +27,16 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 10/04/2019 | [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) ***mentions bisimulation, but chapter 11 of that book doesn't explain quiet clearly the concept***. Found another reference: [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) by Davide Sangiorgi 
 | 10/04/2019 | Started reading [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) by Davide Sangiorgi to get more acquinted with LTS equivalence and the concept of bisimulation. These terms are prerequisites in order to continue with [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf)|
 | 10/05/2019 | After reading [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) the notion of bisimularition is understood|
+| 10/11/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf). Reachability, safety and liveness is mentioned in section 2.2|
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA0MTI2OTMwMywxNjcxNzI0MDMsMTIzMj
-Q1NjMyMiwtMTM5ODI3NzM3NywyMDA3MjMwNTQyLC0yNDYxODU4
-NjAsLTEwNTYyMTA1NzcsMzE5NjI5NzEsLTgxMTU3ODM4NiwtMT
-gyMTE5MTk2MywtMTM0MzE4OTI4LDE3MTQ4ODY1MTAsLTExNzUy
-MjgzNSwtMTQxNjI3MTYzNSwtMTk0ODAwMjE4OCwtOTU4MDQ1OT
-Y3LC02OTQzNDg5NDIsMTEwMzYwMjkwOSwtMjc0NzM2MjY4XX0=
-
+eyJoaXN0b3J5IjpbLTYwNzkyMDQ3LDEwNDEyNjkzMDMsMTY3MT
+cyNDAzLDEyMzI0NTYzMjIsLTEzOTgyNzczNzcsMjAwNzIzMDU0
+MiwtMjQ2MTg1ODYwLC0xMDU2MjEwNTc3LDMxOTYyOTcxLC04MT
+E1NzgzODYsLTE4MjExOTE5NjMsLTEzNDMxODkyOCwxNzE0ODg2
+NTEwLC0xMTc1MjI4MzUsLTE0MTYyNzE2MzUsLTE5NDgwMDIxOD
+gsLTk1ODA0NTk2NywtNjk0MzQ4OTQyLDExMDM2MDI5MDksLTI3
+NDczNjI2OF19
 -->
