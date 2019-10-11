@@ -27,16 +27,16 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 10/04/2019 | [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) ***mentions bisimulation, but chapter 11 of that book doesn't explain quiet clearly the concept***. Found another reference: [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) by Davide Sangiorgi 
 | 10/04/2019 | Started reading [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) by Davide Sangiorgi to get more acquinted with LTS equivalence and the concept of bisimulation. These terms are prerequisites in order to continue with [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf)|
 | 10/05/2019 | After reading [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) the notion of bisimularition is understood|
-| 10/11/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf). Reachability, safety and liveness is mentioned in section 2.2|
+| 10/11/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf). Reachability, safety and liveness are  mentioned in section 2.2 as important subjects. Started reading [Timed Automata](https://github.com/evowilliamson/model-checking-research/blob/master/Timed%20automata.pdf) to get more information regarding reachability|
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTYwNzkyMDQ3LDEwNDEyNjkzMDMsMTY3MT
-cyNDAzLDEyMzI0NTYzMjIsLTEzOTgyNzczNzcsMjAwNzIzMDU0
-MiwtMjQ2MTg1ODYwLC0xMDU2MjEwNTc3LDMxOTYyOTcxLC04MT
-E1NzgzODYsLTE4MjExOTE5NjMsLTEzNDMxODkyOCwxNzE0ODg2
-NTEwLC0xMTc1MjI4MzUsLTE0MTYyNzE2MzUsLTE5NDgwMDIxOD
-gsLTk1ODA0NTk2NywtNjk0MzQ4OTQyLDExMDM2MDI5MDksLTI3
-NDczNjI2OF19
+eyJoaXN0b3J5IjpbLTU5OTc5MDAwMSwxMDQxMjY5MzAzLDE2Nz
+E3MjQwMywxMjMyNDU2MzIyLC0xMzk4Mjc3Mzc3LDIwMDcyMzA1
+NDIsLTI0NjE4NTg2MCwtMTA1NjIxMDU3NywzMTk2Mjk3MSwtOD
+ExNTc4Mzg2LC0xODIxMTkxOTYzLC0xMzQzMTg5MjgsMTcxNDg4
+NjUxMCwtMTE3NTIyODM1LC0xNDE2MjcxNjM1LC0xOTQ4MDAyMT
+g4LC05NTgwNDU5NjcsLTY5NDM0ODk0MiwxMTAzNjAyOTA5LC0y
+NzQ3MzYyNjhdfQ==
 -->
