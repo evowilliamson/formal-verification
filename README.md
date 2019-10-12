@@ -28,16 +28,16 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 10/04/2019 | Started reading [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) by Davide Sangiorgi to get more acquinted with LTS equivalence and the concept of bisimulation. These terms are prerequisites in order to continue with [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf)|
 | 10/05/2019 | After reading [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) the notion of bisimularition is understood|
 | 10/11/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf). Reachability, safety and liveness are  mentioned in section 2.2 as important subjects. Started reading [Timed Automata](https://github.com/evowilliamson/model-checking-research/blob/master/Timed%20automata.pdf) to get more information regarding reachability|
-| 10/12/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) again, chapter 7 about patterns|
+| 10/12/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) again, section 2.3 and chapter 7 about patterns|
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ1MjQ3NzgsLTU5OTc5MDAwMSwxMDQxMj
-Y5MzAzLDE2NzE3MjQwMywxMjMyNDU2MzIyLC0xMzk4Mjc3Mzc3
-LDIwMDcyMzA1NDIsLTI0NjE4NTg2MCwtMTA1NjIxMDU3NywzMT
-k2Mjk3MSwtODExNTc4Mzg2LC0xODIxMTkxOTYzLC0xMzQzMTg5
-MjgsMTcxNDg4NjUxMCwtMTE3NTIyODM1LC0xNDE2MjcxNjM1LC
-0xOTQ4MDAyMTg4LC05NTgwNDU5NjcsLTY5NDM0ODk0MiwxMTAz
-NjAyOTA5XX0=
+eyJoaXN0b3J5IjpbLTIxMzkyNzc5MTcsLTU5OTc5MDAwMSwxMD
+QxMjY5MzAzLDE2NzE3MjQwMywxMjMyNDU2MzIyLC0xMzk4Mjc3
+Mzc3LDIwMDcyMzA1NDIsLTI0NjE4NTg2MCwtMTA1NjIxMDU3Ny
+wzMTk2Mjk3MSwtODExNTc4Mzg2LC0xODIxMTkxOTYzLC0xMzQz
+MTg5MjgsMTcxNDg4NjUxMCwtMTE3NTIyODM1LC0xNDE2MjcxNj
+M1LC0xOTQ4MDAyMTg4LC05NTgwNDU5NjcsLTY5NDM0ODk0Miwx
+MTAzNjAyOTA5XX0=
 -->
