@@ -53,13 +53,13 @@ meta id_f target_floor;</declaration>
 			<committed/>
 		</location>
 		<location id="id3" x="-256" y="-48">
-			<name x="-360" y="-80">moving_down</name>
+			<name x="-306" y="-34">e_moving_down</name>
 		</location>
 		<location id="id4" x="16" y="-48">
-			<name x="24" y="-80">moving_up</name>
+			<name x="-17" y="-34">e_moving_up</name>
 		</location>
 		<location id="id5" x="-112" y="-168">
-			<name x="-122" y="-198">Idle</name>
+			<name x="-127" y="-204">e_idle</name>
 		</location>
 		<init ref="id5"/>
 		<transition>
@@ -106,6 +106,7 @@ meta id_f target_floor;</declaration>
 		<name>button</name>
 		<declaration>clock x;</declaration>
 		<location id="id6" x="-32" y="-8">
+			<name x="-51" y="8">b_idle</name>
 		</location>
 		<init ref="id6"/>
 		<transition>
@@ -120,7 +121,7 @@ meta id_f target_floor;</declaration>
 		</transition>
 	</template>
 	<template>
-		<name>dummy_RequestHandler</name>
+		<name>fifo_requestHandler</name>
 		<declaration>// The dummy request handler gets requests from the button.
 // When these are received, they are stored in the following local variable.
 id_f current_req;
@@ -193,57 +194,70 @@ bool is_full ()
 {
 	return len == size;
 }</declaration>
-		<location id="id7" x="-1608" y="-936">
+		<location id="id7" x="-1411" y="-1487">
+			<name x="-1394" y="-1504">fifo_waiting</name>
 		</location>
-		<location id="id8" x="-1528" y="-808">
+		<location id="id8" x="-1563" y="-1487">
+			<name x="-1640" y="-1496">fifo_idle</name>
 		</location>
-		<location id="id9" x="-1680" y="-808">
-		</location>
-		<init ref="id9"/>
+		<init ref="id8"/>
 		<transition>
-			<source ref="id7"/>
+			<source ref="id8"/>
 			<target ref="id8"/>
-			<label kind="synchronisation" x="-1584" y="-976">go!</label>
-			<label kind="assignment" x="-1584" y="-960">target_floor = current_req</label>
-			<nail x="-1528" y="-936"/>
+			<label kind="select" x="-1819" y="-1572">i: id_f</label>
+			<label kind="guard" x="-1819" y="-1555">!is_full()</label>
+			<label kind="synchronisation" x="-1819" y="-1538">req[i]?</label>
+			<label kind="assignment" x="-1819" y="-1521">enqueue(i)</label>
+			<nail x="-1742" y="-1649"/>
+			<nail x="-1742" y="-1419"/>
 		</transition>
 		<transition>
-			<source ref="id9"/>
+			<source ref="id7"/>
 			<target ref="id7"/>
-			<label kind="select" x="-1728" y="-992">i : id_f</label>
-			<label kind="synchronisation" x="-1728" y="-976">req[i]?</label>
-			<label kind="assignment" x="-1728" y="-960">current_req = i</label>
-			<nail x="-1680" y="-936"/>
+			<label kind="select" x="-1249" y="-1572">i: id_f</label>
+			<label kind="guard" x="-1249" y="-1555">!is_full()</label>
+			<label kind="synchronisation" x="-1249" y="-1538">req[i]?</label>
+			<label kind="assignment" x="-1249" y="-1521">enqueue(i)</label>
+			<nail x="-1258" y="-1657"/>
+			<nail x="-1258" y="-1419"/>
 		</transition>
 		<transition>
 			<source ref="id8"/>
-			<target ref="id9"/>
-			<label kind="synchronisation" x="-1616" y="-688">served?</label>
-			<nail x="-1528" y="-696"/>
-			<nail x="-1680" y="-696"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-1547" y="-1581">!is_empty()</label>
+			<label kind="synchronisation" x="-1547" y="-1564">go!</label>
+			<label kind="assignment" x="-1547" y="-1547">target_floor =
+front(), dequeue()</label>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="-1521" y="-1368">served?</label>
+			<nail x="-1411" y="-1375"/>
+			<nail x="-1563" y="-1375"/>
 		</transition>
 	</template>
 	<template>
 		<name>floor_sensors</name>
 		<declaration>clock x;</declaration>
-		<location id="id10" x="32" y="-24">
-			<name x="40" y="-72">moving</name>
+		<location id="id9" x="32" y="-24">
+			<name x="-8" y="-8">fs_moving</name>
 			<label kind="invariant" x="40" y="-56">x &lt;= floor_time</label>
 		</location>
-		<location id="id11" x="-200" y="-24">
-			<name x="-264" y="-16">idle</name>
+		<location id="id10" x="-200" y="-24">
+			<name x="-264" y="-16">fd_idle</name>
 		</location>
-		<init ref="id11"/>
+		<init ref="id10"/>
 		<transition>
-			<source ref="id10"/>
-			<target ref="id11"/>
+			<source ref="id9"/>
+			<target ref="id10"/>
 			<label kind="synchronisation" x="-120" y="-112">stop_sensors?</label>
 			<nail x="32" y="-88"/>
 			<nail x="-200" y="-88"/>
 		</transition>
 		<transition>
-			<source ref="id10"/>
-			<target ref="id10"/>
+			<source ref="id9"/>
+			<target ref="id9"/>
 			<label kind="guard" x="136" y="-24">x &gt;= floor_time</label>
 			<label kind="synchronisation" x="136" y="-8">reach_floor!</label>
 			<label kind="assignment" x="136" y="8">x := 0</label>
@@ -251,8 +265,8 @@ bool is_full ()
 			<nail x="128" y="32"/>
 		</transition>
 		<transition>
-			<source ref="id11"/>
-			<target ref="id10"/>
+			<source ref="id10"/>
+			<target ref="id9"/>
 			<label kind="synchronisation" x="-128" y="-48">start_sensors?</label>
 			<label kind="assignment" x="-104" y="-16">x := 0</label>
 		</transition>
@@ -260,56 +274,56 @@ bool is_full ()
 	<template>
 		<name>cabin_door</name>
 		<declaration>clock x;</declaration>
-		<location id="id12" x="-280" y="40">
+		<location id="id11" x="-280" y="40">
 			<committed/>
 		</location>
-		<location id="id13" x="152" y="40">
+		<location id="id12" x="152" y="40">
 			<committed/>
 		</location>
-		<location id="id14" x="200" y="-232">
+		<location id="id13" x="200" y="-232">
 			<committed/>
 		</location>
-		<location id="id15" x="-280" y="-232">
+		<location id="id14" x="-280" y="-232">
 			<committed/>
 		</location>
-		<location id="id16" x="200" y="-88">
-			<name x="216" y="-96">closed</name>
+		<location id="id15" x="200" y="-88">
+			<name x="216" y="-96">cb_closed</name>
 		</location>
-		<location id="id17" x="-96" y="-88">
-			<name x="-80" y="-88">executing</name>
+		<location id="id16" x="-96" y="-88">
+			<name x="-80" y="-88">cd_executing</name>
 			<label kind="invariant" x="-80" y="-104">x &lt;= door_time</label>
 		</location>
-		<location id="id18" x="-280" y="-88">
-			<name x="-328" y="-96">open</name>
+		<location id="id17" x="-280" y="-88">
+			<name x="-357" y="-102">cb_open</name>
 		</location>
-		<init ref="id16"/>
+		<init ref="id15"/>
 		<transition>
-			<source ref="id17"/>
-			<target ref="id12"/>
+			<source ref="id16"/>
+			<target ref="id11"/>
 			<label kind="synchronisation" x="-264" y="48">pdoor_open[current_floor]?</label>
 			<nail x="-104" y="40"/>
 		</transition>
 		<transition>
-			<source ref="id13"/>
-			<target ref="id17"/>
+			<source ref="id12"/>
+			<target ref="id16"/>
 			<label kind="synchronisation" x="-56" y="48">open_pdoor[current_floor]!</label>
 			<nail x="-80" y="40"/>
 		</transition>
 		<transition>
-			<source ref="id17"/>
-			<target ref="id14"/>
+			<source ref="id16"/>
+			<target ref="id13"/>
 			<label kind="synchronisation" x="-32" y="-256">pdoor_closed[current_floor]?</label>
 			<nail x="-80" y="-232"/>
 		</transition>
 		<transition>
-			<source ref="id15"/>
-			<target ref="id17"/>
+			<source ref="id14"/>
+			<target ref="id16"/>
 			<label kind="synchronisation" x="-264" y="-256">close_pdoor[current_floor]!</label>
 			<nail x="-104" y="-232"/>
 		</transition>
 		<transition>
-			<source ref="id12"/>
-			<target ref="id18"/>
+			<source ref="id11"/>
+			<target ref="id17"/>
 			<label kind="guard" x="-392" y="-48">x &gt;= door_time</label>
 			<label kind="synchronisation" x="-392" y="-32">door_open!</label>
 			<label kind="assignment" x="-392" y="-16">x := 0</label>
@@ -317,16 +331,16 @@ bool is_full ()
 			<nail x="-280" y="-48"/>
 		</transition>
 		<transition>
-			<source ref="id16"/>
-			<target ref="id13"/>
+			<source ref="id15"/>
+			<target ref="id12"/>
 			<label kind="synchronisation" x="208" y="-40">open_door?</label>
 			<label kind="assignment" x="208" y="-16">x := 0</label>
 			<nail x="200" y="40"/>
 			<nail x="152" y="40"/>
 		</transition>
 		<transition>
-			<source ref="id14"/>
-			<target ref="id16"/>
+			<source ref="id13"/>
+			<target ref="id15"/>
 			<label kind="guard" x="208" y="-184">x &gt;= door_time</label>
 			<label kind="synchronisation" x="208" y="-168">door_closed!</label>
 			<label kind="assignment" x="208" y="-152">x := 0</label>
@@ -334,8 +348,8 @@ bool is_full ()
 			<nail x="200" y="-144"/>
 		</transition>
 		<transition>
-			<source ref="id18"/>
-			<target ref="id15"/>
+			<source ref="id17"/>
+			<target ref="id14"/>
 			<label kind="synchronisation" x="-360" y="-192">close_door?</label>
 			<label kind="assignment" x="-352" y="-168">x := 0</label>
 			<nail x="-280" y="-160"/>
@@ -343,39 +357,44 @@ bool is_full ()
 		</transition>
 	</template>
 	<template>
-		<name>dummy_MainControl</name>
+		<name>dummy_mainControl</name>
 		<declaration>id_f dest_floor = 1; // the current destination</declaration>
-		<location id="id19" x="-1040" y="-256">
+		<location id="id18" x="-1131" y="-1045">
+			<name x="-1190" y="-1020">dm_open_door_sent</name>
 		</location>
-		<location id="id20" x="-1160" y="-256">
+		<location id="id19" x="-1251" y="-1045">
+			<name x="-1275" y="-1020">dm_idle</name>
 			<committed/>
 		</location>
-		<location id="id21" x="-640" y="-256">
+		<location id="id20" x="-731" y="-1045">
+			<name x="-714" y="-1054">dm_served</name>
 		</location>
-		<location id="id22" x="-840" y="-256">
+		<location id="id21" x="-926" y="-1045">
+			<name x="-986" y="-1020">dm_waiting_to_go</name>
 		</location>
-		<init ref="id20"/>
+		<init ref="id19"/>
+		<transition>
+			<source ref="id18"/>
+			<target ref="id21"/>
+			<label kind="synchronisation" x="-1083" y="-1069">door_open?</label>
+		</transition>
 		<transition>
 			<source ref="id19"/>
-			<target ref="id22"/>
-			<label kind="synchronisation" x="-992" y="-280">door_open?</label>
+			<target ref="id18"/>
+			<label kind="synchronisation" x="-1227" y="-1069">open_door!</label>
 		</transition>
 		<transition>
 			<source ref="id20"/>
-			<target ref="id19"/>
-			<label kind="synchronisation" x="-1136" y="-280">open_door!</label>
+			<target ref="id21"/>
+			<label kind="synchronisation" x="-850" y="-1224">served!</label>
+			<nail x="-731" y="-1198"/>
+			<nail x="-926" y="-1198"/>
 		</transition>
 		<transition>
 			<source ref="id21"/>
-			<target ref="id22"/>
-			<label kind="synchronisation" x="-752" y="-360">served!</label>
-			<nail x="-840" y="-400"/>
-		</transition>
-		<transition>
-			<source ref="id22"/>
-			<target ref="id21"/>
-			<label kind="synchronisation" x="-816" y="-280">go?</label>
-			<label kind="assignment" x="-816" y="-248">dest_floor := target_floor,
+			<target ref="id20"/>
+			<label kind="synchronisation" x="-833" y="-1037">go?</label>
+			<label kind="assignment" x="-901" y="-1088">dest_floor := target_floor,
 target_floor := 0</label>
 		</transition>
 	</template>
@@ -383,24 +402,24 @@ target_floor := 0</label>
 		<name>protecting_door</name>
 		<parameter>id_f i</parameter>
 		<declaration>clock x;</declaration>
-		<location id="id23" x="-112" y="8">
-			<name x="-144" y="24">executing_open</name>
+		<location id="id22" x="-112" y="8">
+			<name x="-144" y="24">pd_executing_open</name>
 			<label kind="invariant" x="-144" y="40">x &lt;= door_time</label>
 		</location>
-		<location id="id24" x="40" y="-96">
-			<name x="56" y="-104">closed</name>
+		<location id="id23" x="40" y="-96">
+			<name x="59" y="-110">pd_closed</name>
 		</location>
-		<location id="id25" x="-112" y="-120">
-			<name x="-96" y="-120">executing</name>
+		<location id="id24" x="-112" y="-120">
+			<name x="-96" y="-120">pd_executing</name>
 			<label kind="invariant" x="-144" y="-104">x &lt;= door_time</label>
 		</location>
-		<location id="id26" x="-232" y="-104">
-			<name x="-280" y="-112">open</name>
+		<location id="id25" x="-232" y="-104">
+			<name x="-314" y="-119">pd_open</name>
 		</location>
-		<init ref="id24"/>
+		<init ref="id23"/>
 		<transition>
-			<source ref="id23"/>
-			<target ref="id26"/>
+			<source ref="id22"/>
+			<target ref="id25"/>
 			<label kind="guard" x="-352" y="-80">x &gt;= door_time</label>
 			<label kind="synchronisation" x="-352" y="-64">pdoor_open[i]!</label>
 			<label kind="assignment" x="-352" y="-48">x := 0</label>
@@ -408,16 +427,16 @@ target_floor := 0</label>
 			<nail x="-232" y="-80"/>
 		</transition>
 		<transition>
-			<source ref="id24"/>
-			<target ref="id23"/>
+			<source ref="id23"/>
+			<target ref="id22"/>
 			<label kind="synchronisation" x="48" y="-64">open_pdoor[i]?</label>
 			<label kind="assignment" x="48" y="-32">x := 0</label>
 			<nail x="40" y="-32"/>
 			<nail x="40" y="8"/>
 		</transition>
 		<transition>
-			<source ref="id25"/>
-			<target ref="id24"/>
+			<source ref="id24"/>
+			<target ref="id23"/>
 			<label kind="guard" x="-88" y="-200">x &gt;= door_time</label>
 			<label kind="synchronisation" x="-88" y="-184">pdoor_closed[i]!</label>
 			<label kind="assignment" x="-88" y="-168">x := 0</label>
@@ -425,8 +444,8 @@ target_floor := 0</label>
 			<nail x="40" y="-152"/>
 		</transition>
 		<transition>
-			<source ref="id26"/>
-			<target ref="id25"/>
+			<source ref="id25"/>
+			<target ref="id24"/>
 			<label kind="synchronisation" x="-208" y="-192">close_pdoor[i]?</label>
 			<label kind="assignment" x="-200" y="-168">x := 0</label>
 			<nail x="-232" y="-152"/>
@@ -441,7 +460,7 @@ target_floor := 0</label>
 
 
 // List one or more processes to be composed into a system.
-system cabin_door, protecting_door,engine, floor_sensors, button, dummy_RequestHandler, dummy_MainControl;</system>
+system cabin_door, protecting_door,engine, floor_sensors, button, fifo_requestHandler, dummy_mainControl;</system>
 	<queries>
 		<query>
 			<formula>A[] not deadlock
