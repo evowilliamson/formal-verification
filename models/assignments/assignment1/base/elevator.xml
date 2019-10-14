@@ -120,7 +120,7 @@ meta id_f target_floor;</declaration>
 		</transition>
 	</template>
 	<template>
-		<name>dummy_RequestHandler</name>
+		<name>fifo_requestHandler</name>
 		<declaration>// The dummy request handler gets requests from the button.
 // When these are received, they are stored in the following local variable.
 id_f current_req;
@@ -343,39 +343,43 @@ bool is_full ()
 		</transition>
 	</template>
 	<template>
-		<name>dummy_MainControl</name>
+		<name>dummy_mainControl</name>
 		<declaration>id_f dest_floor = 1; // the current destination</declaration>
-		<location id="id19" x="-1040" y="-256">
+		<location id="id19" x="-1131" y="-1045">
+			<name x="-1190" y="-1020">dm_open_door_sent</name>
 		</location>
-		<location id="id20" x="-1160" y="-256">
+		<location id="id20" x="-1251" y="-1045">
+			<name x="-1275" y="-1020">dm_idle</name>
 			<committed/>
 		</location>
-		<location id="id21" x="-640" y="-256">
+		<location id="id21" x="-731" y="-1045">
 		</location>
-		<location id="id22" x="-840" y="-256">
+		<location id="id22" x="-926" y="-1045">
+			<name x="-986" y="-1028">dm_waiting_to_go</name>
 		</location>
 		<init ref="id20"/>
 		<transition>
 			<source ref="id19"/>
 			<target ref="id22"/>
-			<label kind="synchronisation" x="-992" y="-280">door_open?</label>
+			<label kind="synchronisation" x="-1083" y="-1069">door_open?</label>
 		</transition>
 		<transition>
 			<source ref="id20"/>
 			<target ref="id19"/>
-			<label kind="synchronisation" x="-1136" y="-280">open_door!</label>
+			<label kind="synchronisation" x="-1227" y="-1069">open_door!</label>
 		</transition>
 		<transition>
 			<source ref="id21"/>
 			<target ref="id22"/>
-			<label kind="synchronisation" x="-752" y="-360">served!</label>
-			<nail x="-840" y="-400"/>
+			<label kind="synchronisation" x="-850" y="-1224">served!</label>
+			<nail x="-731" y="-1198"/>
+			<nail x="-926" y="-1198"/>
 		</transition>
 		<transition>
 			<source ref="id22"/>
 			<target ref="id21"/>
-			<label kind="synchronisation" x="-816" y="-280">go?</label>
-			<label kind="assignment" x="-816" y="-248">dest_floor := target_floor,
+			<label kind="synchronisation" x="-833" y="-1037">go?</label>
+			<label kind="assignment" x="-901" y="-1088">dest_floor := target_floor,
 target_floor := 0</label>
 		</transition>
 	</template>
@@ -441,7 +445,7 @@ target_floor := 0</label>
 
 
 // List one or more processes to be composed into a system.
-system cabin_door, protecting_door,engine, floor_sensors, button, dummy_RequestHandler, dummy_MainControl;</system>
+system cabin_door, protecting_door,engine, floor_sensors, button, fifo_requestHandler, dummy_mainControl;</system>
 	<queries>
 		<query>
 			<formula>A[] not deadlock
