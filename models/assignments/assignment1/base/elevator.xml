@@ -53,13 +53,13 @@ meta id_f target_floor;</declaration>
 			<committed/>
 		</location>
 		<location id="id3" x="-256" y="-48">
-			<name x="-360" y="-80">moving_down</name>
+			<name x="-306" y="-34">e_moving_down</name>
 		</location>
 		<location id="id4" x="16" y="-48">
-			<name x="24" y="-80">moving_up</name>
+			<name x="-17" y="-34">e_moving_up</name>
 		</location>
 		<location id="id5" x="-112" y="-168">
-			<name x="-122" y="-198">Idle</name>
+			<name x="-127" y="-204">e_idle</name>
 		</location>
 		<init ref="id5"/>
 		<transition>
@@ -106,6 +106,7 @@ meta id_f target_floor;</declaration>
 		<name>button</name>
 		<declaration>clock x;</declaration>
 		<location id="id6" x="-32" y="-8">
+			<name x="-51" y="8">b_idle</name>
 		</location>
 		<init ref="id6"/>
 		<transition>
@@ -193,45 +194,45 @@ bool is_full ()
 {
 	return len == size;
 }</declaration>
-		<location id="id7" x="-1608" y="-936">
+		<location id="id7" x="-1491" y="-1615">
 		</location>
-		<location id="id8" x="-1528" y="-808">
+		<location id="id8" x="-1411" y="-1487">
 		</location>
-		<location id="id9" x="-1680" y="-808">
+		<location id="id9" x="-1563" y="-1487">
 		</location>
 		<init ref="id9"/>
 		<transition>
 			<source ref="id7"/>
 			<target ref="id8"/>
-			<label kind="synchronisation" x="-1584" y="-976">go!</label>
-			<label kind="assignment" x="-1584" y="-960">target_floor = current_req</label>
-			<nail x="-1528" y="-936"/>
+			<label kind="synchronisation" x="-1467" y="-1655">go!</label>
+			<label kind="assignment" x="-1467" y="-1639">target_floor = current_req</label>
+			<nail x="-1411" y="-1615"/>
 		</transition>
 		<transition>
 			<source ref="id9"/>
 			<target ref="id7"/>
-			<label kind="select" x="-1728" y="-992">i : id_f</label>
-			<label kind="synchronisation" x="-1728" y="-976">req[i]?</label>
-			<label kind="assignment" x="-1728" y="-960">current_req = i</label>
-			<nail x="-1680" y="-936"/>
+			<label kind="select" x="-1611" y="-1671">i : id_f</label>
+			<label kind="synchronisation" x="-1611" y="-1655">req[i]?</label>
+			<label kind="assignment" x="-1611" y="-1639">current_req = i</label>
+			<nail x="-1563" y="-1615"/>
 		</transition>
 		<transition>
 			<source ref="id8"/>
 			<target ref="id9"/>
-			<label kind="synchronisation" x="-1616" y="-688">served?</label>
-			<nail x="-1528" y="-696"/>
-			<nail x="-1680" y="-696"/>
+			<label kind="synchronisation" x="-1499" y="-1367">served?</label>
+			<nail x="-1411" y="-1375"/>
+			<nail x="-1563" y="-1375"/>
 		</transition>
 	</template>
 	<template>
 		<name>floor_sensors</name>
 		<declaration>clock x;</declaration>
 		<location id="id10" x="32" y="-24">
-			<name x="40" y="-72">moving</name>
+			<name x="-8" y="-8">fs_moving</name>
 			<label kind="invariant" x="40" y="-56">x &lt;= floor_time</label>
 		</location>
 		<location id="id11" x="-200" y="-24">
-			<name x="-264" y="-16">idle</name>
+			<name x="-264" y="-16">fd_idle</name>
 		</location>
 		<init ref="id11"/>
 		<transition>
@@ -273,14 +274,14 @@ bool is_full ()
 			<committed/>
 		</location>
 		<location id="id16" x="200" y="-88">
-			<name x="216" y="-96">closed</name>
+			<name x="216" y="-96">cb_closed</name>
 		</location>
 		<location id="id17" x="-96" y="-88">
-			<name x="-80" y="-88">executing</name>
+			<name x="-80" y="-88">cd_executing</name>
 			<label kind="invariant" x="-80" y="-104">x &lt;= door_time</label>
 		</location>
 		<location id="id18" x="-280" y="-88">
-			<name x="-328" y="-96">open</name>
+			<name x="-357" y="-102">cb_open</name>
 		</location>
 		<init ref="id16"/>
 		<transition>
@@ -353,9 +354,10 @@ bool is_full ()
 			<committed/>
 		</location>
 		<location id="id21" x="-731" y="-1045">
+			<name x="-714" y="-1054">dm_served</name>
 		</location>
 		<location id="id22" x="-926" y="-1045">
-			<name x="-986" y="-1028">dm_waiting_to_go</name>
+			<name x="-986" y="-1020">dm_waiting_to_go</name>
 		</location>
 		<init ref="id20"/>
 		<transition>
@@ -388,18 +390,18 @@ target_floor := 0</label>
 		<parameter>id_f i</parameter>
 		<declaration>clock x;</declaration>
 		<location id="id23" x="-112" y="8">
-			<name x="-144" y="24">executing_open</name>
+			<name x="-144" y="24">pd_executing_open</name>
 			<label kind="invariant" x="-144" y="40">x &lt;= door_time</label>
 		</location>
 		<location id="id24" x="40" y="-96">
-			<name x="56" y="-104">closed</name>
+			<name x="59" y="-110">pd_closed</name>
 		</location>
 		<location id="id25" x="-112" y="-120">
-			<name x="-96" y="-120">executing</name>
+			<name x="-96" y="-120">pd_executing</name>
 			<label kind="invariant" x="-144" y="-104">x &lt;= door_time</label>
 		</location>
 		<location id="id26" x="-232" y="-104">
-			<name x="-280" y="-112">open</name>
+			<name x="-314" y="-119">pd_open</name>
 		</location>
 		<init ref="id24"/>
 		<transition>
