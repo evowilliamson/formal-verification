@@ -215,13 +215,6 @@ bool is_full ()
 			<label kind="assignment" x="-1728" y="-960">current_req = i</label>
 			<nail x="-1680" y="-936"/>
 		</transition>
-		<transition>
-			<source ref="id8"/>
-			<target ref="id9"/>
-			<label kind="synchronisation" x="-1616" y="-688">served?</label>
-			<nail x="-1528" y="-696"/>
-			<nail x="-1680" y="-696"/>
-		</transition>
 	</template>
 	<template>
 		<name>floor_sensors</name>

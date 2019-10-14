@@ -294,7 +294,7 @@ front(), dequeue()</label>
 			<label kind="invariant" x="-80" y="-104">x &lt;= door_time</label>
 		</location>
 		<location id="id17" x="-280" y="-88">
-			<name x="-357" y="-102">cb_open</name>
+			<name x="-357" y="-102">cd_open</name>
 		</location>
 		<init ref="id15"/>
 		<transition>
@@ -357,7 +357,7 @@ front(), dequeue()</label>
 		</transition>
 	</template>
 	<template>
-		<name>dummy_mainControl</name>
+		<name>main_control</name>
 		<declaration>id_f dest_floor = 1; // the current destination</declaration>
 		<location id="id18" x="-1131" y="-1045">
 			<name x="-1190" y="-1020">dm_open_door_sent</name>
@@ -460,7 +460,7 @@ target_floor := 0</label>
 
 
 // List one or more processes to be composed into a system.
-system cabin_door, protecting_door,engine, floor_sensors, button, fifo_requestHandler, dummy_mainControl;</system>
+system cabin_door, protecting_door,engine, floor_sensors, button, fifo_request_handler, main_control;</system>
 	<queries>
 		<query>
 			<formula>A[] not deadlock
