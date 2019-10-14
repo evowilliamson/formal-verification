@@ -121,7 +121,7 @@ meta id_f target_floor;</declaration>
 		</transition>
 	</template>
 	<template>
-		<name>fifo_requestHandler</name>
+		<name>fifo_request_handler</name>
 		<declaration>// The dummy request handler gets requests from the button.
 // When these are received, they are stored in the following local variable.
 id_f current_req;
@@ -360,17 +360,17 @@ front(), dequeue()</label>
 		<name>main_control</name>
 		<declaration>id_f dest_floor = 1; // the current destination</declaration>
 		<location id="id18" x="-1131" y="-1045">
-			<name x="-1190" y="-1020">dm_open_door_sent</name>
+			<name x="-1190" y="-1020">mc_open_door_sent</name>
 		</location>
 		<location id="id19" x="-1251" y="-1045">
-			<name x="-1275" y="-1020">dm_idle</name>
+			<name x="-1275" y="-1020">mc_idle</name>
 			<committed/>
 		</location>
 		<location id="id20" x="-731" y="-1045">
-			<name x="-714" y="-1054">dm_served</name>
+			<name x="-714" y="-1054">mc_served</name>
 		</location>
 		<location id="id21" x="-926" y="-1045">
-			<name x="-986" y="-1020">dm_waiting_to_go</name>
+			<name x="-986" y="-1020">mc_waiting_to_go</name>
 		</location>
 		<init ref="id19"/>
 		<transition>
