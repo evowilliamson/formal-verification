@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
-	<declaration>
-
-// constants and variable related to number of floors
-const int N = 2;         // # floors
+	<declaration>// constants and variable related to number of floors
+const int N = 3;         // # floors
 typedef int[0,N-1] id_f; // floor id from 0 to N-1
-
-
 
 // cabin door channels and constants
 chan open_door, close_door, door_open, door_closed; // channels for a door
 const int door_time = 2;     // time to open or close the door
-
-
 
 // protecting door channels and constants
 chan open_pdoor[id_f], close_pdoor[id_f], pdoor_open[id_f], pdoor_closed[id_f]; // channels for a door
@@ -21,11 +15,9 @@ chan open_pdoor[id_f], close_pdoor[id_f], pdoor_open[id_f], pdoor_closed[id_f]; 
 // engine channels
 chan stop, move_down, move_up;
 
-
 // floor sensors channels and constants
 const int floor_time = 1; // time to travel one floor
 chan start_sensors,stop_sensors,reach_floor;
-
 
 // button channels
 chan req[id_f];
@@ -405,23 +397,13 @@ id_f dest_floor = 1;
 // the current floor, which is increased by counting reach_floor syncs
 int current_floor = 0;
 
+// switch that indicates whether the elevator trip (up and down) was served
+bool was_served = false;
+
 // function that returns true if the destination floor has been reached
-bool floor_reached ()
+bool dest_reached ()
 {
 	return current_floor == dest_floor;
-}
-
-// This function adjusts the current_floor, depending of the movement of direction
-void adjust_current_floor()
-{
-    if (must_go_up()) 
-    {
-        current_floor++;
-    }
-    else
-    {
-        current_floor--:
-    }
 }
 
 // returns true if the elevator must go up
@@ -442,111 +424,177 @@ bool must_go_down ()
 {
     bool ret_value = !must_go_up();
     return ret_value;
-}</declaration>
-		<location id="id22" x="-2482" y="-1810">
+}
+
+// This function adjusts the current_floor, depending of the movement of direction
+void adjust_current_floor()
+{
+    if (must_go_up()) 
+    {
+        current_floor++;
+        // check if the floor was reached on the way up
+        if (dest_reached()) 
+        {
+            was_served = true;
+        }
+    }
+    else
+    {
+        current_floor--;
+    }
+}
+
+// convenience function that checks if the elevator has reached the destination floor
+boolean elevator_at_dest()
+{
+    if (was_served &amp;&amp; dest_floor != 0) 
+    {
+        return true;
+    }
+    else 
+    {
+        return false;
+    }
+}
+
+// convenience function that checks if the elevator is ready to serve (again)
+boolean elevator_ready()
+{
+    if (!was_served)
+    {
+        return true;
+    }
+    else 
+    {
+        return false;
+    }    
+}
+
+// convenience function that checks if the elevator has returned from the destination back again
+// convenience function that checks if the elevator is ready to serve (again)
+boolean elevator_back()
+{
+    if (was_served &amp;&amp; dest_floor == 0)
+    {
+        return true;
+    }
+    else 
+    {
+        return false;
+    }    
+}
+</declaration>
+		<location id="id22" x="-2473" y="-2142">
+			<committed/>
 		</location>
-		<location id="id23" x="-2269" y="-1963">
-			<name x="-2354" y="-2031">mc_door_closed</name>
+		<location id="id23" x="-2278" y="-1870">
 		</location>
-		<location id="id24" x="-2422" y="-1963">
-			<name x="-2473" y="-1997">mc_door_init_closing</name>
+		<location id="id24" x="-2278" y="-1963">
+			<name x="-2372" y="-1997">mc_door_closed</name>
 		</location>
-		<location id="id25" x="-2941" y="-1963">
+		<location id="id25" x="-2456" y="-1870">
+			<name x="-2515" y="-1853">mc_door_init_closing</name>
+		</location>
+		<location id="id26" x="-2941" y="-1963">
 			<name x="-2951" y="-1997">mc_idle</name>
 			<committed/>
 		</location>
-		<location id="id26" x="-2150" y="-2150">
-			<name x="-2133" y="-2159">mc_elevator_stopped</name>
-		</location>
-		<location id="id27" x="-2150" y="-1955">
-			<name x="-2133" y="-1981">mc_moving</name>
+		<location id="id27" x="-2159" y="-1955">
+			<name x="-2142" y="-1981">mc_moving</name>
 		</location>
 		<location id="id28" x="-2712" y="-1963">
-			<name x="-2788" y="-1997">mc_door_init_opening</name>
+			<name x="-2779" y="-1997">mc_door_opening</name>
 		</location>
 		<location id="id29" x="-2848" y="-1963">
-			<name x="-2907" y="-1938">mc_start_opening</name>
+			<name x="-2915" y="-1938">mc_start_opening</name>
 		</location>
-		<location id="id30" x="-2550" y="-1963">
-			<name x="-2601" y="-1997">mc_door_opened</name>
+		<location id="id30" x="-2592" y="-1963">
+			<name x="-2584" y="-1955">mc_door_opened</name>
 		</location>
-		<init ref="id25"/>
+		<init ref="id26"/>
 		<transition>
-			<source ref="id23"/>
-			<target ref="id27"/>
-			<label kind="guard" x="-2269" y="-2065">must_go_down()</label>
-			<label kind="synchronisation" x="-2269" y="-2048">move_down!</label>
-			<nail x="-2210" y="-2031"/>
+			<source ref="id30"/>
+			<target ref="id25"/>
+			<label kind="guard" x="-2507" y="-2014">elevator_at_dest()</label>
+			<label kind="assignment" x="-2507" y="-1997">dest_floor = 0</label>
+			<nail x="-2456" y="-1963"/>
 		</transition>
 		<transition>
 			<source ref="id22"/>
-			<target ref="id24"/>
-			<label kind="synchronisation" x="-2363" y="-1853">close_door!</label>
-			<nail x="-2363" y="-1836"/>
+			<target ref="id30"/>
+			<nail x="-2592" y="-2142"/>
 		</transition>
 		<transition>
 			<source ref="id30"/>
 			<target ref="id22"/>
-			<nail x="-2609" y="-1844"/>
+			<label kind="guard" x="-2507" y="-2091">elevator_back()</label>
+			<label kind="synchronisation" x="-2507" y="-2074">served!</label>
+			<label kind="assignment" x="-2507" y="-2057">was_served = false</label>
 		</transition>
 		<transition>
 			<source ref="id23"/>
-			<target ref="id27"/>
-			<label kind="guard" x="-2244" y="-1878">must_go_up()</label>
-			<label kind="synchronisation" x="-2244" y="-1861">move_up!</label>
-			<nail x="-2210" y="-1878"/>
-		</transition>
-		<transition>
-			<source ref="id30"/>
 			<target ref="id24"/>
-			<label kind="synchronisation" x="-2609" y="-1827">go?</label>
-			<nail x="-2550" y="-1870"/>
-			<nail x="-2422" y="-1870"/>
-		</transition>
-		<transition>
-			<source ref="id24"/>
-			<target ref="id23"/>
-			<label kind="synchronisation" x="-2397" y="-1963">door_closed?</label>
-		</transition>
-		<transition>
-			<source ref="id30"/>
-			<target ref="id24"/>
-			<label kind="guard" x="-2533" y="-1955">floor_reached()</label>
-			<label kind="synchronisation" x="-2533" y="-1938">close_door!</label>
+			<label kind="synchronisation" x="-2371" y="-1929">door_closed?</label>
 		</transition>
 		<transition>
 			<source ref="id25"/>
+			<target ref="id23"/>
+			<label kind="synchronisation" x="-2414" y="-1895">close_door!</label>
+		</transition>
+		<transition>
+			<source ref="id27"/>
 			<target ref="id29"/>
+			<label kind="guard" x="-2525" y="-2218">dest_reached()</label>
+			<label kind="synchronisation" x="-2525" y="-2201">stop!</label>
+			<nail x="-2159" y="-2176"/>
+			<nail x="-2856" y="-2176"/>
+		</transition>
+		<transition>
+			<source ref="id24"/>
+			<target ref="id27"/>
+			<label kind="guard" x="-2278" y="-2065">must_go_down()</label>
+			<label kind="synchronisation" x="-2278" y="-2048">move_down!</label>
+			<nail x="-2219" y="-2031"/>
+		</transition>
+		<transition>
+			<source ref="id24"/>
+			<target ref="id27"/>
+			<label kind="guard" x="-2253" y="-1878">must_go_up()</label>
+			<label kind="synchronisation" x="-2253" y="-1861">move_up!</label>
+			<nail x="-2219" y="-1878"/>
+		</transition>
+		<transition>
+			<source ref="id30"/>
+			<target ref="id25"/>
+			<label kind="guard" x="-2703" y="-1887">elevator_ready()</label>
+			<label kind="synchronisation" x="-2703" y="-1870">go?</label>
+			<label kind="assignment" x="-2703" y="-1853">dest_floor = 
+target_floor</label>
+			<nail x="-2592" y="-1870"/>
 		</transition>
 		<transition>
 			<source ref="id26"/>
 			<target ref="id29"/>
-			<nail x="-2847" y="-2150"/>
-		</transition>
-		<transition>
-			<source ref="id27"/>
-			<target ref="id26"/>
-			<label kind="guard" x="-2142" y="-2023">floor_reached()</label>
-			<label kind="synchronisation" x="-2142" y="-2006">stop?</label>
 		</transition>
 		<transition>
 			<source ref="id27"/>
 			<target ref="id27"/>
-			<label kind="synchronisation" x="-2040" y="-1947">reach_floor?</label>
-			<label kind="assignment" x="-2040" y="-1930">adjust_current_floor()</label>
-			<nail x="-2048" y="-1955"/>
-			<nail x="-2048" y="-1904"/>
-			<nail x="-2150" y="-1904"/>
+			<label kind="guard" x="-2159" y="-1903">!dest_reached()</label>
+			<label kind="synchronisation" x="-2159" y="-1887">reach_floor?</label>
+			<label kind="assignment" x="-2159" y="-1870">adjust_current_floor()</label>
+			<nail x="-2100" y="-1955"/>
+			<nail x="-2100" y="-1904"/>
+			<nail x="-2159" y="-1904"/>
 		</transition>
 		<transition>
 			<source ref="id28"/>
 			<target ref="id30"/>
-			<label kind="synchronisation" x="-2669" y="-1963">door_open?</label>
+			<label kind="synchronisation" x="-2694" y="-1955">door_open?</label>
 		</transition>
 		<transition>
 			<source ref="id29"/>
 			<target ref="id28"/>
-			<label kind="synchronisation" x="-2822" y="-1963">open_door!</label>
+			<label kind="synchronisation" x="-2822" y="-1955">open_door!</label>
 		</transition>
 	</template>
 	<template>
@@ -611,7 +659,7 @@ bool must_go_down ()
 
 
 // List one or more processes to be composed into a system.
-system cabin_door, protecting_door,engine, floor_sensors, button, fifo_request_handler, main_control_old;</system>
+system cabin_door, protecting_door,engine, floor_sensors, button, fifo_request_handler, main_control;</system>
 	<queries>
 		<query>
 			<formula>A[] not deadlock
