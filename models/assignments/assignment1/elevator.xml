@@ -405,23 +405,13 @@ id_f dest_floor = 1;
 // the current floor, which is increased by counting reach_floor syncs
 int current_floor = 0;
 
+// switch that indicates whether the elevator trip (up and down) was served
+bool was_served = false;
+
 // function that returns true if the destination floor has been reached
 bool floor_reached ()
 {
 	return current_floor == dest_floor;
-}
-
-// This function adjusts the current_floor, depending of the movement of direction
-void adjust_current_floor()
-{
-    if (must_go_up()) 
-    {
-        current_floor++;
-    }
-    else
-    {
-        current_floor--:
-    }
 }
 
 // returns true if the elevator must go up
@@ -442,11 +432,26 @@ bool must_go_down ()
 {
     bool ret_value = !must_go_up();
     return ret_value;
-}</declaration>
-		<location id="id22" x="-2482" y="-1810">
+}
+
+// This function adjusts the current_floor, depending of the movement of direction
+void adjust_current_floor()
+{
+    if (must_go_up()) 
+    {
+        current_floor++;
+    }
+    else
+    {
+        current_floor--;
+    }
+}
+
+</declaration>
+		<location id="id22" x="-2490" y="-1844">
 		</location>
 		<location id="id23" x="-2269" y="-1963">
-			<name x="-2354" y="-2031">mc_door_closed</name>
+			<name x="-2329" y="-1997">mc_door_closed</name>
 		</location>
 		<location id="id24" x="-2422" y="-1963">
 			<name x="-2473" y="-1997">mc_door_init_closing</name>
@@ -455,25 +460,30 @@ bool must_go_down ()
 			<name x="-2951" y="-1997">mc_idle</name>
 			<committed/>
 		</location>
-		<location id="id26" x="-2150" y="-2150">
-			<name x="-2133" y="-2159">mc_elevator_stopped</name>
-		</location>
-		<location id="id27" x="-2150" y="-1955">
+		<location id="id26" x="-2150" y="-1955">
 			<name x="-2133" y="-1981">mc_moving</name>
 		</location>
-		<location id="id28" x="-2712" y="-1963">
+		<location id="id27" x="-2712" y="-1963">
 			<name x="-2788" y="-1997">mc_door_init_opening</name>
 		</location>
-		<location id="id29" x="-2848" y="-1963">
+		<location id="id28" x="-2848" y="-1963">
 			<name x="-2907" y="-1938">mc_start_opening</name>
 		</location>
-		<location id="id30" x="-2550" y="-1963">
+		<location id="id29" x="-2550" y="-1963">
 			<name x="-2601" y="-1997">mc_door_opened</name>
 		</location>
 		<init ref="id25"/>
 		<transition>
+			<source ref="id26"/>
+			<target ref="id28"/>
+			<label kind="guard" x="-2516" y="-2167">floor_reached()</label>
+			<label kind="synchronisation" x="-2516" y="-2150">stop!</label>
+			<nail x="-2150" y="-2125"/>
+			<nail x="-2847" y="-2125"/>
+		</transition>
+		<transition>
 			<source ref="id23"/>
-			<target ref="id27"/>
+			<target ref="id26"/>
 			<label kind="guard" x="-2269" y="-2065">must_go_down()</label>
 			<label kind="synchronisation" x="-2269" y="-2048">move_down!</label>
 			<nail x="-2210" y="-2031"/>
@@ -481,27 +491,21 @@ bool must_go_down ()
 		<transition>
 			<source ref="id22"/>
 			<target ref="id24"/>
-			<label kind="synchronisation" x="-2363" y="-1853">close_door!</label>
-			<nail x="-2363" y="-1836"/>
+			<label kind="synchronisation" x="-2473" y="-1870">close_door!</label>
+			<nail x="-2371" y="-1844"/>
 		</transition>
 		<transition>
-			<source ref="id30"/>
+			<source ref="id29"/>
 			<target ref="id22"/>
+			<label kind="synchronisation" x="-2584" y="-1870">go?</label>
 			<nail x="-2609" y="-1844"/>
 		</transition>
 		<transition>
 			<source ref="id23"/>
-			<target ref="id27"/>
+			<target ref="id26"/>
 			<label kind="guard" x="-2244" y="-1878">must_go_up()</label>
 			<label kind="synchronisation" x="-2244" y="-1861">move_up!</label>
 			<nail x="-2210" y="-1878"/>
-		</transition>
-		<transition>
-			<source ref="id30"/>
-			<target ref="id24"/>
-			<label kind="synchronisation" x="-2609" y="-1827">go?</label>
-			<nail x="-2550" y="-1870"/>
-			<nail x="-2422" y="-1870"/>
 		</transition>
 		<transition>
 			<source ref="id24"/>
@@ -509,29 +513,20 @@ bool must_go_down ()
 			<label kind="synchronisation" x="-2397" y="-1963">door_closed?</label>
 		</transition>
 		<transition>
-			<source ref="id30"/>
+			<source ref="id29"/>
 			<target ref="id24"/>
-			<label kind="guard" x="-2533" y="-1955">floor_reached()</label>
-			<label kind="synchronisation" x="-2533" y="-1938">close_door!</label>
+			<label kind="guard" x="-2533" y="-1963">was_served</label>
+			<label kind="synchronisation" x="-2533" y="-1946">close_door!</label>
+			<label kind="assignment" x="-2533" y="-1929">was_served = false, 
+dest_floor = 0</label>
 		</transition>
 		<transition>
 			<source ref="id25"/>
-			<target ref="id29"/>
+			<target ref="id28"/>
 		</transition>
 		<transition>
 			<source ref="id26"/>
-			<target ref="id29"/>
-			<nail x="-2847" y="-2150"/>
-		</transition>
-		<transition>
-			<source ref="id27"/>
 			<target ref="id26"/>
-			<label kind="guard" x="-2142" y="-2023">floor_reached()</label>
-			<label kind="synchronisation" x="-2142" y="-2006">stop?</label>
-		</transition>
-		<transition>
-			<source ref="id27"/>
-			<target ref="id27"/>
 			<label kind="synchronisation" x="-2040" y="-1947">reach_floor?</label>
 			<label kind="assignment" x="-2040" y="-1930">adjust_current_floor()</label>
 			<nail x="-2048" y="-1955"/>
@@ -539,13 +534,13 @@ bool must_go_down ()
 			<nail x="-2150" y="-1904"/>
 		</transition>
 		<transition>
-			<source ref="id28"/>
-			<target ref="id30"/>
+			<source ref="id27"/>
+			<target ref="id29"/>
 			<label kind="synchronisation" x="-2669" y="-1963">door_open?</label>
 		</transition>
 		<transition>
-			<source ref="id29"/>
-			<target ref="id28"/>
+			<source ref="id28"/>
+			<target ref="id27"/>
 			<label kind="synchronisation" x="-2822" y="-1963">open_door!</label>
 		</transition>
 	</template>
@@ -553,24 +548,24 @@ bool must_go_down ()
 		<name>protecting_door</name>
 		<parameter>id_f i</parameter>
 		<declaration>clock x;</declaration>
-		<location id="id31" x="-112" y="8">
+		<location id="id30" x="-112" y="8">
 			<name x="-144" y="24">pd_executing_open</name>
 			<label kind="invariant" x="-144" y="40">x &lt;= door_time</label>
 		</location>
-		<location id="id32" x="40" y="-96">
+		<location id="id31" x="40" y="-96">
 			<name x="59" y="-110">pd_closed</name>
 		</location>
-		<location id="id33" x="-112" y="-120">
+		<location id="id32" x="-112" y="-120">
 			<name x="-96" y="-120">pd_executing</name>
 			<label kind="invariant" x="-144" y="-104">x &lt;= door_time</label>
 		</location>
-		<location id="id34" x="-232" y="-104">
+		<location id="id33" x="-232" y="-104">
 			<name x="-314" y="-119">pd_open</name>
 		</location>
-		<init ref="id32"/>
+		<init ref="id31"/>
 		<transition>
-			<source ref="id31"/>
-			<target ref="id34"/>
+			<source ref="id30"/>
+			<target ref="id33"/>
 			<label kind="guard" x="-352" y="-80">x &gt;= door_time</label>
 			<label kind="synchronisation" x="-352" y="-64">pdoor_open[i]!</label>
 			<label kind="assignment" x="-352" y="-48">x := 0</label>
@@ -578,16 +573,16 @@ bool must_go_down ()
 			<nail x="-232" y="-80"/>
 		</transition>
 		<transition>
-			<source ref="id32"/>
-			<target ref="id31"/>
+			<source ref="id31"/>
+			<target ref="id30"/>
 			<label kind="synchronisation" x="48" y="-64">open_pdoor[i]?</label>
 			<label kind="assignment" x="48" y="-32">x := 0</label>
 			<nail x="40" y="-32"/>
 			<nail x="40" y="8"/>
 		</transition>
 		<transition>
-			<source ref="id33"/>
-			<target ref="id32"/>
+			<source ref="id32"/>
+			<target ref="id31"/>
 			<label kind="guard" x="-88" y="-200">x &gt;= door_time</label>
 			<label kind="synchronisation" x="-88" y="-184">pdoor_closed[i]!</label>
 			<label kind="assignment" x="-88" y="-168">x := 0</label>
@@ -595,8 +590,8 @@ bool must_go_down ()
 			<nail x="40" y="-152"/>
 		</transition>
 		<transition>
-			<source ref="id34"/>
-			<target ref="id33"/>
+			<source ref="id33"/>
+			<target ref="id32"/>
 			<label kind="synchronisation" x="-208" y="-192">close_pdoor[i]?</label>
 			<label kind="assignment" x="-200" y="-168">x := 0</label>
 			<nail x="-232" y="-152"/>
