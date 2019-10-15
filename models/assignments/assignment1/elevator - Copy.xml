@@ -3,10 +3,10 @@
 <nta>
 	<declaration>// constants and variable related to number of floors
 const int NO_FLOORS = 3;               // # number of floors including the base floor
-const int NO_ELEVATORS = 2;            // # number of elevators
+const int NO_ELEVATORS = 1;            // # number of elevators
 typedef int[0, NO_FLOORS - 1] id_f;    // floor id from 0 to NO_FLOORS - 1
 typedef int[0, NO_ELEVATORS - 1] id_e; // elevator id from 0 to NO_ELEVATORS - 1
-typedef int[0, (NO_FLOORS * NO_ELEVATORS) - 1] id_fe;
+typedef int[0, NO_FLOORS * NO_ELEVATORS] id_fe;
  
 // cabin door channels and constants
 chan open_door[id_e], close_door[id_e], door_open[id_e], door_closed[id_e]; 
@@ -36,18 +36,7 @@ id_f current_floor[id_e];
 // The floor to which the main control is requested to go to.
 // This variable is just used for communication between the request handler and the main control.
 // Therefore, we can declare it meta (i.e., not part of the state).
-meta id_f target_floor[id_e];
-
-int get_pdoor_no(id_e elevator_no)
-{
-    return (elevator_no * NO_ELEVATORS) + (current_floor[elevator_no]);    
-}
-
-int get_pdoor_no_alt(id_f floor_no, id_e elevator_no)
-{
-    return (elevator_no * NO_ELEVATORS) + floor_no;    
-}
-</declaration>
+meta id_f target_floor[id_e];</declaration>
 	<template>
 		<name>engine</name>
 		<parameter>id_e i</parameter>
@@ -219,10 +208,10 @@ bool is_not_floor_zero(id_f element)
 		<transition>
 			<source ref="id8"/>
 			<target ref="id8"/>
-			<label kind="select" x="-1844" y="-1572">i: id_f</label>
+			<label kind="select" x="-1819" y="-1572">i: id_f</label>
 			<label kind="guard" x="-1963" y="-1555">!is_full() &amp;&amp; is_not_floor_zero(i)</label>
-			<label kind="synchronisation" x="-1844" y="-1538">req[i]?</label>
-			<label kind="assignment" x="-1844" y="-1521">enqueue(i)</label>
+			<label kind="synchronisation" x="-1819" y="-1538">req[i]?</label>
+			<label kind="assignment" x="-1819" y="-1521">enqueue(i)</label>
 			<nail x="-1742" y="-1649"/>
 			<nail x="-1742" y="-1419"/>
 		</transition>
@@ -317,25 +306,25 @@ front(), dequeue()</label>
 		<transition>
 			<source ref="id16"/>
 			<target ref="id11"/>
-			<label kind="synchronisation" x="-264" y="48">pdoor_open[get_pdoor_no(i)]?</label>
+			<label kind="synchronisation" x="-264" y="48">pdoor_open[current_floor[i] * i]?</label>
 			<nail x="-104" y="40"/>
 		</transition>
 		<transition>
 			<source ref="id12"/>
 			<target ref="id16"/>
-			<label kind="synchronisation" x="-56" y="48">open_pdoor[get_pdoor_no(i)]!</label>
+			<label kind="synchronisation" x="-56" y="48">open_pdoor[current_floor[i] * i]!</label>
 			<nail x="-80" y="40"/>
 		</transition>
 		<transition>
 			<source ref="id16"/>
 			<target ref="id13"/>
-			<label kind="synchronisation" x="-32" y="-256">pdoor_closed[get_pdoor_no(i)]?</label>
+			<label kind="synchronisation" x="-32" y="-256">pdoor_closed[current_floor[i] * i]?</label>
 			<nail x="-80" y="-232"/>
 		</transition>
 		<transition>
 			<source ref="id14"/>
 			<target ref="id16"/>
-			<label kind="synchronisation" x="-263" y="-255">close_pdoor[get_pdoor_no(i)]!</label>
+			<label kind="synchronisation" x="-263" y="-255">close_pdoor[current_floor[i] * i]!</label>
 			<nail x="-104" y="-232"/>
 		</transition>
 		<transition>
@@ -596,7 +585,7 @@ target_floor[i]</label>
 			<source ref="id26"/>
 			<target ref="id29"/>
 			<label kind="guard" x="-352" y="-80">x &gt;= door_time</label>
-			<label kind="synchronisation" x="-352" y="-64">pdoor_open[get_pdoor_no_alt(f, e)]!</label>
+			<label kind="synchronisation" x="-352" y="-64">pdoor_open[f * e]!</label>
 			<label kind="assignment" x="-352" y="-48">x := 0</label>
 			<nail x="-232" y="8"/>
 			<nail x="-232" y="-80"/>
@@ -604,7 +593,7 @@ target_floor[i]</label>
 		<transition>
 			<source ref="id27"/>
 			<target ref="id26"/>
-			<label kind="synchronisation" x="48" y="-64">open_pdoor[get_pdoor_no_alt(f, e)]?</label>
+			<label kind="synchronisation" x="48" y="-64">open_pdoor[f * e]?</label>
 			<label kind="assignment" x="48" y="-32">x := 0</label>
 			<nail x="40" y="-32"/>
 			<nail x="40" y="8"/>
@@ -613,7 +602,7 @@ target_floor[i]</label>
 			<source ref="id28"/>
 			<target ref="id27"/>
 			<label kind="guard" x="-88" y="-200">x &gt;= door_time</label>
-			<label kind="synchronisation" x="-88" y="-184">pdoor_closed[get_pdoor_no_alt(f, e)]!</label>
+			<label kind="synchronisation" x="-88" y="-184">pdoor_closed[f * e]!</label>
 			<label kind="assignment" x="-88" y="-168">x := 0</label>
 			<nail x="-96" y="-152"/>
 			<nail x="40" y="-152"/>
@@ -621,7 +610,7 @@ target_floor[i]</label>
 		<transition>
 			<source ref="id29"/>
 			<target ref="id28"/>
-			<label kind="synchronisation" x="-331" y="-238">close_pdoor[get_pdoor_no_alt(f, e)]?</label>
+			<label kind="synchronisation" x="-208" y="-192">close_pdoor[f * e]?</label>
 			<label kind="assignment" x="-200" y="-168">x := 0</label>
 			<nail x="-232" y="-152"/>
 			<nail x="-128" y="-152"/>
