@@ -10,10 +10,10 @@
 
 // "Parameter" constants
 const int NO_FLOORS = 3;               // number of floors including the base floor
-const int NO_ELEVATORS = 3;            // number of elevators
-const int MAX_SIZE = 5;              // slow verify: maximum amount of requests per elevator before it takes off
-//const int MAX_SIZE = 3;                // fast verify: maximum amount of requests per elevator before it takes off
-const int MAX_WAIT = 40000;            // maximum amount of wait time before elevator runs with at least 1 person 
+const int NO_ELEVATORS = 2;            // number of elevators
+const int MAX_SIZE = 3;                // fast verify: maximum amount of requests per elevator before it takes off
+//const int MAX_SIZE = 5;                // slow verify: maximum amount of requests per elevator before it takes off
+const int MAX_WAIT = 20000;            // maximum amount of wait time before elevator runs with at least 1 person 
 
 typedef int[0, NO_FLOORS - 1] id_f;    // floor id from 0 to NO_FLOORS - 1
 typedef int[0, NO_ELEVATORS - 1] id_e; // elevator id from 0 to NO_ELEVATORS - 1
@@ -154,8 +154,6 @@ int[0, MAX_SIZE + 1] len = 0;
 // local requested floor
 int rq_floor;
 
-double no_elevators_double = NO_ELEVATORS / 1.0;
-
 // Put an element at the end of the queue
 void enqueue(id_f element)
 {
@@ -216,17 +214,18 @@ bool is_req_for_elevator(id_f floor_no)
 		<location id="id7" x="-1632" y="-1778">
 			<committed/>
 		</location>
-		<location id="id8" x="-1878" y="-1565">
-			<name x="-1895" y="-1599">h_idle</name>
+		<location id="id8" x="-1963" y="-1564">
+			<name x="-1980" y="-1598">h_idle</name>
 			<committed/>
 		</location>
 		<location id="id9" x="-1632" y="-1657">
 		</location>
 		<location id="id10" x="-1632" y="-1429">
+			<name x="-1666" y="-1419">h_served</name>
 			<committed/>
 		</location>
 		<location id="id11" x="-1487" y="-1395">
-			<name x="-1546" y="-1386">f_finished_go</name>
+			<name x="-1530" y="-1377">h_finished_go</name>
 		</location>
 		<location id="id12" x="-1343" y="-1429">
 			<committed/>
@@ -287,7 +286,7 @@ are to the same floor, one of them could be deleted</label>
 			<target ref="id9"/>
 			<label kind="guard" x="-1623" y="-1632">len!=MAX_SIZE &amp;&amp; 
 (len&lt;1 || x&lt;=MAX_WAIT)</label>
-			<label kind="comments" x="-1844" y="-1725">Multicast receiver transition. 
+			<label kind="comments" x="-1853" y="-1717">Multicast receiver transition. 
 It receives the requested floor 
 from the button and stores 
 it for evaluation later on.</label>
@@ -308,12 +307,12 @@ front(), dequeue()</label>
 		<transition>
 			<source ref="id11"/>
 			<target ref="id10"/>
-			<label kind="synchronisation" x="-1666" y="-1387">served[e]?</label>
+			<label kind="synchronisation" x="-1615" y="-1402">served[e]?</label>
 		</transition>
 		<transition>
 			<source ref="id12"/>
 			<target ref="id11"/>
-			<label kind="synchronisation" x="-1402" y="-1395">go[e]!</label>
+			<label kind="synchronisation" x="-1419" y="-1402">go[e]!</label>
 		</transition>
 		<transition>
 			<source ref="id13"/>
@@ -448,7 +447,9 @@ complexity</label>
 		<name>main_control</name>
 		<parameter>id_e e</parameter>
 		<declaration>// the current destination
-id_f dest_floor = 1; 
+id_f dest_floor = 0; 
+
+// switch that indicates whether the elevator trip (up and down) was served
 
 // function that returns true if the destination floor has been reached
 bool dest_reached ()
@@ -489,7 +490,7 @@ void adjust_current_floor()
 }
 </declaration>
 		<location id="id23" x="-2669" y="-2032">
-			<committed/>
+			<name x="-2643" y="-2040">mc_door_opened</name>
 		</location>
 		<location id="id24" x="-2669" y="-2100">
 			<name x="-2643" y="-2116">mc_door_opening</name>
@@ -523,13 +524,13 @@ the state space.</label>
 			<committed/>
 		</location>
 		<location id="id32" x="-2669" y="-1955">
-			<name x="-2660" y="-1989">mc_door_opened</name>
+			<name x="-2652" y="-1989">mc_init_cycle</name>
 		</location>
 		<init ref="id31"/>
 		<transition>
 			<source ref="id23"/>
 			<target ref="id32"/>
-			<label kind="synchronisation" x="-2669" y="-2010">served[e]!</label>
+			<label kind="synchronisation" x="-2660" y="-2006">served[e]!</label>
 		</transition>
 		<transition>
 			<source ref="id24"/>
@@ -577,8 +578,7 @@ the state space.</label>
 			<target ref="id28"/>
 			<label kind="synchronisation" x="-2618" y="-1955">go[e]?</label>
 			<label kind="assignment" x="-2618" y="-1938">dest_floor = 
-target_floor[e],
-target_floor[e] = 0</label>
+target_floor[e]</label>
 		</transition>
 		<transition>
 			<source ref="id29"/>
@@ -666,7 +666,7 @@ target_floor[e] = 0</label>
 system cabin_door, protecting_door,engine, floor_sensors, button, dgc_request_handler, main_control;</system>
 	<queries>
 		<query>
-			<formula>A[] main_control(0).mc_served imply cabin_door(0).cd_opened
+			<formula>A[] dgc_request_handler(0).h_served imply cabin_door(0).cd_opened
 			</formula>
 			<comment>
 			</comment>
