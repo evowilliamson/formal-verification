@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
-	<declaration>// constants and variable related to number of floors
+	<declaration>// "Parameter" constants
 const int NO_FLOORS = 2;               // number of floors including the base floor
 const int NO_ELEVATORS = 3;            // number of elevators
 const int MAX_SIZE = 5;                // maximum amount of requests per elevator before it takes off
@@ -30,6 +30,8 @@ chan start_sensors[id_e], stop_sensors[id_e], reach_floor[id_e];
 
 // button channels
 broadcast chan req[id_f];
+// multicast broadcast pattern is used to sync on requests from 
+// button to handler
 broadcast chan requests;
 
 // communications between RequestHandler and MainControl
@@ -43,17 +45,9 @@ id_f current_floor[id_e];
 // This variable is just used for communication between the request handler and the main control.
 // Therefore, we can declare it meta (i.e., not part of the state).
 meta id_f target_floor[id_e];
+// meta variable used to interchange the selected floor between button and handler
 meta id_f requested_floor;
 
-int get_pdoor_no(id_e elevator_no)
-{
-    return (elevator_no * NO_FLOORS) + (current_floor[elevator_no]);    
-}
-
-int get_pdoor_no_alt(id_f floor_no, id_e elevator_no)
-{
-    return (elevator_no * NO_FLOORS) + floor_no;    
-}
 </declaration>
 	<template>
 		<name>engine</name>
@@ -144,7 +138,6 @@ elevator evaluation</label>
 		<name>dgc_request_handler</name>
 		<parameter>id_e e</parameter>
 		<declaration>clock x;
-bool go_run = false;
 
 // Local queue storing the requests.
 id_f list[MAX_SIZE + 1]; // Leave room for the base floor, the elevator has to go back after the trip
@@ -212,33 +205,30 @@ bool is_req_for_elevator(id_f floor_no)
 {
     return (floor_no / group_size) == e;
 }</declaration>
-		<location id="id7" x="-1564" y="-1785">
+		<location id="id7" x="-1632" y="-1778">
 			<committed/>
 		</location>
-		<location id="id8" x="-1810" y="-1572">
-			<name x="-1827" y="-1606">h_idle</name>
+		<location id="id8" x="-1878" y="-1565">
+			<name x="-1895" y="-1599">h_idle</name>
 			<committed/>
 		</location>
-		<location id="id9" x="-1564" y="-1674">
+		<location id="id9" x="-1632" y="-1657">
 		</location>
-		<location id="id10" x="-1564" y="-1436">
+		<location id="id10" x="-1632" y="-1429">
 			<committed/>
 		</location>
-		<location id="id11" x="-1394" y="-1377">
-			<name x="-1453" y="-1368">f_finished_go</name>
+		<location id="id11" x="-1487" y="-1395">
+			<name x="-1546" y="-1386">f_finished_go</name>
 		</location>
-		<location id="id12" x="-1275" y="-1436">
+		<location id="id12" x="-1343" y="-1429">
 			<committed/>
 		</location>
-		<location id="id13" x="-1563" y="-1572">
-			<name x="-1547" y="-1572">h_enqueueing</name>
-			<label kind="comments" x="-1887" y="-1521">According to the requirements, 
-the request handler, can be 
-considered to consist of two 
-logic parts: An enqueueing 
-phase and a run-phase. 
-After the run-phase, elevators 
-return to the base and start 
+		<location id="id13" x="-1631" y="-1565">
+			<name x="-1615" y="-1565">h_enqueueing</name>
+			<label kind="comments" x="-1989" y="-1531">According to the requirements, the request handler 
+can be considered to consist of two logic parts: 
+An enqueueing phase and a run-phase. After the 
+run-phase, elevators return to the base and start 
 enqueueing again.</label>
 			<committed/>
 		</location>
@@ -246,44 +236,50 @@ enqueueing again.</label>
 		<transition>
 			<source ref="id7"/>
 			<target ref="id13"/>
-			<label kind="comments" x="-1292" y="-1793">Two technical issues:
-1. Clock variables cannot be read from in 
-declaration functions. They can only be 
-written to. So, the logic has to be 
-written in the model...
-2. No negation can be performed
-on a clock variable. Apply the 
+			<label kind="comments" x="-1419" y="-1844">Technical issues:
+1. Button template cannot be changed according to the requirements. 
+This means that the request handler must "pull" the request from 
+the button. An implication is that when the handler has issued a 
+go-synch action, no new requests can be queued. It would be better 
+to have an intermediate template between the button and the handler 
+that takes the button requests and fill the queue. (improvement)
+2. Clock variables cannot be read from in declaration functions. 
+They can only be written to. So, the logic has to be written in the 
+model...
+3. No negation can be performed on a clock variable. Apply the 
 Morgan to remove the negation
-3. A broadcast receiver transition
-cannot be guarded.</label>
-			<nail x="-1326" y="-1785"/>
-			<nail x="-1326" y="-1598"/>
+4. A broadcast receiver transition cannot be guarded.</label>
+			<nail x="-1445" y="-1777"/>
+			<nail x="-1445" y="-1590"/>
 		</transition>
 		<transition>
 			<source ref="id7"/>
 			<target ref="id13"/>
-			<label kind="guard" x="-1768" y="-1836">is_req_for_elevator(rq_floor)</label>
-			<label kind="assignment" x="-1769" y="-1815">enqueue(rq_floor)</label>
-			<nail x="-1836" y="-1785"/>
-			<nail x="-1836" y="-1623"/>
+			<label kind="guard" x="-1869" y="-1780">is_req_for_elevator(rq_floor)</label>
+			<label kind="assignment" x="-1870" y="-1759">enqueue(rq_floor)</label>
+			<label kind="comments" x="-1921" y="-1870">Improvement: The enqueueing of requests could be subject to 
+duplicate filtering: In case two subsequent requests 
+are to the same floor, one of them could be deleted</label>
+			<nail x="-1904" y="-1778"/>
+			<nail x="-1904" y="-1616"/>
 		</transition>
 		<transition>
 			<source ref="id9"/>
 			<target ref="id7"/>
-			<label kind="synchronisation" x="-1555" y="-1751">requests?</label>
-			<label kind="assignment" x="-1555" y="-1734">rq_floor = requested_floor</label>
+			<label kind="synchronisation" x="-1623" y="-1744">requests?</label>
+			<label kind="assignment" x="-1623" y="-1727">rq_floor = requested_floor</label>
 		</transition>
 		<transition>
 			<source ref="id8"/>
 			<target ref="id13"/>
-			<label kind="assignment" x="-1759" y="-1572">x = 0</label>
+			<label kind="assignment" x="-1827" y="-1565">x = 0</label>
 		</transition>
 		<transition>
 			<source ref="id13"/>
 			<target ref="id9"/>
-			<label kind="guard" x="-1555" y="-1649">len!=MAX_SIZE &amp;&amp; 
+			<label kind="guard" x="-1623" y="-1632">len!=MAX_SIZE &amp;&amp; 
 (len&lt;1 || x&lt;=MAX_WAIT)</label>
-			<label kind="comments" x="-1776" y="-1768">Multicast receiver transition. 
+			<label kind="comments" x="-1844" y="-1725">Multicast receiver transition. 
 It receives the requested floor 
 from the button and stores 
 it for evaluation later on.</label>
@@ -291,42 +287,40 @@ it for evaluation later on.</label>
 		<transition>
 			<source ref="id10"/>
 			<target ref="id13"/>
-			<label kind="guard" x="-1666" y="-1513">is_empty()</label>
-			<label kind="assignment" x="-1666" y="-1496">x = 0,
-go_run = false</label>
+			<label kind="guard" x="-1623" y="-1522">is_empty()</label>
+			<label kind="assignment" x="-1623" y="-1505">x = 0</label>
 		</transition>
 		<transition>
 			<source ref="id10"/>
 			<target ref="id12"/>
-			<label kind="guard" x="-1453" y="-1496">!is_empty()</label>
-			<label kind="assignment" x="-1453" y="-1479">target_floor[e] =
+			<label kind="guard" x="-1504" y="-1488">!is_empty()</label>
+			<label kind="assignment" x="-1504" y="-1471">target_floor[e] =
 front(), dequeue()</label>
 		</transition>
 		<transition>
 			<source ref="id11"/>
 			<target ref="id10"/>
-			<label kind="synchronisation" x="-1598" y="-1394">served[e]?</label>
+			<label kind="synchronisation" x="-1666" y="-1387">served[e]?</label>
 		</transition>
 		<transition>
 			<source ref="id12"/>
 			<target ref="id11"/>
-			<label kind="synchronisation" x="-1334" y="-1402">go[e]!</label>
+			<label kind="synchronisation" x="-1402" y="-1395">go[e]!</label>
 		</transition>
 		<transition>
 			<source ref="id13"/>
 			<target ref="id12"/>
-			<label kind="guard" x="-1258" y="-1564">len==MAX_SIZE || (len&gt;=1 &amp;&amp; x&gt;MAX_WAIT)</label>
-			<label kind="assignment" x="-1258" y="-1547">enqueue(0), 
+			<label kind="guard" x="-1326" y="-1557">len==MAX_SIZE || (len&gt;=1 &amp;&amp; x&gt;MAX_WAIT)</label>
+			<label kind="assignment" x="-1326" y="-1540">enqueue(0), 
 target_floor[e] = front(), 
-dequeue(),
-go_run = true</label>
-			<label kind="comments" x="-1241" y="-1462">Add the base floor to the queueu. Reason 
+dequeue()</label>
+			<label kind="comments" x="-1215" y="-1497">Add the base floor to the queueu. Reason 
 for this being, that after the run-phase, 
 the elevators must return to the base. 
 It's better to add it here than testing 
 in the main controller and thus adding 
 complexity</label>
-			<nail x="-1275" y="-1572"/>
+			<nail x="-1343" y="-1565"/>
 		</transition>
 	</template>
 	<template>
@@ -498,7 +492,7 @@ void adjust_current_floor()
 		<location id="id23" x="-2669" y="-2032">
 		</location>
 		<location id="id24" x="-2669" y="-2100">
-			<name x="-2813" y="-2108">mc_door_opening</name>
+			<name x="-2643" y="-2116">mc_door_opening</name>
 		</location>
 		<location id="id25" x="-2669" y="-2176">
 			<committed/>
@@ -520,6 +514,12 @@ void adjust_current_floor()
 			<name x="-2847" y="-1989">mc_door_init_opening</name>
 		</location>
 		<location id="id31" x="-2915" y="-1955">
+			<label kind="comments" x="-2983" y="-2125">The states for opening the doors are now 
+duplicated. The reason for this being that
+if these states were to be reused, extra
+transitions and guards would have to be
+introduced, which would negatively impact
+the state space.</label>
 			<committed/>
 		</location>
 		<location id="id32" x="-2669" y="-1955">
@@ -577,7 +577,8 @@ void adjust_current_floor()
 			<target ref="id28"/>
 			<label kind="synchronisation" x="-2618" y="-1955">go[e]?</label>
 			<label kind="assignment" x="-2618" y="-1938">dest_floor = 
-target_floor[e]</label>
+target_floor[e],
+target_floor[e] = 0</label>
 		</transition>
 		<transition>
 			<source ref="id29"/>
