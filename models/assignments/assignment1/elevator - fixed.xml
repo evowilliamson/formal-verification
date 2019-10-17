@@ -9,11 +9,22 @@
 // State-space representation: DBM
 
 // constants and variable related to number of floors
-const int NO_FLOORS = 2;               // number of floors including the base floor
-const int NO_ELEVATORS = 3;            // number of elevators
+
+// Slow verify (according to requirements)
+// 102K states max, 120secs
+const int NO_FLOORS = 3;               // number of floors including the base floor
+const int NO_ELEVATORS = 2;            // number of elevators
 const int MAX_SIZE = 5;                // slow verify: maximum amount of requests per elevator before it takes off
-//const int MAX_SIZE = 3;                // fast verify: maximum amount of requests per elevator before it takes off
-const int MAX_WAIT = 40000;            // maximum amount of wait time before elevator runs with at least 1 person 
+const int MAX_WAIT = 10000;            // maximum amount of wait time before elevator runs with at least 1 person 
+
+/*
+// Fast verify (testing)
+// 18K states max, 18secs
+const int NO_FLOORS = 3;               // number of floors including the base floor
+const int NO_ELEVATORS = 2;            // number of elevators
+const int MAX_SIZE = 3;                // fast verify: maximum amount of requests per elevator before it takes off
+const int MAX_WAIT = 10000;            // maximum amount of wait time before elevator runs with at least 1 person 
+*/
 
 typedef int[0, NO_FLOORS - 1] id_f;    // floor id from 0 to NO_FLOORS - 1
 typedef int[0, NO_ELEVATORS - 1] id_e; // elevator id from 0 to NO_ELEVATORS - 1
