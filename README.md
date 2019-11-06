@@ -32,18 +32,18 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 10/11/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf). Reachability, safety and liveness are  mentioned in section 2.2 as important subjects. Started reading [Timed Automata](https://github.com/evowilliamson/model-checking-research/blob/master/Timed%20automata.pdf) to get more information regarding reachability|
 | 10/12/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) again, section 2.3 and chapter 7 about patterns|
 | 11/6/2019 | Started reading chapter 3 in the textbook [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf). Used the [Youtube CTL* video](https://www.youtube.com/watch?v=_2E5Q3CZ7g4&t=1343s) and [Youtube CTL video](https://www.youtube.com/watch?v=Blh060Hgbm8) to get more clarification about CTL and CTL*|
-| 11/6/2019 | Started reading chapter 3 in the textbook [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf). Used the [Youtube CTL* video](https://www.youtube.com/watch?v=_2E5Q3CZ7g4&t=1343s) and [Youtube CTL video](https://www.youtube.com/watch?v=Blh060Hgbm8) to get more clarification about CTL and CTL*|
+| 11/6/2019 | Read [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/Logic%20in%20computer%20science.pdf), paragraph 3.6. Algorithms for model checking are given in this paragraph|
 
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4ODA1MTQ3NDYsLTY1NDM0MzY1OCwxMj
-M3ODM0MDMxLC0yMTM5Mjc3OTE3LC01OTk3OTAwMDEsMTA0MTI2
-OTMwMywxNjcxNzI0MDMsMTIzMjQ1NjMyMiwtMTM5ODI3NzM3Ny
-wyMDA3MjMwNTQyLC0yNDYxODU4NjAsLTEwNTYyMTA1NzcsMzE5
-NjI5NzEsLTgxMTU3ODM4NiwtMTgyMTE5MTk2MywtMTM0MzE4OT
-I4LDE3MTQ4ODY1MTAsLTExNzUyMjgzNSwtMTQxNjI3MTYzNSwt
-MTk0ODAwMjE4OF19
+eyJoaXN0b3J5IjpbMTYxODk1MzExLC02NTQzNDM2NTgsMTIzNz
+gzNDAzMSwtMjEzOTI3NzkxNywtNTk5NzkwMDAxLDEwNDEyNjkz
+MDMsMTY3MTcyNDAzLDEyMzI0NTYzMjIsLTEzOTgyNzczNzcsMj
+AwNzIzMDU0MiwtMjQ2MTg1ODYwLC0xMDU2MjEwNTc3LDMxOTYy
+OTcxLC04MTE1NzgzODYsLTE4MjExOTE5NjMsLTEzNDMxODkyOC
+wxNzE0ODg2NTEwLC0xMTc1MjI4MzUsLTE0MTYyNzE2MzUsLTE5
+NDgwMDIxODhdfQ==
 -->
