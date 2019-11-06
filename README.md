@@ -13,11 +13,9 @@ Subject "System verification and testing / Formal model checking" as part of the
 [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) | UPPAAL  |Contains a summary of timed automata|
  [Youtube CTL* video](https://www.youtube.com/watch?v=_2E5Q3CZ7g4&t=1343s) | Model Checking  |Good visual explanation of the concepts of CTL*|
 [Youtube CTL video](https://www.youtube.com/watch?v=Blh060Hgbm8) | Model Checking  |Good visual explanation of the concepts of CTL|
-[Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/Logic%20in%20computer%20science.pdf) | M. Huth & M. Ryan | Good visual explanation of the concepts of CTL|
+[Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/Logic%20in%20computer%20science.pdf) | M. Huth & M. Ryan | Book about logic-based verification|
 
  
-
-
 ### Study notes
 |Date| Note |
 |--|--|
@@ -34,12 +32,14 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 10/11/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf). Reachability, safety and liveness are  mentioned in section 2.2 as important subjects. Started reading [Timed Automata](https://github.com/evowilliamson/model-checking-research/blob/master/Timed%20automata.pdf) to get more information regarding reachability|
 | 10/12/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) again, section 2.3 and chapter 7 about patterns|
 | 11/6/2019 | Started reading chapter 3 in the textbook [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf). Used the [Youtube CTL* video](https://www.youtube.com/watch?v=_2E5Q3CZ7g4&t=1343s) and [Youtube CTL video](https://www.youtube.com/watch?v=Blh060Hgbm8) to get more clarification about CTL and CTL*|
+| 11/6/2019 | Started reading chapter 3 in the textbook [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf). Used the [Youtube CTL* video](https://www.youtube.com/watch?v=_2E5Q3CZ7g4&t=1343s) and [Youtube CTL video](https://www.youtube.com/watch?v=Blh060Hgbm8) to get more clarification about CTL and CTL*|
+
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3NTUzNDM4ODIsLTY1NDM0MzY1OCwxMj
+eyJoaXN0b3J5IjpbLTE4ODA1MTQ3NDYsLTY1NDM0MzY1OCwxMj
 M3ODM0MDMxLC0yMTM5Mjc3OTE3LC01OTk3OTAwMDEsMTA0MTI2
 OTMwMywxNjcxNzI0MDMsMTIzMjQ1NjMyMiwtMTM5ODI3NzM3Ny
 wyMDA3MjMwNTQyLC0yNDYxODU4NjAsLTEwNTYyMTA1NzcsMzE5
