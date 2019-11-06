@@ -11,8 +11,9 @@ Subject "System verification and testing / Formal model checking" as part of the
  [Model Checking Real-Time Systems - Patricia Bouyer](https://github.com/evowilliamson/model-checking-research/blob/master/Model%20Checking%20Real-Time%20Systems%20-%20Patricia%20Bouyer.pdf) | Patricia Bouyer, Uli Fahrenberg, Kim Larsen, Nicolas Markey, Joël Ouaknine, James Worrell | Article on which the presentation [An introduction to timed automata](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20timed%20automata%20-%20Patricia%20Bouyer-Decitre.pdf) was based  |
 [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) | Davide Sangiorgi  |jkjkj|
 [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) | UPPAAL  |Contains a summary of timed automata|
-
+ [CTL video](https://www.youtube.com/watch?v=Blh060Hgbm8) | UPPAAL  |Contains a summary of timed automata|
  
+
 
 ### Study notes
 |Date| Note |
@@ -35,11 +36,11 @@ Subject "System verification and testing / Formal model checking" as part of the
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIzNzgzNDAzMSwtMjEzOTI3NzkxNywtNT
-k5NzkwMDAxLDEwNDEyNjkzMDMsMTY3MTcyNDAzLDEyMzI0NTYz
-MjIsLTEzOTgyNzczNzcsMjAwNzIzMDU0MiwtMjQ2MTg1ODYwLC
-0xMDU2MjEwNTc3LDMxOTYyOTcxLC04MTE1NzgzODYsLTE4MjEx
-OTE5NjMsLTEzNDMxODkyOCwxNzE0ODg2NTEwLC0xMTc1MjI4Mz
-UsLTE0MTYyNzE2MzUsLTE5NDgwMDIxODgsLTk1ODA0NTk2Nywt
-Njk0MzQ4OTQyXX0=
+eyJoaXN0b3J5IjpbODA2NzI2NzY5LDEyMzc4MzQwMzEsLTIxMz
+kyNzc5MTcsLTU5OTc5MDAwMSwxMDQxMjY5MzAzLDE2NzE3MjQw
+MywxMjMyNDU2MzIyLC0xMzk4Mjc3Mzc3LDIwMDcyMzA1NDIsLT
+I0NjE4NTg2MCwtMTA1NjIxMDU3NywzMTk2Mjk3MSwtODExNTc4
+Mzg2LC0xODIxMTkxOTYzLC0xMzQzMTg5MjgsMTcxNDg4NjUxMC
+wtMTE3NTIyODM1LC0xNDE2MjcxNjM1LC0xOTQ4MDAyMTg4LC05
+NTgwNDU5NjddfQ==
 -->
