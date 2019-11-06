@@ -32,17 +32,17 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 10/05/2019 | After reading [An introduction to bisimulation and coinduction](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) the notion of bisimularition is understood|
 | 10/11/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf). Reachability, safety and liveness are  mentioned in section 2.2 as important subjects. Started reading [Timed Automata](https://github.com/evowilliamson/model-checking-research/blob/master/Timed%20automata.pdf) to get more information regarding reachability|
 | 10/12/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) again, section 2.3 and chapter 7 about patterns|
-| 11/6/2019 | Started reading chapter 3 in the textbook [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf) |
+| 11/6/2019 | Started reading chapter 3 in the textbook [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/Model-Checking%20(Personal%20digital%20copy).pdf). Used the Youtube videos [Youtube CTL* video](https://www.youtube.com/watch?v=_2E5Q3CZ7g4&t=1343s) and [Youtube CTL video](https://www.youtube.com/watch?v=Blh060Hgbm8) to get more clarification |
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjY5Nzg2NTc2LDEyMzc4MzQwMzEsLTIxMz
-kyNzc5MTcsLTU5OTc5MDAwMSwxMDQxMjY5MzAzLDE2NzE3MjQw
-MywxMjMyNDU2MzIyLC0xMzk4Mjc3Mzc3LDIwMDcyMzA1NDIsLT
-I0NjE4NTg2MCwtMTA1NjIxMDU3NywzMTk2Mjk3MSwtODExNTc4
-Mzg2LC0xODIxMTkxOTYzLC0xMzQzMTg5MjgsMTcxNDg4NjUxMC
-wtMTE3NTIyODM1LC0xNDE2MjcxNjM1LC0xOTQ4MDAyMTg4LC05
-NTgwNDU5NjddfQ==
+eyJoaXN0b3J5IjpbMjA4MzQ1MjIwNywxMjM3ODM0MDMxLC0yMT
+M5Mjc3OTE3LC01OTk3OTAwMDEsMTA0MTI2OTMwMywxNjcxNzI0
+MDMsMTIzMjQ1NjMyMiwtMTM5ODI3NzM3NywyMDA3MjMwNTQyLC
+0yNDYxODU4NjAsLTEwNTYyMTA1NzcsMzE5NjI5NzEsLTgxMTU3
+ODM4NiwtMTgyMTE5MTk2MywtMTM0MzE4OTI4LDE3MTQ4ODY1MT
+AsLTExNzUyMjgzNSwtMTQxNjI3MTYzNSwtMTk0ODAwMjE4OCwt
+OTU4MDQ1OTY3XX0=
 -->
