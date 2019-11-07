@@ -21,7 +21,7 @@ The following books, scientific articles and other references where used and are
  
 ### Study notes
 
-I've maintained notes of my study progress for myself as a 
+I've maintained notes of my study progress for myself and for other people interested. These notes could be used to improve the setup of the course or to change certain text books and or articles.
 
 |Date| Note |
 |--|--|
@@ -41,11 +41,11 @@ I've maintained notes of my study progress for myself as a
 | 11/6/2019 | Read [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), paragraph 3.6. Algorithms for model checking are given in this paragraph|
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTUzMTEyNTY5NywtNjU3NTI0NzQyLC0xNj
-EyOTU3MywxNjE4OTUzMTEsLTY1NDM0MzY1OCwxMjM3ODM0MDMx
-LC0yMTM5Mjc3OTE3LC01OTk3OTAwMDEsMTA0MTI2OTMwMywxNj
-cxNzI0MDMsMTIzMjQ1NjMyMiwtMTM5ODI3NzM3NywyMDA3MjMw
-NTQyLC0yNDYxODU4NjAsLTEwNTYyMTA1NzcsMzE5NjI5NzEsLT
-gxMTU3ODM4NiwtMTgyMTE5MTk2MywtMTM0MzE4OTI4LDE3MTQ4
-ODY1MTBdfQ==
+eyJoaXN0b3J5IjpbLTE2MDk2MDI3ODMsLTY1NzUyNDc0MiwtMT
+YxMjk1NzMsMTYxODk1MzExLC02NTQzNDM2NTgsMTIzNzgzNDAz
+MSwtMjEzOTI3NzkxNywtNTk5NzkwMDAxLDEwNDEyNjkzMDMsMT
+Y3MTcyNDAzLDEyMzI0NTYzMjIsLTEzOTgyNzczNzcsMjAwNzIz
+MDU0MiwtMjQ2MTg1ODYwLC0xMDU2MjEwNTc3LDMxOTYyOTcxLC
+04MTE1NzgzODYsLTE4MjExOTE5NjMsLTEzNDMxODkyOCwxNzE0
+ODg2NTEwXX0=
 -->
