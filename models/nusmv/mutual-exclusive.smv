@@ -1,0 +1,35 @@
+MODULE main
+    VAR
+        process_1: process prc(process_2.status, turn, FALSE);
+        process_2: process prc(process_1.status, turn, TRUE);
+        turn: boolean;
+    ASSIGN
+        init(turn) := TRUE;
+
+    -- safety
+    LTLSPEC G!((process_1.status = critical) & (process_2.status = critical))
+    -- liveness
+    LTLSPEC G((process_1.status = trying) -> F (process_1.status = critical))
+    LTLSPEC G((process_2.status = trying) -> F (process_2.status = critical))
+
+MODULE prc(other-status, turn, my_turn)
+    VAR
+        status: {noncritical, trying, critical};
+    ASSIGN
+        init(status) := noncritical;
+        next(status) :=
+            case
+                (status = noncritical)                                         : {trying, noncritical};
+                (status = trying) & (other-status = noncritical)               : critical;
+                (status = trying) & (other-status = trying) & (turn = my_turn) : critical;
+                (status = critical)                                            : {critical, noncritical};
+                TRUE                                                           : status;
+            esac;
+        next(turn) := 
+            case
+                turn = my_turn & status = critical : !turn;
+                TRUE                               : turn;
+            esac;
+
+    FAIRNESS running
+    FAIRNESS !(status = critical)
