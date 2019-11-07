@@ -1,5 +1,4 @@
-Subject "System verification and testing / Formal model checking" as part of the Master of Software Engineering
-
+This repository comprises material collected and constructed during 
 ### References
 |Article/Book| Authors |  Comments 
 |--|--|--|
@@ -35,7 +34,7 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 11/6/2019 | Read [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), paragraph 3.6. Algorithms for model checking are given in this paragraph|
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc3ODEzMDU5NywtMTYxMjk1NzMsMTYxOD
+eyJoaXN0b3J5IjpbLTQyNjc3ODI1MiwtMTYxMjk1NzMsMTYxOD
 k1MzExLC02NTQzNDM2NTgsMTIzNzgzNDAzMSwtMjEzOTI3Nzkx
 NywtNTk5NzkwMDAxLDEwNDEyNjkzMDMsMTY3MTcyNDAzLDEyMz
 I0NTYzMjIsLTEzOTgyNzczNzcsMjAwNzIzMDU0MiwtMjQ2MTg1
