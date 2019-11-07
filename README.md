@@ -35,11 +35,11 @@ Subject "System verification and testing / Formal model checking" as part of the
 | 11/6/2019 | Read [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), paragraph 3.6. Algorithms for model checking are given in this paragraph|
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MTI5NTczLDE2MTg5NTMxMSwtNjU0Mz
-QzNjU4LDEyMzc4MzQwMzEsLTIxMzkyNzc5MTcsLTU5OTc5MDAw
-MSwxMDQxMjY5MzAzLDE2NzE3MjQwMywxMjMyNDU2MzIyLC0xMz
-k4Mjc3Mzc3LDIwMDcyMzA1NDIsLTI0NjE4NTg2MCwtMTA1NjIx
-MDU3NywzMTk2Mjk3MSwtODExNTc4Mzg2LC0xODIxMTkxOTYzLC
-0xMzQzMTg5MjgsMTcxNDg4NjUxMCwtMTE3NTIyODM1LC0xNDE2
-MjcxNjM1XX0=
+eyJoaXN0b3J5IjpbMTc3ODEzMDU5NywtMTYxMjk1NzMsMTYxOD
+k1MzExLC02NTQzNDM2NTgsMTIzNzgzNDAzMSwtMjEzOTI3Nzkx
+NywtNTk5NzkwMDAxLDEwNDEyNjkzMDMsMTY3MTcyNDAzLDEyMz
+I0NTYzMjIsLTEzOTgyNzczNzcsMjAwNzIzMDU0MiwtMjQ2MTg1
+ODYwLC0xMDU2MjEwNTc3LDMxOTYyOTcxLC04MTE1NzgzODYsLT
+E4MjExOTE5NjMsLTEzNDMxODkyOCwxNzE0ODg2NTEwLC0xMTc1
+MjI4MzVdfQ==
 -->
