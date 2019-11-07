@@ -1,6 +1,9 @@
 This repository comprises material collected and constructed during the course **System Validation and Testing (Formal Verification)**, as taught at Open Universiteit as part of my Master of Software Engineering.
 
 ### References
+
+The following books, scientific articles and other references where used and are being referred to from other parts in this repository.
+
 |Article/Book| Authors |  Comments 
 |--|--|--|
 [Timed Automata](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Timed%20automata.pdf) | Alur | A survey of the theory of timed automata, 2003
@@ -17,6 +20,9 @@ This repository comprises material collected and constructed during the course *
 
  
 ### Study notes
+
+I've maintained notes of my study progress for myself as a 
+
 |Date| Note |
 |--|--|
 | 09/15/2019 | Started with Clarke's [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Model-Checking%20(Personal%20digital%20copy).pdf), finished chapter 1 |
@@ -35,11 +41,11 @@ This repository comprises material collected and constructed during the course *
 | 11/6/2019 | Read [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), paragraph 3.6. Algorithms for model checking are given in this paragraph|
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY1NzUyNDc0MiwtMTYxMjk1NzMsMTYxOD
-k1MzExLC02NTQzNDM2NTgsMTIzNzgzNDAzMSwtMjEzOTI3Nzkx
-NywtNTk5NzkwMDAxLDEwNDEyNjkzMDMsMTY3MTcyNDAzLDEyMz
-I0NTYzMjIsLTEzOTgyNzczNzcsMjAwNzIzMDU0MiwtMjQ2MTg1
-ODYwLC0xMDU2MjEwNTc3LDMxOTYyOTcxLC04MTE1NzgzODYsLT
-E4MjExOTE5NjMsLTEzNDMxODkyOCwxNzE0ODg2NTEwLC0xMTc1
-MjI4MzVdfQ==
+eyJoaXN0b3J5IjpbLTUzMTEyNTY5NywtNjU3NTI0NzQyLC0xNj
+EyOTU3MywxNjE4OTUzMTEsLTY1NDM0MzY1OCwxMjM3ODM0MDMx
+LC0yMTM5Mjc3OTE3LC01OTk3OTAwMDEsMTA0MTI2OTMwMywxNj
+cxNzI0MDMsMTIzMjQ1NjMyMiwtMTM5ODI3NzM3NywyMDA3MjMw
+NTQyLC0yNDYxODU4NjAsLTEwNTYyMTA1NzcsMzE5NjI5NzEsLT
+gxMTU3ODM4NiwtMTgyMTE5MTk2MywtMTM0MzE4OTI4LDE3MTQ4
+ODY1MTBdfQ==
 -->
