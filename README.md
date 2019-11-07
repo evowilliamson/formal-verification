@@ -1,4 +1,4 @@
-This repository comprises material collected and constructed during the course System Validation and Testing (Formal Verification) , as taught at Open Universiteit as part of my Master of Software Engineering.
+This repository comprises material collected and constructed during the course **System Validation and Testing (Formal Verification)** , as taught at Open Universiteit as part of my Master of Software Engineering.
 
 ### References
 |Article/Book| Authors |  Comments 
@@ -35,7 +35,7 @@ This repository comprises material collected and constructed during the course S
 | 11/6/2019 | Read [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), paragraph 3.6. Algorithms for model checking are given in this paragraph|
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM5NjE0NDIyNCwtMTYxMjk1NzMsMTYxOD
+eyJoaXN0b3J5IjpbLTczNzE2Mzg3MiwtMTYxMjk1NzMsMTYxOD
 k1MzExLC02NTQzNDM2NTgsMTIzNzgzNDAzMSwtMjEzOTI3Nzkx
 NywtNTk5NzkwMDAxLDEwNDEyNjkzMDMsMTY3MTcyNDAzLDEyMz
 I0NTYzMjIsLTEzOTgyNzczNzcsMjAwNzIzMDU0MiwtMjQ2MTg1
