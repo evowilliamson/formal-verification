@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Recommended UPPAAL settings:
+// Extrapolation: Difference
+// Hashtable size: 512MB
+// State-space reduction: NONE
+// Search-order: Breadth-first
+// State-space representation: DBM
+
+// Slow verify (according to requirements)
+// 80K states max, 110secs
+const int NO_FLOORS = 3;               // number of floors including the base floor
+const int NO_ELEVATORS = 2;            // number of elevators
+const int MAX_SIZE = 5;                // maximum amount of requests per elevator before it takes off
+const int MAX_WAIT = 10000;            // maximum amount of wait time before elevator runs with at least 1 person 
+
+// Fast verify (testing)
+// 14K states max, 14secs
+/*const int NO_FLOORS = 3;               // number of floors including the base floor
+const int NO_ELEVATORS = 2;            // number of elevators
+const int MAX_SIZE = 3;                // maximum amount of requests per elevator before it takes off
+const int MAX_WAIT = 10000;            // maximum amount of wait time before elevator runs with at least 1 person 
+*/
+typedef int[0, NO_FLOORS - 1] id_f;    // floor id from 0 to NO_FLOORS - 1
+typedef int[0, NO_ELEVATORS - 1] id_e; // elevator id from 0 to NO_ELEVATORS - 1
+
+// time to open or close the door
+const int door_time = 1;     
+ 
+// cabin door channels
+chan open_door[id_e], close_door[id_e], door_open[id_e], door_closed[id_e]; 
+
+// protecting door channels
+chan open_pdoor[id_e], close_pdoor[id_e], pdoor_open[id_e], pdoor_closed[id_e];
+
+// engine channels
+chan stop[id_e], move_down[id_e], move_up[id_e];
+
+// floor sensors channels and constants
+const int floor_time = 1; // time to travel one floor
+chan start_sensors[id_e], stop_sensors[id_e], reach_floor[id_e];
+
+// communications between button and request handlers
+broadcast chan requests;
+
+// communications between request handlers and main controller
+chan go[id_e], served[id_e];
+
+// The current floor of the elevator:
+id_f current_floor[id_e]; 
+// The floor to which the main control is requested to go to.
+// This variable is just used for communication between the request handler and the main control.
+// Therefore, we can declare it meta (i.e., not part of the state).
+meta id_f target_floor[id_e];
+
+// meta variable used to communicate selected floor between button and request handler
+meta id_f requested_floor;
+</declaration>
+	<template>
+		<name>engine</name>
+		<parameter>id_e i</parameter>
+		<location id="id0" x="16" y="-168">
+			<committed/>
+		</location>
+		<location id="id1" x="-256" y="-168">
+			<committed/>
+		</location>
+		<location id="id2" x="-112" y="-80">
+			<committed/>
+		</location>
+		<location id="id3" x="-256" y="-48">
+			<name x="-306" y="-34">e_moving_down</name>
+		</location>
+		<location id="id4" x="16" y="-48">
+			<name x="-17" y="-34">e_moving_up</name>
+		</location>
+		<location id="id5" x="-112" y="-168">
+			<name x="-127" y="-204">e_idle</name>
+		</location>
+		<init ref="id5"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="24" y="-128">start_sensors[i]!</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-248" y="-128">start_sensors[i]!</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-104" y="-128">stop_sensors[i]!</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-204" y="-68">stop[i]?</label>
+			<nail x="-216" y="-48"/>
+			<nail x="-112" y="-48"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-224" y="-192">move_down[i]?</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-59" y="-68">stop[i]?</label>
+			<nail x="-40" y="-48"/>
+			<nail x="-112" y="-48"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-76" y="-195">move_up[i]?</label>
+		</transition>
+	</template>
+	<template>
+		<name>button</name>
+		<declaration>clock x;</declaration>
+		<location id="id6" x="-32" y="-8">
+			<name x="-51" y="8">b_idle</name>
+		</location>
+		<init ref="id6"/>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id6"/>
+			<label kind="select" x="-59" y="-144">f: id_f</label>
+			<label kind="guard" x="-59" y="-127">x &gt;=1</label>
+			<label kind="synchronisation" x="-59" y="-110">requests!</label>
+			<label kind="assignment" x="-59" y="-93">requested_floor = f,
+x=0</label>
+			<label kind="comments" x="17" y="-34">Multicast pattern. Senders to broadcast 
+channels don't cause blocking 
+so it's ideal here for 
+elevator evaluation</label>
+			<nail x="-64" y="-48"/>
+			<nail x="0" y="-48"/>
+		</transition>
+	</template>
+	<template>
+		<name>dgc_request_handler</name>
+		<parameter>id_e e</parameter>
+		<declaration>clock x;
+
+// Local queue storing the requests.
+id_f list[MAX_SIZE + 1]; // Leave room for the base floor, the elevator has to go back after the trip
+int[0, MAX_SIZE + 1] len = 0;
+
+// local requested floor
+int rq_floor;
+
+// Put an element at the end of the queue
+void enqueue(id_f element)
+{
+        list[len++] = element;
+}
+
+// Remove the front element of the queue and return it to the caller
+id_f dequeue()
+{
+        id_f element = list[0];
+        int i = 0;
+        len -= 1;
+        while (i &lt; len)
+        {
+                list[i] = list[i + 1];
+                i++;
+        }
+        list[i] = 0;
+        return element;
+}
+
+bool is_empty ()
+{
+	return len == 0;
+}
+
+// Returns true if either the queueu is full, or at least one request
+// is present and atleast max_time has passed
+bool is_ready_to_go()
+{
+ 	return true; 
+}
+
+// Round function for two integers. According to the online-help functions should be
+// available, but to no avail, couldn't be found. So create it here.
+int round_int_division(int dividend, int divisor)
+{
+    return (dividend + (divisor / 2)) / divisor;
+}
+
+int group_size = round_int_division(NO_FLOORS, NO_ELEVATORS);
+
+// Check whether the current elevator has affinity to process the floor 
+bool is_req_for_elevator(id_f floor_no)
+{
+    return (floor_no / group_size) == e;
+}</declaration>
+		<location id="id7" x="-1615" y="-1734">
+			<committed/>
+		</location>
+		<location id="id8" x="-1861" y="-1521">
+			<name x="-1878" y="-1555">h_idle</name>
+			<committed/>
+		</location>
+		<location id="id9" x="-1615" y="-1623">
+		</location>
+		<location id="id10" x="-1615" y="-1385">
+			<committed/>
+		</location>
+		<location id="id11" x="-1445" y="-1326">
+			<name x="-1504" y="-1317">f_finished_go</name>
+		</location>
+		<location id="id12" x="-1326" y="-1385">
+			<committed/>
+		</location>
+		<location id="id13" x="-1614" y="-1521">
+			<name x="-1598" y="-1521">h_enqueueing</name>
+			<label kind="comments" x="-1946" y="-1487">According to the requirements, 
+the request handler, can be 
+considered to consist of two 
+logic parts: An enqueueing 
+phase and a run-phase. 
+After the run-phase, elevators 
+return to the base and start 
+enqueueing again.</label>
+			<committed/>
+		</location>
+		<init ref="id8"/>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id13"/>
+			<label kind="comments" x="-1360" y="-1810">1. Button template cannot be changed according to the requirements. 
+This means that the request handler must "pull" the request from 
+the button. An implication is that when the handler has issued a 
+go-synch action, no new requests can be queued. It would be better 
+to have an intermediate template between the button and the handler 
+that takes the button requests and fill the queue. (improvement)
+2. Clock variables cannot be read from in declaration functions. 
+They can only be written to. So, the logic has to be written in the 
+model...
+3. No negation can be performed on a clock variable. Apply the 
+Morgan to remove the negation
+4. A broadcast receiver transition cannot be guarded</label>
+			<nail x="-1377" y="-1734"/>
+			<nail x="-1377" y="-1547"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id13"/>
+			<label kind="guard" x="-1844" y="-1725">is_req_for_elevator(rq_floor)</label>
+			<label kind="assignment" x="-1845" y="-1704">enqueue(rq_floor)</label>
+			<label kind="comments" x="-1972" y="-1802">Improvement: The enqueueing of requests could be 
+subject to duplicate filtering: In case two 
+subsequent requests</label>
+			<nail x="-1938" y="-1734"/>
+			<nail x="-1938" y="-1572"/>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-1606" y="-1700">requests?</label>
+			<label kind="assignment" x="-1606" y="-1683">rq_floor = requested_floor</label>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id13"/>
+			<label kind="assignment" x="-1810" y="-1521">x = 0</label>
+		</transition>
+		<transition>
+			<source ref="id13"/>
+			<target ref="id9"/>
+			<label kind="guard" x="-1606" y="-1598">len!=MAX_SIZE &amp;&amp; 
+(len&lt;1 || x&lt;=MAX_WAIT)</label>
+			<label kind="comments" x="-1844" y="-1657">Multicast receiver transition. 
+It receives the requested floor 
+from the button and stores 
+it for evaluation later on.</label>
+		</transition>
+		<transition>
+			<source ref="id10"/>
+			<target ref="id13"/>
+			<label kind="guard" x="-1691" y="-1462">is_empty()</label>
+			<label kind="assignment" x="-1691" y="-1445">x = 0</label>
+		</transition>
+		<transition>
+			<source ref="id10"/>
+			<target ref="id12"/>
+			<label kind="guard" x="-1504" y="-1445">!is_empty()</label>
+			<label kind="assignment" x="-1504" y="-1428">target_floor[e] = dequeue()</label>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id10"/>
+			<label kind="synchronisation" x="-1598" y="-1343">served[e]?</label>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id11"/>
+			<label kind="synchronisation" x="-1385" y="-1351">go[e]!</label>
+		</transition>
+		<transition>
+			<source ref="id13"/>
+			<target ref="id12"/>
+			<label kind="guard" x="-1309" y="-1513">len==MAX_SIZE || (len&gt;=1 &amp;&amp; x&gt;MAX_WAIT)</label>
+			<label kind="assignment" x="-1309" y="-1496">enqueue(0), 
+target_floor[e] = dequeue()</label>
+			<label kind="comments" x="-1215" y="-1445">Add the base floor to the queueu. Reason 
+for this being, that after the run-phase, 
+the elevators must return to the base. 
+It's better to add it here than testing 
+in the main controller and thus adding 
+complexity and increasing state-space</label>
+			<nail x="-1326" y="-1521"/>
+		</transition>
+	</template>
+	<template>
+		<name>floor_sensors</name>
+		<parameter>id_e i</parameter>
+		<declaration>clock x;</declaration>
+		<location id="id14" x="32" y="-24">
+			<name x="-8" y="-8">fs_moving</name>
+			<label kind="invariant" x="40" y="-56">x &lt;= floor_time</label>
+		</location>
+		<location id="id15" x="-200" y="-24">
+			<name x="-264" y="-16">fd_idle</name>
+		</location>
+		<init ref="id15"/>
+		<transition>
+			<source ref="id14"/>
+			<target ref="id15"/>
+			<label kind="synchronisation" x="-120" y="-112">stop_sensors[i]?</label>
+			<nail x="32" y="-88"/>
+			<nail x="-200" y="-88"/>
+		</transition>
+		<transition>
+			<source ref="id14"/>
+			<target ref="id14"/>
+			<label kind="guard" x="136" y="-24">x &gt;= floor_time</label>
+			<label kind="synchronisation" x="136" y="-8">reach_floor[i]!</label>
+			<label kind="assignment" x="136" y="8">x := 0</label>
+			<nail x="128" y="-24"/>
+			<nail x="128" y="32"/>
+		</transition>
+		<transition>
+			<source ref="id15"/>
+			<target ref="id14"/>
+			<label kind="synchronisation" x="-128" y="-48">start_sensors[i]?</label>
+			<label kind="assignment" x="-104" y="-16">x := 0</label>
+		</transition>
+	</template>
+	<template>
+		<name>cabin_door</name>
+		<parameter>id_e i</parameter>
+		<declaration>clock x;</declaration>
+		<location id="id16" x="-348" y="42">
+			<committed/>
+		</location>
+		<location id="id17" x="212" y="42">
+			<committed/>
+		</location>
+		<location id="id18" x="212" y="-238">
+			<committed/>
+		</location>
+		<location id="id19" x="-348" y="-238">
+			<committed/>
+		</location>
+		<location id="id20" x="212" y="-85">
+			<name x="228" y="-93">cd_closed</name>
+		</location>
+		<location id="id21" x="-96" y="-88">
+			<name x="-80" y="-88">cd_executing</name>
+			<label kind="invariant" x="-80" y="-104">x &lt;= door_time</label>
+		</location>
+		<location id="id22" x="-348" y="-86">
+			<name x="-442" y="-100">cd_opened</name>
+		</location>
+		<init ref="id20"/>
+		<transition>
+			<source ref="id21"/>
+			<target ref="id16"/>
+			<label kind="synchronisation" x="-272" y="42">pdoor_open[i]?</label>
+			<nail x="-102" y="42"/>
+		</transition>
+		<transition>
+			<source ref="id17"/>
+			<target ref="id21"/>
+			<label kind="synchronisation" x="17" y="42">open_pdoor[i]!</label>
+			<nail x="-93" y="42"/>
+		</transition>
+		<transition>
+			<source ref="id21"/>
+			<target ref="id18"/>
+			<label kind="synchronisation" x="8" y="-263">pdoor_closed[i]?</label>
+			<nail x="-93" y="-238"/>
+		</transition>
+		<transition>
+			<source ref="id19"/>
+			<target ref="id21"/>
+			<label kind="synchronisation" x="-272" y="-263">close_pdoor[i]!</label>
+			<nail x="-102" y="-238"/>
+		</transition>
+		<transition>
+			<source ref="id16"/>
+			<target ref="id22"/>
+			<label kind="guard" x="-460" y="-46">x &gt;= door_time</label>
+			<label kind="synchronisation" x="-460" y="-30">door_open[i]!</label>
+			<label kind="assignment" x="-460" y="-14">x := 0</label>
+		</transition>
+		<transition>
+			<source ref="id20"/>
+			<target ref="id17"/>
+			<label kind="synchronisation" x="216" y="-40">open_door[i]?</label>
+			<label kind="assignment" x="216" y="-16">x := 0</label>
+		</transition>
+		<transition>
+			<source ref="id18"/>
+			<target ref="id20"/>
+			<label kind="guard" x="216" y="-184">x &gt;= door_time</label>
+			<label kind="synchronisation" x="216" y="-168">door_closed[i]!</label>
+			<label kind="assignment" x="216" y="-152">x := 0</label>
+		</transition>
+		<transition>
+			<source ref="id22"/>
+			<target ref="id19"/>
+			<label kind="synchronisation" x="-450" y="-185">close_door[i]?</label>
+			<label kind="assignment" x="-450" y="-168">x := 0</label>
+		</transition>
+	</template>
+	<template>
+		<name>main_control</name>
+		<parameter>id_e e</parameter>
+		<declaration>// the current destination
+id_f dest_floor = 1; 
+
+// function that returns true if the destination floor has been reached
+bool dest_reached ()
+{
+	return current_floor[e] == dest_floor;
+}
+
+// returns true if the elevator must go up
+bool must_go_up ()
+{
+    if (current_floor[e] &lt; dest_floor) 
+    {
+        return true;
+    }
+    else 
+    {
+        return false;
+    }
+}
+
+// convenience method that returns true if the elevator must go down
+bool must_go_down ()
+{
+    return !must_go_up();
+}
+
+// This function adjusts the current_floor, depending of the movement of direction
+void adjust_current_floor()
+{
+    if (must_go_up()) 
+    {
+        current_floor[e]++;
+    }
+    else 
+    {
+        current_floor[e]--;
+    }
+}
+</declaration>
+		<location id="id23" x="-2669" y="-2032">
+			<name x="-2694" y="-2040">B</name>
+		</location>
+		<location id="id24" x="-2669" y="-2100">
+			<name x="-2813" y="-2108">mc_door_opening</name>
+		</location>
+		<location id="id25" x="-2669" y="-2176">
+			<name x="-2694" y="-2184">A</name>
+			<label kind="comments" x="-2805" y="-2235">Strange enough, Making A and B committed 
+locations, INCREASES the state-space here..</label>
+		</location>
+		<location id="id26" x="-2405" y="-1955">
+			<name x="-2448" y="-1989">ms_door_closing</name>
+		</location>
+		<location id="id27" x="-2303" y="-1955">
+			<name x="-2286" y="-1963">mc_door_closed</name>
+			<committed/>
+		</location>
+		<location id="id28" x="-2507" y="-1955">
+			<committed/>
+		</location>
+		<location id="id29" x="-2108" y="-1955">
+			<name x="-2091" y="-1981">mc_moving</name>
+		</location>
+		<location id="id30" x="-2779" y="-1955">
+			<name x="-2847" y="-1989">mc_door_init_opening</name>
+		</location>
+		<location id="id31" x="-2915" y="-1955">
+			<committed/>
+		</location>
+		<location id="id32" x="-2669" y="-1955">
+			<name x="-2660" y="-1989">mc_door_opened</name>
+		</location>
+		<init ref="id31"/>
+		<transition>
+			<source ref="id23"/>
+			<target ref="id32"/>
+			<label kind="synchronisation" x="-2660" y="-2014">served[e]!</label>
+		</transition>
+		<transition>
+			<source ref="id24"/>
+			<target ref="id23"/>
+			<label kind="synchronisation" x="-2660" y="-2083">door_open[e]?</label>
+		</transition>
+		<transition>
+			<source ref="id25"/>
+			<target ref="id24"/>
+			<label kind="synchronisation" x="-2660" y="-2151">open_door[e]!</label>
+		</transition>
+		<transition>
+			<source ref="id29"/>
+			<target ref="id25"/>
+			<label kind="guard" x="-2473" y="-2176">dest_reached()</label>
+			<label kind="synchronisation" x="-2473" y="-2159">stop[e]!</label>
+			<nail x="-2108" y="-2176"/>
+		</transition>
+		<transition>
+			<source ref="id26"/>
+			<target ref="id27"/>
+			<label kind="synchronisation" x="-2397" y="-1946">door_closed[e]?</label>
+		</transition>
+		<transition>
+			<source ref="id28"/>
+			<target ref="id26"/>
+			<label kind="synchronisation" x="-2507" y="-1946">close_door[e]!</label>
+		</transition>
+		<transition>
+			<source ref="id27"/>
+			<target ref="id29"/>
+			<label kind="guard" x="-2261" y="-2065">must_go_down()</label>
+			<label kind="synchronisation" x="-2261" y="-2048">move_down[e]!</label>
+			<nail x="-2210" y="-2031"/>
+		</transition>
+		<transition>
+			<source ref="id27"/>
+			<target ref="id29"/>
+			<label kind="guard" x="-2253" y="-1878">must_go_up()</label>
+			<label kind="synchronisation" x="-2253" y="-1861">move_up[e]!</label>
+			<nail x="-2210" y="-1878"/>
+		</transition>
+		<transition>
+			<source ref="id32"/>
+			<target ref="id28"/>
+			<label kind="synchronisation" x="-2618" y="-1955">go[e]?</label>
+			<label kind="assignment" x="-2618" y="-1938">dest_floor = 
+target_floor[e]</label>
+		</transition>
+		<transition>
+			<source ref="id29"/>
+			<target ref="id29"/>
+			<label kind="guard" x="-2108" y="-1903">!dest_reached()</label>
+			<label kind="synchronisation" x="-2108" y="-1887">reach_floor[e]?</label>
+			<label kind="assignment" x="-2108" y="-1870">adjust_current_floor()</label>
+			<nail x="-2049" y="-1955"/>
+			<nail x="-2049" y="-1904"/>
+			<nail x="-2108" y="-1904"/>
+		</transition>
+		<transition>
+			<source ref="id30"/>
+			<target ref="id32"/>
+			<label kind="synchronisation" x="-2771" y="-1946">door_open[e]?</label>
+		</transition>
+		<transition>
+			<source ref="id31"/>
+			<target ref="id30"/>
+			<label kind="synchronisation" x="-2889" y="-1947">open_door[e]!</label>
+		</transition>
+	</template>
+	<template>
+		<name>protecting_door</name>
+		<parameter>id_e i</parameter>
+		<declaration>clock x;</declaration>
+		<location id="id33" x="-112" y="8">
+			<name x="-144" y="24">pd_executing_open</name>
+			<label kind="invariant" x="-144" y="40">x &lt;= door_time</label>
+		</location>
+		<location id="id34" x="40" y="-96">
+			<name x="59" y="-110">pd_closed</name>
+		</location>
+		<location id="id35" x="-112" y="-120">
+			<name x="-93" y="-127">pd_executing</name>
+			<label kind="invariant" x="-144" y="-104">x &lt;= door_time</label>
+		</location>
+		<location id="id36" x="-232" y="-104">
+			<name x="-314" y="-119">pd_open</name>
+		</location>
+		<init ref="id34"/>
+		<transition>
+			<source ref="id33"/>
+			<target ref="id36"/>
+			<label kind="guard" x="-352" y="-80">x &gt;= door_time</label>
+			<label kind="synchronisation" x="-352" y="-64">pdoor_open[i]!</label>
+			<label kind="assignment" x="-352" y="-48">x := 0</label>
+			<nail x="-232" y="8"/>
+			<nail x="-232" y="-80"/>
+		</transition>
+		<transition>
+			<source ref="id34"/>
+			<target ref="id33"/>
+			<label kind="synchronisation" x="48" y="-64">open_pdoor[i]?</label>
+			<label kind="assignment" x="51" y="-51">x := 0</label>
+			<nail x="40" y="-32"/>
+			<nail x="40" y="8"/>
+		</transition>
+		<transition>
+			<source ref="id35"/>
+			<target ref="id34"/>
+			<label kind="guard" x="-88" y="-200">x &gt;= door_time</label>
+			<label kind="synchronisation" x="-88" y="-184">pdoor_closed[i]!</label>
+			<label kind="assignment" x="-88" y="-168">x := 0</label>
+			<nail x="-96" y="-152"/>
+			<nail x="40" y="-152"/>
+		</transition>
+		<transition>
+			<source ref="id36"/>
+			<target ref="id35"/>
+			<label kind="synchronisation" x="-229" y="-195">close_pdoor[i]?</label>
+			<label kind="assignment" x="-229" y="-178">x := 0</label>
+			<nail x="-232" y="-152"/>
+			<nail x="-128" y="-152"/>
+		</transition>
+	</template>
+	<system>system cabin_door, protecting_door,engine, floor_sensors, button, dgc_request_handler, main_control;</system>
+	<queries>
+		<query>
+			<formula>A[] engine(0).e_moving_up imply cabin_door(0).cd_closed
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>A[] not deadlock
+			</formula>
+			<comment>
+			</comment>
+		</query>
+	</queries>
+</nta>
