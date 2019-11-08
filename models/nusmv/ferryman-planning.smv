@@ -45,5 +45,13 @@ MODULE main
             TRUE                              : wolf;
         esac;
 
-    LTLSPEC G((goat = wolf) -> ferryman = goat)
-    LTLSPEC !(((goat = cabbage | goat = wolf) -> goat=ferryman) U (cabbage & goat & wolf & ferryman))
+
+--  Interactive mode specifications
+-----------------------------------
+
+--  Check whether it is possible to get in a state where all are on the other side of the river
+--  check_ctlspec -p "EF(ferryman = TRUE & goat = TRUE & wolf = TRUE & cabbage = TRUE)"
+
+--  Check whether it is possible get in a state where the goat and the wolf are in the same spot
+--  while the ferryman is in a different spot
+--  check_ctlspec -p "EF(goat = wolf & ferryman != wolf)"

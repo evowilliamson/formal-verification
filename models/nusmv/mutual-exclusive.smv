@@ -6,12 +6,6 @@ MODULE main
     ASSIGN
         init(turn) := TRUE;
 
-    -- safety
-    LTLSPEC G!((process_1.status = critical) & (process_2.status = critical))
-    -- liveness
-    LTLSPEC G((process_1.status = trying) -> F (process_1.status = critical))
-    LTLSPEC G((process_2.status = trying) -> F (process_2.status = critical))
-
 MODULE prc(other-status, turn, my_turn)
     VAR
         status: {noncritical, trying, critical};
@@ -33,3 +27,11 @@ MODULE prc(other-status, turn, my_turn)
 
     FAIRNESS running
     FAIRNESS !(status = critical)
+
+--  Interactive mode specifications
+-----------------------------------
+
+--  Verify it is not possible to get into a state where both critical sections are active (safety)
+--  check_ctlspec -p "!EF((process_1.status = critical) & (process_2.status = critical))"
+--  Verify it is always true that if the status is "trying", that eventually, the status will be "critical" (liveness)
+--  check_ctlspec -p "AG((process_2.status = trying) -> EF (process_2.status = critical))"
