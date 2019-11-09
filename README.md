@@ -39,23 +39,14 @@ I've maintained notes of my study progress for myself and for other people inter
 | 10/11/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/resources/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf). Reachability, safety and liveness are  mentioned in section 2.2 as important subjects. Started reading [Timed Automata](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Timed%20automata.pdf) to get more information regarding reachability|
 | 10/12/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/resources/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) again, section 2.3 and chapter 7 about patterns|
 | 11/6/2019 | Started reading chapter 3 in the textbook [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Model-Checking%20(Personal%20digital%20copy).pdf). Used the [Youtube CTL* video](https://www.youtube.com/watch?v=_2E5Q3CZ7g4&t=1343s) and [Youtube CTL video](https://www.youtube.com/watch?v=Blh060Hgbm8) to get more clarification about CTL and CTL*|
-| 11/6/2019 | Read [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), paragraph 3.6. Algorithms for model checking are given in this paragraph|
+| 11/6/2019 | Read [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), paragraph 3.6. Algorithms for model checking are given in this paragraph. Special attention to paragraph 3.6.2 which explains well the concept of fairness|
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MDk2MDI3ODMsLTY1NzUyNDc0MiwtMT
-YxMjk1NzMsMTYxODk1MzExLC02NTQzNDM2NTgsMTIzNzgzNDAz
-MSwtMjEzOTI3NzkxNywtNTk5NzkwMDAxLDEwNDEyNjkzMDMsMT
-Y3MTcyNDAzLDEyMzI0NTYzMjIsLTEzOTgyNzczNzcsMjAwNzIz
-MDU0MiwtMjQ2MTg1ODYwLC0xMDU2MjEwNTc3LDMxOTYyOTcxLC
-04MTE1NzgzODYsLTE4MjExOTE5NjMsLTEzNDMxODkyOCwxNzE0
-ODg2NTEwXX0=
--->
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbNzgwMDQ1ODY4LC0xNjA5NjAyNzgzLC02NT
-c1MjQ3NDIsLTE2MTI5NTczLDE2MTg5NTMxMSwtNjU0MzQzNjU4
-LDEyMzc4MzQwMzEsLTIxMzkyNzc5MTcsLTU5OTc5MDAwMSwxMD
-QxMjY5MzAzLDE2NzE3MjQwMywxMjMyNDU2MzIyLC0xMzk4Mjc3
-Mzc3LDIwMDcyMzA1NDIsLTI0NjE4NTg2MCwtMTA1NjIxMDU3Ny
-wzMTk2Mjk3MSwtODExNTc4Mzg2LC0xODIxMTkxOTYzLC0xMzQz
-MTg5MjhdfQ==
+eyJoaXN0b3J5IjpbLTE3OTY3NTM4NTQsLTE2MDk2MDI3ODMsLT
+Y1NzUyNDc0MiwtMTYxMjk1NzMsMTYxODk1MzExLC02NTQzNDM2
+NTgsMTIzNzgzNDAzMSwtMjEzOTI3NzkxNywtNTk5NzkwMDAxLD
+EwNDEyNjkzMDMsMTY3MTcyNDAzLDEyMzI0NTYzMjIsLTEzOTgy
+NzczNzcsMjAwNzIzMDU0MiwtMjQ2MTg1ODYwLC0xMDU2MjEwNT
+c3LDMxOTYyOTcxLC04MTE1NzgzODYsLTE4MjExOTE5NjMsLTEz
+NDMxODkyOF19
 -->
