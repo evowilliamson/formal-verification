@@ -1,3 +1,4 @@
+
 This repository comprises material collected and constructed during the course **System Validation and Testing (Formal Verification)**, as taught at Open Universiteit as part of my Master of Software Engineering.
 
 ### References
@@ -21,7 +22,7 @@ The following books, scientific articles and other references where used and are
  
 ### Study notes
 
-I've maintained notes of my study progress for myself and for other people interested. These notes could be used to improve the setup of the course or to change certain text books and or articles.
+I've maintained notes of my study progress for myself and for other people interested. These notes could be used to improve the setup of the course or to change certain text books and/or articles.
 
 |Date| Note |
 |--|--|
@@ -38,14 +39,14 @@ I've maintained notes of my study progress for myself and for other people inter
 | 10/11/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/resources/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf). Reachability, safety and liveness are  mentioned in section 2.2 as important subjects. Started reading [Timed Automata](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Timed%20automata.pdf) to get more information regarding reachability|
 | 10/12/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/resources/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) again, section 2.3 and chapter 7 about patterns|
 | 11/6/2019 | Started reading chapter 3 in the textbook [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Model-Checking%20(Personal%20digital%20copy).pdf). Used the [Youtube CTL* video](https://www.youtube.com/watch?v=_2E5Q3CZ7g4&t=1343s) and [Youtube CTL video](https://www.youtube.com/watch?v=Blh060Hgbm8) to get more clarification about CTL and CTL*|
-| 11/6/2019 | Read [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), paragraph 3.6. Algorithms for model checking are given in this paragraph|
+| 11/6/2019 | Read [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), paragraph 3.6. Algorithms for model checking are given in this paragraph. Special attention to paragraph 3.6.2 which explains well the concept of fairness|
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MDk2MDI3ODMsLTY1NzUyNDc0MiwtMT
-YxMjk1NzMsMTYxODk1MzExLC02NTQzNDM2NTgsMTIzNzgzNDAz
-MSwtMjEzOTI3NzkxNywtNTk5NzkwMDAxLDEwNDEyNjkzMDMsMT
-Y3MTcyNDAzLDEyMzI0NTYzMjIsLTEzOTgyNzczNzcsMjAwNzIz
-MDU0MiwtMjQ2MTg1ODYwLC0xMDU2MjEwNTc3LDMxOTYyOTcxLC
-04MTE1NzgzODYsLTE4MjExOTE5NjMsLTEzNDMxODkyOCwxNzE0
-ODg2NTEwXX0=
+eyJoaXN0b3J5IjpbLTE0MDQ5Nzc0NTUsLTE3OTY3NTM4NTQsLT
+E2MDk2MDI3ODMsLTY1NzUyNDc0MiwtMTYxMjk1NzMsMTYxODk1
+MzExLC02NTQzNDM2NTgsMTIzNzgzNDAzMSwtMjEzOTI3NzkxNy
+wtNTk5NzkwMDAxLDEwNDEyNjkzMDMsMTY3MTcyNDAzLDEyMzI0
+NTYzMjIsLTEzOTgyNzczNzcsMjAwNzIzMDU0MiwtMjQ2MTg1OD
+YwLC0xMDU2MjEwNTc3LDMxOTYyOTcxLC04MTE1NzgzODYsLTE4
+MjExOTE5NjNdfQ==
 -->
