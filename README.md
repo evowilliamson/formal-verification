@@ -22,7 +22,7 @@ The following books, scientific articles and other references where used and are
  
 ### Study notes
 
-I've maintained notes of my study progress for myself and for other people interested. These notes could be used to improve the setup of the course or to change certain text books and or articles.
+I've maintained notes of my study progress for myself and for other people interested. These notes could be used to improve the setup of the course or to change certain text books and/or articles.
 
 |Date| Note |
 |--|--|
@@ -42,11 +42,11 @@ I've maintained notes of my study progress for myself and for other people inter
 | 11/6/2019 | Read [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), paragraph 3.6. Algorithms for model checking are given in this paragraph. Special attention to paragraph 3.6.2 which explains well the concept of fairness|
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3OTY3NTM4NTQsLTE2MDk2MDI3ODMsLT
-Y1NzUyNDc0MiwtMTYxMjk1NzMsMTYxODk1MzExLC02NTQzNDM2
-NTgsMTIzNzgzNDAzMSwtMjEzOTI3NzkxNywtNTk5NzkwMDAxLD
-EwNDEyNjkzMDMsMTY3MTcyNDAzLDEyMzI0NTYzMjIsLTEzOTgy
-NzczNzcsMjAwNzIzMDU0MiwtMjQ2MTg1ODYwLC0xMDU2MjEwNT
-c3LDMxOTYyOTcxLC04MTE1NzgzODYsLTE4MjExOTE5NjMsLTEz
-NDMxODkyOF19
+eyJoaXN0b3J5IjpbLTE0MDQ5Nzc0NTUsLTE3OTY3NTM4NTQsLT
+E2MDk2MDI3ODMsLTY1NzUyNDc0MiwtMTYxMjk1NzMsMTYxODk1
+MzExLC02NTQzNDM2NTgsMTIzNzgzNDAzMSwtMjEzOTI3NzkxNy
+wtNTk5NzkwMDAxLDEwNDEyNjkzMDMsMTY3MTcyNDAzLDEyMzI0
+NTYzMjIsLTEzOTgyNzczNzcsMjAwNzIzMDU0MiwtMjQ2MTg1OD
+YwLC0xMDU2MjEwNTc3LDMxOTYyOTcxLC04MTE1NzgzODYsLTE4
+MjExOTE5NjNdfQ==
 -->
