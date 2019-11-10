@@ -43,14 +43,14 @@ I've maintained notes of my study progress for myself and for other people inter
 
 ## Lecture notes
 
-### Temporal logics
+[Temporal logics](https://github.com/evowilliamson/formal-verification/blob/master/temporal_logics.md)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzgzOTA0MTEyLC0xNDA0OTc3NDU1LC0xNz
-k2NzUzODU0LC0xNjA5NjAyNzgzLC02NTc1MjQ3NDIsLTE2MTI5
-NTczLDE2MTg5NTMxMSwtNjU0MzQzNjU4LDEyMzc4MzQwMzEsLT
-IxMzkyNzc5MTcsLTU5OTc5MDAwMSwxMDQxMjY5MzAzLDE2NzE3
-MjQwMywxMjMyNDU2MzIyLC0xMzk4Mjc3Mzc3LDIwMDcyMzA1ND
-IsLTI0NjE4NTg2MCwtMTA1NjIxMDU3NywzMTk2Mjk3MSwtODEx
-NTc4Mzg2XX0=
+eyJoaXN0b3J5IjpbMjAzNTc1NDQ0NiwtMTQwNDk3NzQ1NSwtMT
+c5Njc1Mzg1NCwtMTYwOTYwMjc4MywtNjU3NTI0NzQyLC0xNjEy
+OTU3MywxNjE4OTUzMTEsLTY1NDM0MzY1OCwxMjM3ODM0MDMxLC
+0yMTM5Mjc3OTE3LC01OTk3OTAwMDEsMTA0MTI2OTMwMywxNjcx
+NzI0MDMsMTIzMjQ1NjMyMiwtMTM5ODI3NzM3NywyMDA3MjMwNT
+QyLC0yNDYxODU4NjAsLTEwNTYyMTA1NzcsMzE5NjI5NzEsLTgx
+MTU3ODM4Nl19
 -->
