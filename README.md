@@ -41,12 +41,16 @@ I've maintained notes of my study progress for myself and for other people inter
 | 11/6/2019 | Started reading chapter 3 in the textbook [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Model-Checking%20(Personal%20digital%20copy).pdf). Used the [Youtube CTL* video](https://www.youtube.com/watch?v=_2E5Q3CZ7g4&t=1343s) and [Youtube CTL video](https://www.youtube.com/watch?v=Blh060Hgbm8) to get more clarification about CTL and CTL*|
 | 11/6/2019 | Read [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), paragraph 3.6. Algorithms for model checking are given in this paragraph. Special attention to paragraph 3.6.2 which explains well the concept of fairness|
 
+## Lecture notes
+
+### Temporal logics
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0MDQ5Nzc0NTUsLTE3OTY3NTM4NTQsLT
-E2MDk2MDI3ODMsLTY1NzUyNDc0MiwtMTYxMjk1NzMsMTYxODk1
-MzExLC02NTQzNDM2NTgsMTIzNzgzNDAzMSwtMjEzOTI3NzkxNy
-wtNTk5NzkwMDAxLDEwNDEyNjkzMDMsMTY3MTcyNDAzLDEyMzI0
-NTYzMjIsLTEzOTgyNzczNzcsMjAwNzIzMDU0MiwtMjQ2MTg1OD
-YwLC0xMDU2MjEwNTc3LDMxOTYyOTcxLC04MTE1NzgzODYsLTE4
-MjExOTE5NjNdfQ==
+eyJoaXN0b3J5IjpbNzgzOTA0MTEyLC0xNDA0OTc3NDU1LC0xNz
+k2NzUzODU0LC0xNjA5NjAyNzgzLC02NTc1MjQ3NDIsLTE2MTI5
+NTczLDE2MTg5NTMxMSwtNjU0MzQzNjU4LDEyMzc4MzQwMzEsLT
+IxMzkyNzc5MTcsLTU5OTc5MDAwMSwxMDQxMjY5MzAzLDE2NzE3
+MjQwMywxMjMyNDU2MzIyLC0xMzk4Mjc3Mzc3LDIwMDcyMzA1ND
+IsLTI0NjE4NTg2MCwtMTA1NjIxMDU3NywzMTk2Mjk3MSwtODEx
+NTc4Mzg2XX0=
 -->
