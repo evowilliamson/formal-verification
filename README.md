@@ -19,7 +19,10 @@ The following books, scientific articles and other references where used and are
 [Youtube CTL video](https://www.youtube.com/watch?v=Blh060Hgbm8) | Model Checking  |Good visual explanation of the concepts of CTL|
 [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf) | M. Huth & M. Ryan | Book about logic-based verification|
 [Fairness in CTL](https://github.com/evowilliamson/formal-verification/blob/master/resources/Fairness%20in%20CTL.pdf) | JP. Katoen | Presentation of a lecture on fairness in relation to LTL and CTL|
+[Model Checking with Strong Fairness](https://github.com/evowilliamson/formal-verification/blob/master/resources/Model%20Checking%20with%20Strong%20Fairness.pdf) | Y. Kestenm  | Presentation of a lecture on fairness in relation to LTL and CTL|
 
+
+https://github.com/evowilliamson/formal-verification/blob/master/resources/Model%20Checking%20with%20Strong%20Fairness.pdf
  
 ### Study notes
 
@@ -47,11 +50,11 @@ I've maintained notes of my study progress for myself and for other people inter
 [Temporal logics](https://github.com/evowilliamson/formal-verification/blob/master/temporal_logics.md)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMTA2NzQ4NTQsMjAzNTc1NDQ0NiwtMT
-QwNDk3NzQ1NSwtMTc5Njc1Mzg1NCwtMTYwOTYwMjc4MywtNjU3
-NTI0NzQyLC0xNjEyOTU3MywxNjE4OTUzMTEsLTY1NDM0MzY1OC
-wxMjM3ODM0MDMxLC0yMTM5Mjc3OTE3LC01OTk3OTAwMDEsMTA0
-MTI2OTMwMywxNjcxNzI0MDMsMTIzMjQ1NjMyMiwtMTM5ODI3Nz
-M3NywyMDA3MjMwNTQyLC0yNDYxODU4NjAsLTEwNTYyMTA1Nzcs
-MzE5NjI5NzFdfQ==
+eyJoaXN0b3J5IjpbLTEyODEzMzExODYsLTEwMTA2NzQ4NTQsMj
+AzNTc1NDQ0NiwtMTQwNDk3NzQ1NSwtMTc5Njc1Mzg1NCwtMTYw
+OTYwMjc4MywtNjU3NTI0NzQyLC0xNjEyOTU3MywxNjE4OTUzMT
+EsLTY1NDM0MzY1OCwxMjM3ODM0MDMxLC0yMTM5Mjc3OTE3LC01
+OTk3OTAwMDEsMTA0MTI2OTMwMywxNjcxNzI0MDMsMTIzMjQ1Nj
+MyMiwtMTM5ODI3NzM3NywyMDA3MjMwNTQyLC0yNDYxODU4NjAs
+LTEwNTYyMTA1NzddfQ==
 -->
