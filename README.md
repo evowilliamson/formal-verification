@@ -19,11 +19,11 @@ The following books, scientific articles and other references where used and are
 [Youtube CTL video](https://www.youtube.com/watch?v=Blh060Hgbm8) | Model Checking  |Good visual explanation of the concepts of CTL|
 [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf) | M. Huth & M. Ryan | Book about logic-based verification|
 [Fairness in CTL](https://github.com/evowilliamson/formal-verification/blob/master/resources/Fairness%20in%20CTL.pdf) | JP. Katoen | Presentation of a lecture on fairness in relation to LTL and CTL|
-[Model Checking with Strong Fairness](https://github.com/evowilliamson/formal-verification/blob/master/resources/Model%20Checking%20with%20Strong%20Fairness.pdf) | Y. Kestenm  | Presentation of a lecture on fairness in relation to LTL and CTL|
+[Model Checking with Strong Fairness](https://github.com/evowilliamson/formal-verification/blob/master/resources/Model%20Checking%20with%20Strong%20Fairness.pdf) | Y. Kesten et al. | A coherent framework for symbolic model checking of linear-time temporal logic ( LTL ) properties over finite state reactive systems, taking full fairness constraints into consideration|
 
 
-https://github.com/evowilliamson/formal-verification/blob/master/resources/Model%20Checking%20with%20Strong%20Fairness.pdf
- 
+
+
 ### Study notes
 
 I've maintained notes of my study progress for myself and for other people interested. These notes could be used to improve the setup of the course or to change certain text books and/or articles.
@@ -50,7 +50,7 @@ I've maintained notes of my study progress for myself and for other people inter
 [Temporal logics](https://github.com/evowilliamson/formal-verification/blob/master/temporal_logics.md)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyODEzMzExODYsLTEwMTA2NzQ4NTQsMj
+eyJoaXN0b3J5IjpbLTIwMjEzMzE1NjcsLTEwMTA2NzQ4NTQsMj
 AzNTc1NDQ0NiwtMTQwNDk3NzQ1NSwtMTc5Njc1Mzg1NCwtMTYw
 OTYwMjc4MywtNjU3NTI0NzQyLC0xNjEyOTU3MywxNjE4OTUzMT
 EsLTY1NDM0MzY1OCwxMjM3ODM0MDMxLC0yMTM5Mjc3OTE3LC01
