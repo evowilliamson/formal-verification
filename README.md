@@ -41,17 +41,19 @@ I've maintained notes of my study progress for myself and for other people inter
 | 10/12/2019 | Reading [UPPAAL Tutorial](https://github.com/evowilliamson/model-checking-research/blob/master/resources/An%20introduction%20to%20bisimulation%20and%20coinduction.pdf) again, section 2.3 and chapter 7 about patterns|
 | 11/6/2019 | Started reading chapter 3 in the textbook [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Model-Checking%20(Personal%20digital%20copy).pdf). Used the [Youtube CTL* video](https://www.youtube.com/watch?v=_2E5Q3CZ7g4&t=1343s) and [Youtube CTL video](https://www.youtube.com/watch?v=Blh060Hgbm8) to get more clarification about CTL and CTL*|
 | 11/6/2019 | Read [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), paragraph 3.6. Algorithms for model checking are given in this paragraph. Special attention to paragraph 3.6.2 which explains well the concept of fairness|
+| 11/17/2019 | Finished reading [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), chapter 3 excluding 3.7. |
+
 
 ## Lecture notes
 
 [Temporal logics](https://github.com/evowilliamson/formal-verification/blob/master/temporal_logics.md)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzNjgzNjk5MTMsLTEwMTA2NzQ4NTQsMj
-AzNTc1NDQ0NiwtMTQwNDk3NzQ1NSwtMTc5Njc1Mzg1NCwtMTYw
-OTYwMjc4MywtNjU3NTI0NzQyLC0xNjEyOTU3MywxNjE4OTUzMT
-EsLTY1NDM0MzY1OCwxMjM3ODM0MDMxLC0yMTM5Mjc3OTE3LC01
-OTk3OTAwMDEsMTA0MTI2OTMwMywxNjcxNzI0MDMsMTIzMjQ1Nj
-MyMiwtMTM5ODI3NzM3NywyMDA3MjMwNTQyLC0yNDYxODU4NjAs
-LTEwNTYyMTA1NzddfQ==
+eyJoaXN0b3J5IjpbMTgyOTM3MDgwLC0xMzY4MzY5OTEzLC0xMD
+EwNjc0ODU0LDIwMzU3NTQ0NDYsLTE0MDQ5Nzc0NTUsLTE3OTY3
+NTM4NTQsLTE2MDk2MDI3ODMsLTY1NzUyNDc0MiwtMTYxMjk1Nz
+MsMTYxODk1MzExLC02NTQzNDM2NTgsMTIzNzgzNDAzMSwtMjEz
+OTI3NzkxNywtNTk5NzkwMDAxLDEwNDEyNjkzMDMsMTY3MTcyND
+AzLDEyMzI0NTYzMjIsLTEzOTgyNzczNzcsMjAwNzIzMDU0Miwt
+MjQ2MTg1ODYwXX0=
 -->
