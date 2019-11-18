@@ -13,7 +13,7 @@
 const int NO_FLOORS = 3;               // number of floors including the base floor
 const int NO_ELEVATORS = 2;            // number of elevators
 const int MAX_SIZE = 5;                // maximum amount of requests per elevator before it takes off
-const int MAX_WAIT = 10000;            // maximum amount of wait time before elevator runs with at least 1 person 
+const int MAX_WAIT = 3;                // maximum amount of wait time before elevator runs with at least 1 person 
 
 // Fast verify (testing)
 // 14K states max, 14secs
