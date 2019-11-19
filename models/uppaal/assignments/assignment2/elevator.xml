@@ -529,7 +529,7 @@ bool is_req_to_same_floor()
 			<name x="-2626" y="-2660">door_closing</name>
 		</location>
 		<location id="id28" x="-2413" y="-2626">
-			<name x="-2396" y="-2634">door__closed</name>
+			<name x="-2516" y="-2660">door__closed</name>
 			<committed/>
 		</location>
 		<location id="id29" x="-2736" y="-2626">
@@ -567,9 +567,13 @@ cycle and handle as served</label>
 		<transition>
 			<source ref="id30"/>
 			<target ref="id23"/>
-			<label kind="guard" x="-2209" y="-2754">is_dest_reached()</label>
-			<label kind="synchronisation" x="-2209" y="-2737">reach_floor[e]?</label>
-			<label kind="assignment" x="-2210" y="-2720">adjust_current_floor()</label>
+			<label kind="guard" x="-2201" y="-2737">is_dest_reached()</label>
+			<label kind="synchronisation" x="-2201" y="-2720">reach_floor[e]?</label>
+			<label kind="assignment" x="-2202" y="-2703">adjust_current_floor()</label>
+			<label kind="comments" x="-2201" y="-2805">Refer to the declaration 
+for the logic. Don't wait 
+"floor_time" for the stop! 
+sync action to be taken</label>
 		</transition>
 		<transition>
 			<source ref="id27"/>
@@ -601,18 +605,20 @@ cycle and handle as served</label>
 		<transition>
 			<source ref="id28"/>
 			<target ref="id30"/>
-			<label kind="guard" x="-2371" y="-2762">is_must_go_down()</label>
-			<label kind="synchronisation" x="-2371" y="-2745">move_down[e]!</label>
-			<label kind="assignment" x="-2371" y="-2728">going_down()</label>
-			<nail x="-2320" y="-2702"/>
+			<label kind="guard" x="-2388" y="-2694">is_must_go_down()</label>
+			<label kind="synchronisation" x="-2388" y="-2677">move_down[e]!</label>
+			<label kind="assignment" x="-2388" y="-2660">going_down()</label>
+			<nail x="-2414" y="-2703"/>
+			<nail x="-2235" y="-2703"/>
 		</transition>
 		<transition>
 			<source ref="id28"/>
 			<target ref="id30"/>
-			<label kind="guard" x="-2363" y="-2549">is_must_go_up()</label>
-			<label kind="synchronisation" x="-2363" y="-2532">move_up[e]!</label>
-			<label kind="assignment" x="-2362" y="-2515">going_up()</label>
-			<nail x="-2320" y="-2549"/>
+			<label kind="guard" x="-2388" y="-2618">is_must_go_up()</label>
+			<label kind="synchronisation" x="-2388" y="-2601">move_up[e]!</label>
+			<label kind="assignment" x="-2387" y="-2584">going_up()</label>
+			<nail x="-2414" y="-2558"/>
+			<nail x="-2244" y="-2558"/>
 		</transition>
 		<transition>
 			<source ref="id33"/>
