@@ -422,6 +422,9 @@ target_floor[e] = dequeue()</label>
 		<declaration>// the current destination
 id_f dest_floor = 1; 
 
+bool going_down = false;
+bool going_up = false;
+
 // function that returns true if the destination floor has been reached
 bool dest_reached ()
 {
@@ -518,6 +521,7 @@ void adjust_current_floor()
 			<source ref="id26"/>
 			<target ref="id27"/>
 			<label kind="synchronisation" x="-2397" y="-1946">door_closed[e]?</label>
+			<label kind="assignment" x="-2422" y="-1895">going_down = false, going_up = false</label>
 		</transition>
 		<transition>
 			<source ref="id28"/>

@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
-	<declaration>// Recommended UPPAAL settings:
-// Extrapolation: Difference
-// Hashtable size: 512MB
-// State-space reduction: NONE
-// Search-order: Breadth-first
-// State-space representation: DBM
-
-// Slow verify (according to requirements)
-// 80K states max, 110secs
-const int NO_FLOORS = 3;               // number of floors including the base floor
+	<declaration>const int NO_FLOORS = 3;               // number of floors including the base floor
 const int NO_ELEVATORS = 2;            // number of elevators
 const int MAX_SIZE = 5;                // maximum amount of requests per elevator before it takes off
 const int MAX_WAIT = 3;                // maximum amount of wait time before elevator runs with at least 1 person 
 
-// Fast verify (testing)
-// 14K states max, 14secs
-/*const int NO_FLOORS = 3;               // number of floors including the base floor
-const int NO_ELEVATORS = 2;            // number of elevators
-const int MAX_SIZE = 3;                // maximum amount of requests per elevator before it takes off
-const int MAX_WAIT = 10000;            // maximum amount of wait time before elevator runs with at least 1 person 
-*/
 typedef int[0, NO_FLOORS - 1] id_f;    // floor id from 0 to NO_FLOORS - 1
 typedef int[0, NO_ELEVATORS - 1] id_e; // elevator id from 0 to NO_ELEVATORS - 1
 
@@ -42,7 +26,7 @@ const int floor_time = 1; // time to travel one floor
 chan start_sensors[id_e], stop_sensors[id_e], reach_floor[id_e];
 
 // communications between button and request handlers
-broadcast chan requests;
+chan requests[id_f];
 
 // communications between request handlers and main controller
 chan go[id_e], served[id_e];
@@ -129,15 +113,10 @@ meta id_f requested_floor;
 		<transition>
 			<source ref="id6"/>
 			<target ref="id6"/>
-			<label kind="select" x="-59" y="-144">f: id_f</label>
-			<label kind="guard" x="-59" y="-127">x &gt;=1</label>
-			<label kind="synchronisation" x="-59" y="-110">requests!</label>
-			<label kind="assignment" x="-59" y="-93">requested_floor = f,
-x=0</label>
-			<label kind="comments" x="17" y="-34">Multicast pattern. Senders to broadcast 
-channels don't cause blocking 
-so it's ideal here for 
-elevator evaluation</label>
+			<label kind="select" x="-51" y="-119">f: id_f</label>
+			<label kind="guard" x="-51" y="-102">x &gt;=1</label>
+			<label kind="synchronisation" x="-51" y="-85">requests[f]!</label>
+			<label kind="assignment" x="-51" y="-68">x = 0</label>
 			<nail x="-64" y="-48"/>
 			<nail x="0" y="-48"/>
 		</transition>
@@ -146,6 +125,7 @@ elevator evaluation</label>
 		<name>dgc_request_handler</name>
 		<parameter>id_e e</parameter>
 		<declaration>clock x;
+bool timer_started = false;
 
 // Local queue storing the requests.
 id_f list[MAX_SIZE + 1]; // Leave room for the base floor, the elevator has to go back after the trip
@@ -200,93 +180,87 @@ int group_size = round_int_division(NO_FLOORS, NO_ELEVATORS);
 bool is_req_for_elevator(id_f floor_no)
 {
     return (floor_no / group_size) == e;
-}</declaration>
-		<location id="id7" x="-1615" y="-1734">
+}
+
+bool is_timer_started()
+{
+    if (len == 1 &amp;&amp; !timer_started)
+        return false;
+    else
+        return true;
+}
+
+</declaration>
+		<location id="id7" x="-1861" y="-1734">
 			<committed/>
 		</location>
-		<location id="id8" x="-1861" y="-1521">
-			<name x="-1878" y="-1555">h_idle</name>
+		<location id="id8" x="-1615" y="-1734">
+			<name x="-1598" y="-1759">r_checking_eligibility</name>
 			<committed/>
 		</location>
-		<location id="id9" x="-1615" y="-1623">
+		<location id="id9" x="-1870" y="-1521">
+			<name x="-1887" y="-1555">r_idle</name>
+			<committed/>
 		</location>
 		<location id="id10" x="-1615" y="-1385">
+			<name x="-1700" y="-1394">r_served</name>
 			<committed/>
 		</location>
 		<location id="id11" x="-1445" y="-1326">
-			<name x="-1504" y="-1317">f_finished_go</name>
+			<name x="-1487" y="-1309">r_finished_go</name>
 		</location>
 		<location id="id12" x="-1326" y="-1385">
+			<name x="-1309" y="-1394">r_dequeued</name>
 			<committed/>
 		</location>
 		<location id="id13" x="-1614" y="-1521">
-			<name x="-1598" y="-1521">h_enqueueing</name>
-			<label kind="comments" x="-1946" y="-1487">According to the requirements, 
-the request handler, can be 
-considered to consist of two 
-logic parts: An enqueueing 
-phase and a run-phase. 
-After the run-phase, elevators 
-return to the base and start 
-enqueueing again.</label>
-			<committed/>
+			<name x="-1598" y="-1521">r_enqueueing</name>
 		</location>
-		<init ref="id8"/>
+		<init ref="id9"/>
 		<transition>
 			<source ref="id7"/>
-			<target ref="id13"/>
-			<label kind="comments" x="-1360" y="-1810">1. Button template cannot be changed according to the requirements. 
-This means that the request handler must "pull" the request from 
-the button. An implication is that when the handler has issued a 
-go-synch action, no new requests can be queued. It would be better 
-to have an intermediate template between the button and the handler 
-that takes the button requests and fill the queue. (improvement)
-2. Clock variables cannot be read from in declaration functions. 
-They can only be written to. So, the logic has to be written in the 
-model...
-3. No negation can be performed on a clock variable. Apply the 
-Morgan to remove the negation
-4. A broadcast receiver transition cannot be guarded</label>
-			<nail x="-1377" y="-1734"/>
-			<nail x="-1377" y="-1547"/>
-		</transition>
-		<transition>
-			<source ref="id7"/>
-			<target ref="id13"/>
-			<label kind="guard" x="-1844" y="-1725">is_req_for_elevator(rq_floor)</label>
-			<label kind="assignment" x="-1845" y="-1704">enqueue(rq_floor)</label>
-			<label kind="comments" x="-1972" y="-1802">Improvement: The enqueueing of requests could be 
-subject to duplicate filtering: In case two 
-subsequent requests</label>
-			<nail x="-1938" y="-1734"/>
-			<nail x="-1938" y="-1572"/>
-		</transition>
-		<transition>
-			<source ref="id9"/>
 			<target ref="id7"/>
-			<label kind="synchronisation" x="-1606" y="-1700">requests?</label>
-			<label kind="assignment" x="-1606" y="-1683">rq_floor = requested_floor</label>
+			<label kind="guard" x="-1980" y="-1598">!is_timer_started()</label>
+			<label kind="assignment" x="-1980" y="-1581">x = 0, timer_started = true</label>
+			<nail x="-2006" y="-1598"/>
+			<nail x="-1759" y="-1598"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id13"/>
+			<label kind="guard" x="-1776" y="-1683">is_timer_started()</label>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-1819" y="-1759">is_req_for_elevator(rq_floor)</label>
+			<label kind="assignment" x="-1793" y="-1734">enqueue(rq_floor)</label>
+		</transition>
+		<transition>
+			<source ref="id13"/>
+			<target ref="id8"/>
+			<label kind="select" x="-1606" y="-1666">f: id_f</label>
+			<label kind="guard" x="-1606" y="-1649">len!=MAX_SIZE &amp;&amp; 
+(len&lt;1 || x&lt;=MAX_WAIT)</label>
+			<label kind="synchronisation" x="-1606" y="-1615">requests[f]?</label>
+			<label kind="assignment" x="-1606" y="-1598">rq_floor = f</label>
 		</transition>
 		<transition>
 			<source ref="id8"/>
 			<target ref="id13"/>
-			<label kind="assignment" x="-1810" y="-1521">x = 0</label>
+			<label kind="guard" x="-1589" y="-1725">!is_req_for_elevator(rq_floor)</label>
+			<nail x="-1377" y="-1734"/>
+			<nail x="-1377" y="-1547"/>
 		</transition>
 		<transition>
-			<source ref="id13"/>
-			<target ref="id9"/>
-			<label kind="guard" x="-1606" y="-1598">len!=MAX_SIZE &amp;&amp; 
-(len&lt;1 || x&lt;=MAX_WAIT)</label>
-			<label kind="comments" x="-1844" y="-1657">Multicast receiver transition. 
-It receives the requested floor 
-from the button and stores 
-it for evaluation later on.</label>
+			<source ref="id9"/>
+			<target ref="id13"/>
 		</transition>
 		<transition>
 			<source ref="id10"/>
 			<target ref="id13"/>
-			<label kind="guard" x="-1691" y="-1462">is_empty()</label>
-			<label kind="assignment" x="-1691" y="-1445">x = 0</label>
+			<label kind="guard" x="-1751" y="-1462">is_empty()</label>
+			<label kind="assignment" x="-1751" y="-1445">timer_started = false</label>
 		</transition>
 		<transition>
 			<source ref="id10"/>
@@ -310,12 +284,6 @@ it for evaluation later on.</label>
 			<label kind="guard" x="-1309" y="-1513">len==MAX_SIZE || (len&gt;=1 &amp;&amp; x&gt;MAX_WAIT)</label>
 			<label kind="assignment" x="-1309" y="-1496">enqueue(0), 
 target_floor[e] = dequeue()</label>
-			<label kind="comments" x="-1215" y="-1445">Add the base floor to the queueu. Reason 
-for this being, that after the run-phase, 
-the elevators must return to the base. 
-It's better to add it here than testing 
-in the main controller and thus adding 
-complexity and increasing state-space</label>
 			<nail x="-1326" y="-1521"/>
 		</transition>
 	</template>
@@ -437,6 +405,14 @@ complexity and increasing state-space</label>
 		<parameter>id_e e</parameter>
 		<declaration>// the current destination
 id_f dest_floor = 1; 
+//bool going_down = false;
+//bool going_up = false;
+
+// These two booleans are needed when handling the reached_floor sync action at the exact
+// moment that the elevator has reached the destination floor. At that point the direction of
+// movement is needed in order to calculate whether the destination has been reached or not.
+// This could be done in the model itsef, but it would result in verbose code and would not
+// make the model easier to read. Therefore, that logic will be put in dest_reached() function
 
 // function that returns true if the destination floor has been reached
 bool dest_reached ()
@@ -480,36 +456,39 @@ void adjust_current_floor()
 			<name x="-2694" y="-2040">B</name>
 		</location>
 		<location id="id24" x="-2669" y="-2100">
-			<name x="-2813" y="-2108">mc_door_opening</name>
+			<name x="-2813" y="-2108">door_opening</name>
 		</location>
 		<location id="id25" x="-2669" y="-2176">
-			<name x="-2694" y="-2184">A</name>
-			<label kind="comments" x="-2805" y="-2235">Strange enough, Making A and B committed 
-locations, INCREASES the state-space here..</label>
+			<name x="-2745" y="-2184">stopped</name>
 		</location>
 		<location id="id26" x="-2405" y="-1955">
-			<name x="-2448" y="-1989">ms_door_closing</name>
+			<name x="-2448" y="-1989">door_closing</name>
 		</location>
 		<location id="id27" x="-2303" y="-1955">
-			<name x="-2286" y="-1963">mc_door_closed</name>
+			<name x="-2286" y="-1963">door_closed_</name>
 			<committed/>
 		</location>
 		<location id="id28" x="-2507" y="-1955">
 			<committed/>
 		</location>
 		<location id="id29" x="-2108" y="-1955">
-			<name x="-2091" y="-1981">mc_moving</name>
+			<name x="-2091" y="-1981">moving</name>
 		</location>
 		<location id="id30" x="-2779" y="-1955">
-			<name x="-2847" y="-1989">mc_door_init_opening</name>
+			<name x="-2847" y="-1989">door_init_opening</name>
 		</location>
 		<location id="id31" x="-2915" y="-1955">
 			<committed/>
 		</location>
 		<location id="id32" x="-2669" y="-1955">
-			<name x="-2660" y="-1989">mc_door_opened</name>
+			<name x="-2660" y="-1989">door_opened</name>
 		</location>
 		<init ref="id31"/>
+		<transition>
+			<source ref="id26"/>
+			<target ref="id27"/>
+			<label kind="synchronisation" x="-2397" y="-1929">door_closed[e]?</label>
+		</transition>
 		<transition>
 			<source ref="id23"/>
 			<target ref="id32"/>
@@ -531,11 +510,6 @@ locations, INCREASES the state-space here..</label>
 			<label kind="guard" x="-2473" y="-2176">dest_reached()</label>
 			<label kind="synchronisation" x="-2473" y="-2159">stop[e]!</label>
 			<nail x="-2108" y="-2176"/>
-		</transition>
-		<transition>
-			<source ref="id26"/>
-			<target ref="id27"/>
-			<label kind="synchronisation" x="-2397" y="-1946">door_closed[e]?</label>
 		</transition>
 		<transition>
 			<source ref="id28"/>
@@ -642,6 +616,18 @@ target_floor[e]</label>
 	<queries>
 		<query>
 			<formula>A[] engine(0).e_moving_up imply cabin_door(0).cd_closed
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>A[] ((dgc_request_handler(0).r_dequeued and dgc_request_handler(0).len == 3) imply dgc_request_handler(0).x &gt;= MAX_WAIT)
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; dgc_request_handler(0).r_enqueueing and dgc_request_handler(0).len==MAX_SIZE
 			</formula>
 			<comment>
 			</comment>
