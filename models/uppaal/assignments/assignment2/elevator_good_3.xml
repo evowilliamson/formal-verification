@@ -413,7 +413,6 @@ id_f dest_floor = 1;
 // movement is needed in order to calculate whether the destination has been reached or not.
 // This could be done in the model itsef, but it would result in verbose code and would not
 // make the model easier to read. Therefore, that logic will be put in dest_reached() function
-
 int[-1, 1] direction = 0; // 0: no direction, 1: up, -1: down
 
 // Convenience function to check what the direction of movement is. Check: going down ?
@@ -462,9 +461,23 @@ void reset_direction()
 
 
 // function that returns true if the destination floor has been reached
-bool dest_reached ()
+bool is_dest_reached ()
 {
 	return current_floor[e] == dest_floor;
+}
+
+// function that returns true if the destination floor is JUST ABOUT to be reached
+bool is_dest_almost_reached ()
+{
+    if ((is_going_up() &amp;&amp; (current_floor[e] + 1) == dest_floor) ||
+        (is_going_down() &amp;&amp; (current_floor[e] - 1) == dest_floor))
+    {
+        return true;
+    }
+    else 
+    {
+        return false;
+    }
 }
 
 // returns true if the elevator must go up
@@ -499,64 +512,65 @@ void adjust_current_floor()
     }
 }
 </declaration>
-		<location id="id23" x="-2669" y="-2032">
-			<name x="-2694" y="-2040">B</name>
+		<location id="id23" x="-2686" y="-2032">
+			<name x="-2711" y="-2040">B</name>
 		</location>
-		<location id="id24" x="-2669" y="-2100">
-			<name x="-2813" y="-2108">door_opening</name>
+		<location id="id24" x="-2686" y="-2100">
+			<name x="-2796" y="-2108">door_opening</name>
 		</location>
-		<location id="id25" x="-2669" y="-2176">
-			<name x="-2745" y="-2184">stopped</name>
+		<location id="id25" x="-2686" y="-2176">
+			<name x="-2762" y="-2184">stopped</name>
 		</location>
 		<location id="id26" x="-2405" y="-1955">
 			<name x="-2448" y="-1989">door_closing</name>
 		</location>
-		<location id="id27" x="-2303" y="-1955">
-			<name x="-2286" y="-1963">door_closed_</name>
+		<location id="id27" x="-2235" y="-1955">
+			<name x="-2218" y="-1963">door_closed_</name>
 			<committed/>
 		</location>
-		<location id="id28" x="-2507" y="-1955">
+		<location id="id28" x="-2524" y="-1955">
 			<committed/>
 		</location>
-		<location id="id29" x="-2108" y="-1955">
-			<name x="-2091" y="-1981">moving</name>
+		<location id="id29" x="-2040" y="-1955">
+			<name x="-2023" y="-1981">moving</name>
 		</location>
-		<location id="id30" x="-2779" y="-1955">
-			<name x="-2847" y="-1989">door_init_opening</name>
+		<location id="id30" x="-2796" y="-1955">
+			<name x="-2864" y="-1989">door_init_opening</name>
 		</location>
-		<location id="id31" x="-2915" y="-1955">
+		<location id="id31" x="-2932" y="-1955">
 			<committed/>
 		</location>
-		<location id="id32" x="-2669" y="-1955">
-			<name x="-2660" y="-1989">door_opened</name>
+		<location id="id32" x="-2686" y="-1955">
+			<name x="-2677" y="-1989">door_opened</name>
 		</location>
 		<init ref="id31"/>
 		<transition>
 			<source ref="id26"/>
 			<target ref="id27"/>
-			<label kind="synchronisation" x="-2397" y="-1929">door_closed[e]?</label>
+			<label kind="synchronisation" x="-2380" y="-1946">door_closed[e]?</label>
+			<label kind="assignment" x="-2380" y="-1929">reset_direction()</label>
 		</transition>
 		<transition>
 			<source ref="id23"/>
 			<target ref="id32"/>
-			<label kind="synchronisation" x="-2660" y="-2014">served[e]!</label>
+			<label kind="synchronisation" x="-2677" y="-2014">served[e]!</label>
 		</transition>
 		<transition>
 			<source ref="id24"/>
 			<target ref="id23"/>
-			<label kind="synchronisation" x="-2660" y="-2083">door_open[e]?</label>
+			<label kind="synchronisation" x="-2677" y="-2083">door_open[e]?</label>
 		</transition>
 		<transition>
 			<source ref="id25"/>
 			<target ref="id24"/>
-			<label kind="synchronisation" x="-2660" y="-2151">open_door[e]!</label>
+			<label kind="synchronisation" x="-2677" y="-2151">open_door[e]!</label>
 		</transition>
 		<transition>
 			<source ref="id29"/>
 			<target ref="id25"/>
-			<label kind="guard" x="-2473" y="-2176">dest_reached()</label>
+			<label kind="guard" x="-2473" y="-2176">is_dest_reached()</label>
 			<label kind="synchronisation" x="-2473" y="-2159">stop[e]!</label>
-			<nail x="-2108" y="-2176"/>
+			<nail x="-2040" y="-2176"/>
 		</transition>
 		<transition>
 			<source ref="id28"/>
@@ -566,43 +580,45 @@ void adjust_current_floor()
 		<transition>
 			<source ref="id27"/>
 			<target ref="id29"/>
-			<label kind="guard" x="-2261" y="-2065">is_must_go_down()</label>
-			<label kind="synchronisation" x="-2261" y="-2048">move_down[e]!</label>
-			<nail x="-2210" y="-2031"/>
+			<label kind="guard" x="-2193" y="-2091">is_must_go_down()</label>
+			<label kind="synchronisation" x="-2193" y="-2074">move_down[e]!</label>
+			<label kind="assignment" x="-2193" y="-2057">going_down()</label>
+			<nail x="-2142" y="-2031"/>
 		</transition>
 		<transition>
 			<source ref="id27"/>
 			<target ref="id29"/>
-			<label kind="guard" x="-2253" y="-1878">is_must_go_up()</label>
-			<label kind="synchronisation" x="-2253" y="-1861">move_up[e]!</label>
-			<nail x="-2210" y="-1878"/>
+			<label kind="guard" x="-2185" y="-1878">is_must_go_up()</label>
+			<label kind="synchronisation" x="-2185" y="-1861">move_up[e]!</label>
+			<label kind="assignment" x="-2184" y="-1844">going_up()</label>
+			<nail x="-2142" y="-1878"/>
 		</transition>
 		<transition>
 			<source ref="id32"/>
 			<target ref="id28"/>
-			<label kind="synchronisation" x="-2618" y="-1955">go[e]?</label>
-			<label kind="assignment" x="-2618" y="-1938">dest_floor = 
+			<label kind="synchronisation" x="-2635" y="-1955">go[e]?</label>
+			<label kind="assignment" x="-2635" y="-1938">dest_floor = 
 target_floor[e]</label>
 		</transition>
 		<transition>
 			<source ref="id29"/>
 			<target ref="id29"/>
-			<label kind="guard" x="-2108" y="-1903">!dest_reached()</label>
-			<label kind="synchronisation" x="-2108" y="-1887">reach_floor[e]?</label>
-			<label kind="assignment" x="-2108" y="-1870">adjust_current_floor()</label>
-			<nail x="-2049" y="-1955"/>
-			<nail x="-2049" y="-1904"/>
-			<nail x="-2108" y="-1904"/>
+			<label kind="guard" x="-2040" y="-1894">!is_dest_reached()</label>
+			<label kind="synchronisation" x="-2040" y="-1878">reach_floor[e]?</label>
+			<label kind="assignment" x="-2040" y="-1861">adjust_current_floor()</label>
+			<nail x="-1981" y="-1955"/>
+			<nail x="-1981" y="-1904"/>
+			<nail x="-2040" y="-1904"/>
 		</transition>
 		<transition>
 			<source ref="id30"/>
 			<target ref="id32"/>
-			<label kind="synchronisation" x="-2771" y="-1946">door_open[e]?</label>
+			<label kind="synchronisation" x="-2788" y="-1946">door_open[e]?</label>
 		</transition>
 		<transition>
 			<source ref="id31"/>
 			<target ref="id30"/>
-			<label kind="synchronisation" x="-2889" y="-1947">open_door[e]!</label>
+			<label kind="synchronisation" x="-2906" y="-1947">open_door[e]!</label>
 		</transition>
 	</template>
 	<template>

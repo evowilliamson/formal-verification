@@ -2,7 +2,7 @@
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
 	<declaration>const int NO_FLOORS = 3;               // number of floors including the base floor
-const int NO_ELEVATORS = 1;            // number of elevators
+const int NO_ELEVATORS = 2;            // number of elevators
 const int MAX_SIZE = 5;                // maximum amount of requests per elevator before it takes off
 const int MAX_WAIT = 3;                // maximum amount of wait time before elevator runs with at least 1 person 
 
@@ -413,7 +413,6 @@ id_f dest_floor = 1;
 // movement is needed in order to calculate whether the destination has been reached or not.
 // This could be done in the model itsef, but it would result in verbose code and would not
 // make the model easier to read. Therefore, that logic will be put in dest_reached() function
-
 int[-1, 1] direction = 0; // 0: no direction, 1: up, -1: down
 
 // Convenience function to check what the direction of movement is. Check: going down ?
@@ -462,9 +461,23 @@ void reset_direction()
 
 
 // function that returns true if the destination floor has been reached
-bool dest_reached ()
+bool is_dest_reached ()
 {
 	return current_floor[e] == dest_floor;
+}
+
+// function that returns true if the destination floor is JUST ABOUT to be reached
+bool is_dest_almost_reached ()
+{
+    if ((is_going_up() &amp;&amp; (current_floor[e] + 1) == dest_floor) ||
+        (is_going_down() &amp;&amp; (current_floor[e] - 1) == dest_floor))
+    {
+        return true;
+    }
+    else 
+    {
+        return false;
+    }
 }
 
 // returns true if the elevator must go up
@@ -499,134 +512,152 @@ void adjust_current_floor()
     }
 }
 </declaration>
-		<location id="id23" x="-2669" y="-2032">
-			<name x="-2694" y="-2040">B</name>
+		<location id="id23" x="-2202" y="-2779">
+			<name x="-2212" y="-2813">Temp</name>
 		</location>
-		<location id="id24" x="-2669" y="-2100">
-			<name x="-2813" y="-2108">door_opening</name>
+		<location id="id24" x="-2848" y="-2635">
+			<name x="-2873" y="-2643">B</name>
 		</location>
-		<location id="id25" x="-2669" y="-2176">
-			<name x="-2745" y="-2184">stopped</name>
+		<location id="id25" x="-2848" y="-2703">
+			<name x="-2958" y="-2711">door_opening</name>
 		</location>
-		<location id="id26" x="-2405" y="-1955">
-			<name x="-2448" y="-1989">door_closing</name>
+		<location id="id26" x="-2848" y="-2779">
+			<name x="-2924" y="-2787">stopped</name>
 		</location>
-		<location id="id27" x="-2303" y="-1955">
-			<name x="-2286" y="-1963">door_closed_</name>
+		<location id="id27" x="-2567" y="-2558">
+			<name x="-2610" y="-2592">door_closing</name>
+		</location>
+		<location id="id28" x="-2397" y="-2558">
+			<name x="-2380" y="-2566">door_closed_</name>
 			<committed/>
 		</location>
-		<location id="id28" x="-2507" y="-1955">
+		<location id="id29" x="-2686" y="-2558">
 			<committed/>
 		</location>
-		<location id="id29" x="-2108" y="-1955">
-			<name x="-2091" y="-1981">moving</name>
+		<location id="id30" x="-2202" y="-2558">
+			<name x="-2185" y="-2584">moving</name>
 		</location>
-		<location id="id30" x="-2779" y="-1955">
-			<name x="-2847" y="-1989">door_init_opening</name>
+		<location id="id31" x="-2958" y="-2558">
+			<name x="-3026" y="-2592">door_init_opening</name>
 		</location>
-		<location id="id31" x="-2915" y="-1955">
+		<location id="id32" x="-3094" y="-2558">
 			<committed/>
 		</location>
-		<location id="id32" x="-2669" y="-1955">
-			<name x="-2660" y="-1989">door_opened</name>
+		<location id="id33" x="-2848" y="-2558">
+			<name x="-2839" y="-2592">door_opened</name>
 		</location>
-		<init ref="id31"/>
+		<init ref="id32"/>
 		<transition>
-			<source ref="id26"/>
-			<target ref="id27"/>
-			<label kind="synchronisation" x="-2397" y="-1929">door_closed[e]?</label>
+			<source ref="id29"/>
+			<target ref="id24"/>
+			<label kind="guard" x="-2703" y="-2660">dest_floor == current_floor[e]</label>
+			<nail x="-2686" y="-2635"/>
 		</transition>
 		<transition>
 			<source ref="id23"/>
-			<target ref="id32"/>
-			<label kind="synchronisation" x="-2660" y="-2014">served[e]!</label>
+			<target ref="id26"/>
+			<label kind="synchronisation" x="-2601" y="-2805">stop[e]!</label>
+		</transition>
+		<transition>
+			<source ref="id30"/>
+			<target ref="id23"/>
+			<label kind="guard" x="-2193" y="-2686">is_dest_almost_reached()</label>
+			<label kind="synchronisation" x="-2193" y="-2669">reach_floor[e]?</label>
+			<label kind="assignment" x="-2194" y="-2651">adjust_current_floor()</label>
+		</transition>
+		<transition>
+			<source ref="id27"/>
+			<target ref="id28"/>
+			<label kind="synchronisation" x="-2542" y="-2549">door_closed[e]?</label>
+			<label kind="assignment" x="-2542" y="-2532">reset_direction()</label>
 		</transition>
 		<transition>
 			<source ref="id24"/>
-			<target ref="id23"/>
-			<label kind="synchronisation" x="-2660" y="-2083">door_open[e]?</label>
+			<target ref="id33"/>
+			<label kind="synchronisation" x="-2839" y="-2617">served[e]!</label>
 		</transition>
 		<transition>
 			<source ref="id25"/>
 			<target ref="id24"/>
-			<label kind="synchronisation" x="-2660" y="-2151">open_door[e]!</label>
+			<label kind="synchronisation" x="-2839" y="-2686">door_open[e]?</label>
+		</transition>
+		<transition>
+			<source ref="id26"/>
+			<target ref="id25"/>
+			<label kind="synchronisation" x="-2839" y="-2754">open_door[e]!</label>
 		</transition>
 		<transition>
 			<source ref="id29"/>
-			<target ref="id25"/>
-			<label kind="guard" x="-2473" y="-2176">dest_reached()</label>
-			<label kind="synchronisation" x="-2473" y="-2159">stop[e]!</label>
-			<nail x="-2108" y="-2176"/>
+			<target ref="id27"/>
+			<label kind="guard" x="-2677" y="-2456">dest_floor != current_floor[e]</label>
+			<label kind="synchronisation" x="-2669" y="-2549">close_door[e]!</label>
 		</transition>
 		<transition>
 			<source ref="id28"/>
-			<target ref="id26"/>
-			<label kind="synchronisation" x="-2507" y="-1946">close_door[e]!</label>
+			<target ref="id30"/>
+			<label kind="guard" x="-2355" y="-2694">is_must_go_down()</label>
+			<label kind="synchronisation" x="-2355" y="-2677">move_down[e]!</label>
+			<label kind="assignment" x="-2355" y="-2660">going_down()</label>
+			<nail x="-2304" y="-2634"/>
 		</transition>
 		<transition>
-			<source ref="id27"/>
+			<source ref="id28"/>
+			<target ref="id30"/>
+			<label kind="guard" x="-2347" y="-2481">is_must_go_up()</label>
+			<label kind="synchronisation" x="-2347" y="-2464">move_up[e]!</label>
+			<label kind="assignment" x="-2346" y="-2447">going_up()</label>
+			<nail x="-2304" y="-2481"/>
+		</transition>
+		<transition>
+			<source ref="id33"/>
 			<target ref="id29"/>
-			<label kind="guard" x="-2261" y="-2065">is_must_go_down()</label>
-			<label kind="synchronisation" x="-2261" y="-2048">move_down[e]!</label>
-			<nail x="-2210" y="-2031"/>
-		</transition>
-		<transition>
-			<source ref="id27"/>
-			<target ref="id29"/>
-			<label kind="guard" x="-2253" y="-1878">is_must_go_up()</label>
-			<label kind="synchronisation" x="-2253" y="-1861">move_up[e]!</label>
-			<nail x="-2210" y="-1878"/>
-		</transition>
-		<transition>
-			<source ref="id32"/>
-			<target ref="id28"/>
-			<label kind="synchronisation" x="-2618" y="-1955">go[e]?</label>
-			<label kind="assignment" x="-2618" y="-1938">dest_floor = 
+			<label kind="synchronisation" x="-2797" y="-2558">go[e]?</label>
+			<label kind="assignment" x="-2797" y="-2541">dest_floor = 
 target_floor[e]</label>
 		</transition>
 		<transition>
-			<source ref="id29"/>
-			<target ref="id29"/>
-			<label kind="guard" x="-2108" y="-1903">!dest_reached()</label>
-			<label kind="synchronisation" x="-2108" y="-1887">reach_floor[e]?</label>
-			<label kind="assignment" x="-2108" y="-1870">adjust_current_floor()</label>
-			<nail x="-2049" y="-1955"/>
-			<nail x="-2049" y="-1904"/>
-			<nail x="-2108" y="-1904"/>
-		</transition>
-		<transition>
 			<source ref="id30"/>
-			<target ref="id32"/>
-			<label kind="synchronisation" x="-2771" y="-1946">door_open[e]?</label>
+			<target ref="id30"/>
+			<label kind="guard" x="-2202" y="-2497">!is_dest_almost_reached()</label>
+			<label kind="synchronisation" x="-2202" y="-2481">reach_floor[e]?</label>
+			<label kind="assignment" x="-2202" y="-2464">adjust_current_floor()</label>
+			<nail x="-2143" y="-2558"/>
+			<nail x="-2143" y="-2507"/>
+			<nail x="-2202" y="-2507"/>
 		</transition>
 		<transition>
 			<source ref="id31"/>
-			<target ref="id30"/>
-			<label kind="synchronisation" x="-2889" y="-1947">open_door[e]!</label>
+			<target ref="id33"/>
+			<label kind="synchronisation" x="-2950" y="-2549">door_open[e]?</label>
+		</transition>
+		<transition>
+			<source ref="id32"/>
+			<target ref="id31"/>
+			<label kind="synchronisation" x="-3068" y="-2550">open_door[e]!</label>
 		</transition>
 	</template>
 	<template>
 		<name>protecting_door</name>
 		<parameter>id_e i</parameter>
 		<declaration>clock x;</declaration>
-		<location id="id33" x="-112" y="8">
+		<location id="id34" x="-112" y="8">
 			<name x="-144" y="24">pd_executing_open</name>
 			<label kind="invariant" x="-144" y="40">x &lt;= door_time</label>
 		</location>
-		<location id="id34" x="40" y="-96">
+		<location id="id35" x="40" y="-96">
 			<name x="59" y="-110">pd_closed</name>
 		</location>
-		<location id="id35" x="-112" y="-120">
+		<location id="id36" x="-112" y="-120">
 			<name x="-93" y="-127">pd_executing</name>
 			<label kind="invariant" x="-144" y="-104">x &lt;= door_time</label>
 		</location>
-		<location id="id36" x="-232" y="-104">
+		<location id="id37" x="-232" y="-104">
 			<name x="-314" y="-119">pd_open</name>
 		</location>
-		<init ref="id34"/>
+		<init ref="id35"/>
 		<transition>
-			<source ref="id33"/>
-			<target ref="id36"/>
+			<source ref="id34"/>
+			<target ref="id37"/>
 			<label kind="guard" x="-352" y="-80">x &gt;= door_time</label>
 			<label kind="synchronisation" x="-352" y="-64">pdoor_open[i]!</label>
 			<label kind="assignment" x="-352" y="-48">x := 0</label>
@@ -634,16 +665,16 @@ target_floor[e]</label>
 			<nail x="-232" y="-80"/>
 		</transition>
 		<transition>
-			<source ref="id34"/>
-			<target ref="id33"/>
+			<source ref="id35"/>
+			<target ref="id34"/>
 			<label kind="synchronisation" x="48" y="-64">open_pdoor[i]?</label>
 			<label kind="assignment" x="51" y="-51">x := 0</label>
 			<nail x="40" y="-32"/>
 			<nail x="40" y="8"/>
 		</transition>
 		<transition>
-			<source ref="id35"/>
-			<target ref="id34"/>
+			<source ref="id36"/>
+			<target ref="id35"/>
 			<label kind="guard" x="-88" y="-200">x &gt;= door_time</label>
 			<label kind="synchronisation" x="-88" y="-184">pdoor_closed[i]!</label>
 			<label kind="assignment" x="-88" y="-168">x := 0</label>
@@ -651,8 +682,8 @@ target_floor[e]</label>
 			<nail x="40" y="-152"/>
 		</transition>
 		<transition>
-			<source ref="id36"/>
-			<target ref="id35"/>
+			<source ref="id37"/>
+			<target ref="id36"/>
 			<label kind="synchronisation" x="-229" y="-195">close_pdoor[i]?</label>
 			<label kind="assignment" x="-229" y="-178">x := 0</label>
 			<nail x="-232" y="-152"/>
