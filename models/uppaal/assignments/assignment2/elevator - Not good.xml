@@ -7,7 +7,7 @@ const int MAX_SIZE = 5;                // maximum amount of requests per elevato
 const int DOOR_TIME = 1;               // time it takes to close the door
 const int FLOOR_TIME = 1;              // time to travel one floor
 // IMPROVEMENT (stefano):
-int MAX_WAIT = 3;                      // maximum amount of wait time before elevator runs with at least 1 person 
+int MAX_WAIT = 5;                      // maximum amount of wait time before elevator runs with at least 1 person 
                                        // Don't set MAX_WAIT too high, as this increases the state-space
 
 typedef int[0, NO_FLOORS - 1] id_f;    // floor id from 0 to NO_FLOORS - 1
@@ -40,9 +40,30 @@ id_f current_floor[id_e];
 // Therefore, we can declare it meta (i.e., not part of the state).
 meta id_f target_floor[id_e];
 
-// meta variable used to communicate selected floor between button and request handler
+// Meta variable used to communicate selected floor between button and request handler
 meta id_f requested_floor;
-</declaration>
+
+// Structure to maintain the floors that have been reached at least once
+bool floor_reached[id_f];
+
+void register_reached_floor(id_f floor_no) 
+{
+    floor_reached[floor_no] = true;
+}
+
+bool check_all_floors_reached()
+{
+    bool a = true;
+    int i = 1;
+    for (i = 1; i &lt; NO_FLOORS; i++)    // Don't include the base floor
+    {
+        if (floor_reached[i] == false)
+        {
+            return false;
+        }
+    }
+    return true;
+}</declaration>
 	<template>
 		<name>engine</name>
 		<parameter>id_e i</parameter>
@@ -579,6 +600,7 @@ void adjust_current_floor()
     {
         current_floor[e]--;
     }
+    //register_reached_floor(current_floor[e]);
 }
 
 // Check whether the requested floor is to the same floor
@@ -801,6 +823,7 @@ sync action to be taken</label>
 "perceivable" because in essence a button generates the requests and the model could (if enough information available) detect that the number of requests reaches a certain amount already in the button.
  But because of the fact that the data structures that accumulates the requests is contained in the request_handler, I guess it is assumed that this is not the case.
 "specific": I guess the property holds for just one elevator, and not the total amount of requests in the system (for all elevators). Again for the same reason as previously stated
+
 			</comment>
 		</query>
 		<query>

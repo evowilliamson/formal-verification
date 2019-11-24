@@ -7,7 +7,7 @@ const int MAX_SIZE = 5;                // maximum amount of requests per elevato
 const int DOOR_TIME = 1;               // time it takes to close the door
 const int FLOOR_TIME = 1;              // time to travel one floor
 // IMPROVEMENT (stefano):
-int MAX_WAIT = 5;                      // maximum amount of wait time before elevator runs with at least 1 person 
+const int MAX_WAIT = 3;                // maximum amount of wait time before elevator runs with at least 1 person 
                                        // Don't set MAX_WAIT too high, as this increases the state-space
 
 typedef int[0, NO_FLOORS - 1] id_f;    // floor id from 0 to NO_FLOORS - 1
@@ -305,9 +305,9 @@ the cycle</label>
 		<transition>
 			<source ref="id8"/>
 			<target ref="id13"/>
-			<label kind="guard" x="-1631" y="-1768">!is_req_for_elevator(req_floor)</label>
-			<nail x="-1419" y="-1742"/>
-			<nail x="-1419" y="-1547"/>
+			<label kind="guard" x="-1606" y="-1768">!is_req_for_elevator(req_floor)</label>
+			<nail x="-1394" y="-1742"/>
+			<nail x="-1394" y="-1547"/>
 		</transition>
 		<transition>
 			<source ref="id9"/>
@@ -342,24 +342,23 @@ the cycle</label>
 (!is_empty() &amp;&amp; x&gt;=MAX_WAIT)</label>
 			<label kind="assignment" x="-1317" y="-1462">enqueue(BASE_FLOOR), 
 set_target_floor(dequeue())</label>
-			<label kind="comments" x="-1394" y="-1887">NOTE: There are either two choices: 
-1. When the queue is full or (the length of the queue is 
-1 and more and MAX_WAIT time has passed): start the cycle 
+			<label kind="comments" x="-1377" y="-1870">NOTE: There are either two choices: 
+1. When the queue is full or (the length of the queue is 1
+ and more and MAX_WAIT time has passed): start the cycle 
 2. In case the above is not true, keep on enqueueing. 
 
-So, in this case, no invariant in the location is used. 
-As a result, the x&gt;=MAX_WAIT can be safely negated, without 
+So, in this case, no invariant in the location is used. As 
+a result, the x&gt;=MAX_WAIT can be safely negated, without 
 taking into account the "="
 
 Note that the sync input requests[e]? cannot create a 
-deadlock: An extra location might be created, thus 
-splitting the edge in two sequential edges. The first with 
-the guard and the second edge with the requests[e]? sync. 
-The location "enqueueing" could then by marked as 
-"committed". It's clear that this doesn't create a deadlock. 
-This was tested, but the extra edge and location didn't 
-outweigh  the committed location. As a result, the state
-space was being enlarged.</label>
+deadlock: An extra location might be created, thus splitting 
+the edge in two sequential edges. The first with the guard 
+and the second edge with the requests[e]? sync. The location 
+"enqueueing" could then by marked as "committed". It's clear 
+that this doesn't create a deadlock. This was tested, but 
+the extra edge and location didn't outweigh the committed 
+location. As a result, the state space was being enlarged.</label>
 			<nail x="-1326" y="-1521"/>
 		</transition>
 	</template>
@@ -801,7 +800,6 @@ sync action to be taken</label>
 "perceivable" because in essence a button generates the requests and the model could (if enough information available) detect that the number of requests reaches a certain amount already in the button.
  But because of the fact that the data structures that accumulates the requests is contained in the request_handler, I guess it is assumed that this is not the case.
 "specific": I guess the property holds for just one elevator, and not the total amount of requests in the system (for all elevators). Again for the same reason as previously stated
-
 			</comment>
 		</query>
 		<query>
