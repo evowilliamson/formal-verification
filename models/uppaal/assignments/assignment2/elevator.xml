@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
-	<declaration>const int NO_FLOORS = 4;               // number of floors including the base floor
+	<declaration>const int NO_FLOORS = 3;               // number of floors including the base floor
 const int NO_ELEVATORS = 2;            // number of elevators
 const int MAX_SIZE = 5;                // maximum amount of requests per elevator before it takes off
 const int DOOR_TIME = 1;               // time it takes to close the door
@@ -155,23 +155,27 @@ const int BASE_FLOOR = 0;
 // Put an element at the end of the queue
 void enqueue(id_f element)
 {
-        list[len++] = element;
+    list[len++] = element;
 }
 
-// Remove the front element of the queue and return it to the caller
-id_f dequeue()
+// Remove the front element of the queue
+void dequeue()
 {
-        id_f element = list[0];
-        int i = 0;
-        len -= 1;
-        while (i &lt; len)
-        {
-            list[i] = list[i + 1];
-            i++;
-        }
-        list[i] = 0;
-        return element;
- }
+    int i = 0;
+    len -= 1;
+    while (i &lt; len)
+    {
+        list[i] = list[i + 1];
+        i++;
+	}
+    list[i] = 0;
+}
+
+// Returns the front element of the queue
+id_f front()
+{
+   return list[0];
+}
 
 // Returns true if the queue has a size of 0
 bool is_empty ()
@@ -337,8 +341,9 @@ the cycle</label>
 		<transition>
 			<source ref="id10"/>
 			<target ref="id12"/>
-			<label kind="guard" x="-1564" y="-1428">!is_empty()</label>
-			<label kind="assignment" x="-1564" y="-1411">set_target_floor(dequeue())</label>
+			<label kind="guard" x="-1530" y="-1445">!is_empty()</label>
+			<label kind="assignment" x="-1530" y="-1428">set_target_floor(front()), 
+dequeue()</label>
 		</transition>
 		<transition>
 			<source ref="id11"/>
@@ -353,10 +358,11 @@ the cycle</label>
 		<transition>
 			<source ref="id13"/>
 			<target ref="id12"/>
-			<label kind="guard" x="-1317" y="-1496">is_full() || 
+			<label kind="guard" x="-1317" y="-1513">is_full() || 
 (!is_empty() &amp;&amp; x&gt;=MAX_WAIT)</label>
-			<label kind="assignment" x="-1317" y="-1462">enqueue(BASE_FLOOR), 
-set_target_floor(dequeue()), 
+			<label kind="assignment" x="-1317" y="-1479">enqueue(BASE_FLOOR), 
+set_target_floor(front()), 
+dequeue(),
 reset_timer()</label>
 			<label kind="comments" x="-1377" y="-1870">NOTE: There are either two choices: 
 1. When the queue is full or (the length of the queue is 1
@@ -560,7 +566,7 @@ bool is_req_to_same_floor()
 }
 
 // Set current floor equal to the target floor and
-// reset target floor because of performance reasons
+// reset target floor because of state-space reasons
 void reset() 
 {
     current_floor[e] = target_floor[e];
@@ -761,6 +767,24 @@ sync action to be taken</label>
 	</template>
 	<system>system cabin_door, protecting_door, engine, floor_sensors, button, dgc_request_handler, main_control;</system>
 	<queries>
+		<query>
+			<formula>E&lt;&gt;(A[] true)
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>true --&gt; true
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>(engine(0).moving_up or engine(0).moving_down) --&gt; cabin_door(0).closed and protecting_door(0).closed
+			</formula>
+			<comment>
+			</comment>
+		</query>
 		<query>
 			<formula>A[] (engine(0).moving_up or engine(0).moving_down) imply (cabin_door(0).closed and protecting_door(0).closed)
 			</formula>

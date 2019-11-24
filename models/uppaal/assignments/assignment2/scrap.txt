@@ -1,21 +1,11 @@
 bool up = false;
-
-void go_up()
-{
-    up = true;
-}
-
-void go_down()
-{
-    up = false;
-}
+id_f target_floor = 0;
 
 // function that returns true if the destination floor is JUST ABOUT to be reached
 bool is_dest_reached()
 {
-    if current_floor[e] == target_floor[e] ||
-       up == true && (current_floor[e] + 1) >= target_floor[e] ||
-       up == false && (current_floor[e] - 1) <= target_floor[e]
+    if (up == true && (current_floor[e] + 1) >= target_floor)
+        up == false && (current_floor[e] - 1) <= target_floor)
     {
         return true;
     }
@@ -25,10 +15,20 @@ bool is_dest_reached()
     }
 }
 
+void go_up() 
+{
+    up = true;
+}
+
+void go_down() 
+{
+    up = false;
+}
+
 // returns true if the elevator must go up
 bool is_must_go_up ()
 {
-    if (current_floor[e] < target_floor[e]) 
+    if (current_floor[e] < target_floor) 
     {
         return true;
     }
@@ -61,14 +61,14 @@ void adjust_current_floor()
 // Check whether the requested floor is to the same floor
 bool is_req_to_same_floor() 
 {
-    return (target_floor[e] == current_floor[e]);
+    return (target_floor == current_floor[e]);
 }
 
 // Set current floor equal to the target floor and
-// reset target floor because of performance reasons
+// reset target floor because of state-space reasons
 void reset() 
 {
-    current_floor[e] = target_floor[e];
-    target_floor[e] = 0;
+    current_floor[e] = target_floor;
+    target_floor = 0;
     up = false;
 }
