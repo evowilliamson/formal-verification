@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
-	<declaration>const int NO_FLOORS = 3;               // number of floors including the base floor
+	<declaration>const int NO_FLOORS = 4;               // number of floors including the base floor
 const int NO_ELEVATORS = 2;            // number of elevators
 const int MAX_SIZE = 5;                // maximum amount of requests per elevator before it takes off
 const int DOOR_TIME = 1;               // time it takes to close the door
@@ -36,13 +36,9 @@ chan go[id_e], served[id_e];
 // The current floor of the elevator:
 id_f current_floor[id_e]; 
 // The floor to which the main control is requested to go to.
-// This variable is just used for communication between the request handler and the main control.
-// Therefore, we can declare it meta (i.e., not part of the state).
-meta id_f target_floor[id_e];
+id_f target_floor[id_e];
 
-// meta variable used to communicate selected floor between button and request handler
-meta id_f requested_floor;
-
+/*
 bool floors_reached_dest[id_f];
 
 void register_floor_reached(int floor_no) 
@@ -61,7 +57,7 @@ bool is_all_floors_reached()
         }
     }
     return true;
-}</declaration>
+}*/</declaration>
 	<template>
 		<name>engine</name>
 		<parameter>id_e i</parameter>
@@ -309,8 +305,8 @@ the cycle</label>
 		<transition>
 			<source ref="id8"/>
 			<target ref="id7"/>
-			<label kind="guard" x="-1836" y="-1785">is_req_for_elevator(req_floor)</label>
-			<label kind="assignment" x="-1793" y="-1768">enqueue(req_floor)</label>
+			<label kind="guard" x="-1827" y="-1793">is_req_for_elevator(req_floor)</label>
+			<label kind="assignment" x="-1827" y="-1776">enqueue(req_floor), req_floor = 0</label>
 		</transition>
 		<transition>
 			<source ref="id13"/>
@@ -324,7 +320,8 @@ the cycle</label>
 		<transition>
 			<source ref="id8"/>
 			<target ref="id13"/>
-			<label kind="guard" x="-1606" y="-1768">!is_req_for_elevator(req_floor)</label>
+			<label kind="guard" x="-1598" y="-1793">!is_req_for_elevator(req_floor)</label>
+			<label kind="assignment" x="-1598" y="-1776">req_floor = 0</label>
 			<nail x="-1394" y="-1742"/>
 			<nail x="-1394" y="-1547"/>
 		</transition>
@@ -336,7 +333,6 @@ the cycle</label>
 			<source ref="id10"/>
 			<target ref="id13"/>
 			<label kind="guard" x="-1606" y="-1470">is_empty()</label>
-			<label kind="assignment" x="-1606" y="-1453">reset_timer()</label>
 		</transition>
 		<transition>
 			<source ref="id10"/>
@@ -360,7 +356,8 @@ the cycle</label>
 			<label kind="guard" x="-1317" y="-1496">is_full() || 
 (!is_empty() &amp;&amp; x&gt;=MAX_WAIT)</label>
 			<label kind="assignment" x="-1317" y="-1462">enqueue(BASE_FLOOR), 
-set_target_floor(dequeue())</label>
+set_target_floor(dequeue()), 
+reset_timer()</label>
 			<label kind="comments" x="-1377" y="-1870">NOTE: There are either two choices: 
 1. When the queue is full or (the length of the queue is 1
  and more and MAX_WAIT time has passed): start the cycle 
@@ -497,67 +494,13 @@ location. As a result, the state space was being enlarged.</label>
 	<template>
 		<name>main_control</name>
 		<parameter>id_e e</parameter>
-		<declaration>// the current destination
-id_f dest_floor = 1; 
-//bool going_down = false;
-//bool going_up = false;
-
-// These two booleans are needed when handling the reached_floor sync action at the exact
-// moment that the elevator has reached the destination floor. At that point the direction of
-// movement is needed in order to calculate whether the destination has been reached or not.
-// This could be done in the model itsef, but it would result in verbose code and would not
-// make the model easier to read. Therefore, that logic will be put in dest_reached() function
-int[-1, 1] direction = 0; // 0: no direction, 1: up, -1: down
-
-// Convenience function to check what the direction of movement is. Check: going down ?
-bool is_going_down ()
-{
-    if (direction == -1)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-// Convenience function to check what the direction of movement is. Check: going up ?
-bool is_going_up ()
-{
-    if (direction == 1)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-// Convenience method to indicate that the elevator is going up
-void going_up() 
-{
-    direction = 1;
-}
-
-// Convenience method to indicate that the elevator is going up
-void going_down() 
-{
-    direction = -1;
-}
-
-
-void reset_direction()
-{
-   direction = 0;
-}
+		<declaration>bool up = false;
 
 // function that returns true if the destination floor is JUST ABOUT to be reached
-bool is_dest_reached ()
+bool is_dest_reached()
 {
-    if ((is_going_up() &amp;&amp; (current_floor[e] + 1) == dest_floor) ||
-        (is_going_down() &amp;&amp; (current_floor[e] - 1) == dest_floor))
+    if (up == true &amp;&amp; (current_floor[e] + 1) &gt;= target_floor[e] ||
+        up == false &amp;&amp; (current_floor[e] - 1) &lt;= target_floor[e])
     {
         return true;
     }
@@ -567,10 +510,20 @@ bool is_dest_reached ()
     }
 }
 
+void go_up() 
+{
+    up = true;
+}
+
+void go_down() 
+{
+    up = false;
+}
+
 // returns true if the elevator must go up
 bool is_must_go_up ()
 {
-    if (current_floor[e] &lt; dest_floor) 
+    if (current_floor[e] &lt; target_floor[e]) 
     {
         return true;
     }
@@ -597,21 +550,23 @@ void adjust_current_floor()
     {
         current_floor[e]--;
     }
-    register_floor_reached(current_floor[e]);
+    //register_floor_reached(current_floor[e]);
 }
 
 // Check whether the requested floor is to the same floor
 bool is_req_to_same_floor() 
 {
-    return (dest_floor == current_floor[e]);
+    return (target_floor[e] == current_floor[e]);
 }
 
-// Convenience method to move details to the declaraton section instead of the model
-void set_dest_floor() 
+// Set current floor equal to the target floor and
+// reset target floor because of performance reasons
+void reset() 
 {
-    dest_floor = target_floor[e];
-}
-</declaration>
+    current_floor[e] = target_floor[e];
+    target_floor[e] = 0;
+    up = false;
+}</declaration>
 		<location id="id23" x="-2218" y="-2847">
 			<name x="-2261" y="-2881">dest_reached</name>
 			<committed/>
@@ -655,11 +610,12 @@ void set_dest_floor()
 			<source ref="id29"/>
 			<target ref="id24"/>
 			<label kind="guard" x="-2728" y="-2686">is_req_to_same_floor()</label>
-			<label kind="comments" x="-2728" y="-2779">IMPROVEMENT (ivo)
+			<label kind="comments" x="-2728" y="-2805">IMPROVEMENT (ivo)
 If the requested floor is 
 equal to the current 
 floor, shortcircuit the 
-cycle and handle as served</label>
+cycle and handle as served. 
+Big state-space reduction</label>
 			<nail x="-2736" y="-2703"/>
 		</transition>
 		<transition>
@@ -672,7 +628,7 @@ cycle and handle as served</label>
 			<target ref="id23"/>
 			<label kind="guard" x="-2201" y="-2737">is_dest_reached()</label>
 			<label kind="synchronisation" x="-2201" y="-2720">reach_floor[e]?</label>
-			<label kind="assignment" x="-2202" y="-2703">adjust_current_floor()</label>
+			<label kind="assignment" x="-2202" y="-2703">reset()</label>
 			<label kind="comments" x="-2201" y="-2830">IMPROVEMENT (stefano)
 Refer to the declaration 
 for the logic. Don't wait 
@@ -683,7 +639,6 @@ sync action to be taken</label>
 			<source ref="id27"/>
 			<target ref="id28"/>
 			<label kind="synchronisation" x="-2558" y="-2617">door_closed[e]?</label>
-			<label kind="assignment" x="-2558" y="-2600">reset_direction()</label>
 		</transition>
 		<transition>
 			<source ref="id24"/>
@@ -709,9 +664,9 @@ sync action to be taken</label>
 		<transition>
 			<source ref="id28"/>
 			<target ref="id30"/>
-			<label kind="guard" x="-2405" y="-2694">is_must_go_down()</label>
-			<label kind="synchronisation" x="-2405" y="-2677">move_down[e]!</label>
-			<label kind="assignment" x="-2405" y="-2660">going_down()</label>
+			<label kind="guard" x="-2405" y="-2703">is_must_go_down()</label>
+			<label kind="synchronisation" x="-2405" y="-2686">move_down[e]!</label>
+			<label kind="assignment" x="-2405" y="-2669">go_down()</label>
 			<nail x="-2414" y="-2703"/>
 			<nail x="-2261" y="-2703"/>
 		</transition>
@@ -720,7 +675,7 @@ sync action to be taken</label>
 			<target ref="id30"/>
 			<label kind="guard" x="-2405" y="-2618">is_must_go_up()</label>
 			<label kind="synchronisation" x="-2405" y="-2601">move_up[e]!</label>
-			<label kind="assignment" x="-2404" y="-2584">going_up()</label>
+			<label kind="assignment" x="-2405" y="-2584">go_up()</label>
 			<nail x="-2414" y="-2558"/>
 			<nail x="-2261" y="-2558"/>
 		</transition>
@@ -728,7 +683,6 @@ sync action to be taken</label>
 			<source ref="id33"/>
 			<target ref="id29"/>
 			<label kind="synchronisation" x="-2864" y="-2618">go[e]?</label>
-			<label kind="assignment" x="-2864" y="-2601">set_dest_floor()</label>
 		</transition>
 		<transition>
 			<source ref="id30"/>

@@ -1,64 +1,21 @@
-// the current destination
-id_f dest_floor = 1; 
-//bool going_down = false;
-//bool going_up = false;
+bool up = false;
 
-// These two booleans are needed when handling the reached_floor sync action at the exact
-// moment that the elevator has reached the destination floor. At that point the direction of
-// movement is needed in order to calculate whether the destination has been reached or not.
-// This could be done in the model itsef, but it would result in verbose code and would not
-// make the model easier to read. Therefore, that logic will be put in dest_reached() function
-int[-1, 1] direction = 0; // 0: no direction, 1: up, -1: down
-
-// Convenience function to check what the direction of movement is. Check: going down ?
-bool is_going_down ()
+void go_up()
 {
-    if (direction == -1)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    up = true;
 }
 
-// Convenience function to check what the direction of movement is. Check: going up ?
-bool is_going_up ()
+void go_down()
 {
-    if (direction == 1)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-// Convenience method to indicate that the elevator is going up
-void going_up() 
-{
-    direction = 1;
-}
-
-// Convenience method to indicate that the elevator is going up
-void going_down() 
-{
-    direction = -1;
-}
-
-
-void reset_direction()
-{
-   direction = 0;
+    up = false;
 }
 
 // function that returns true if the destination floor is JUST ABOUT to be reached
-bool is_dest_reached ()
+bool is_dest_reached()
 {
-    if ((is_going_up() && (current_floor[e] + 1) == dest_floor) ||
-        (is_going_down() && (current_floor[e] - 1) == dest_floor))
+    if current_floor[e] == target_floor[e] ||
+       up == true && (current_floor[e] + 1) >= target_floor[e] ||
+       up == false && (current_floor[e] - 1) <= target_floor[e]
     {
         return true;
     }
@@ -71,7 +28,7 @@ bool is_dest_reached ()
 // returns true if the elevator must go up
 bool is_must_go_up ()
 {
-    if (current_floor[e] < dest_floor) 
+    if (current_floor[e] < target_floor[e]) 
     {
         return true;
     }
@@ -98,17 +55,20 @@ void adjust_current_floor()
     {
         current_floor[e]--;
     }
-    register_floor_reached(current_floor[e]);
+    //register_floor_reached(current_floor[e]);
 }
 
 // Check whether the requested floor is to the same floor
 bool is_req_to_same_floor() 
 {
-    return (dest_floor == current_floor[e]);
+    return (target_floor[e] == current_floor[e]);
 }
 
-// Convenience method to move details to the declaraton section instead of the model
-void set_dest_floor() 
+// Set current floor equal to the target floor and
+// reset target floor because of performance reasons
+void reset() 
 {
-    dest_floor = target_floor[e];
+    current_floor[e] = target_floor[e];
+    target_floor[e] = 0;
+    up = false;
 }
