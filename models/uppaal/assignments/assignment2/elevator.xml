@@ -7,7 +7,7 @@ const int MAX_SIZE = 5;                // maximum amount of requests per elevato
 const int DOOR_TIME = 1;               // time it takes to close the door
 const int FLOOR_TIME = 1;              // time to travel one floor
 // IMPROVEMENT (stefano):
-const int MAX_WAIT = 3;                // maximum amount of wait time before elevator runs with at least 1 person 
+int MAX_WAIT = 5;                      // maximum amount of wait time before elevator runs with at least 1 person 
                                        // Don't set MAX_WAIT too high, as this increases the state-space
 
 typedef int[0, NO_FLOORS - 1] id_f;    // floor id from 0 to NO_FLOORS - 1
@@ -305,9 +305,9 @@ the cycle</label>
 		<transition>
 			<source ref="id8"/>
 			<target ref="id13"/>
-			<label kind="guard" x="-1606" y="-1768">!is_req_for_elevator(req_floor)</label>
-			<nail x="-1394" y="-1742"/>
-			<nail x="-1394" y="-1547"/>
+			<label kind="guard" x="-1631" y="-1768">!is_req_for_elevator(req_floor)</label>
+			<nail x="-1419" y="-1742"/>
+			<nail x="-1419" y="-1547"/>
 		</transition>
 		<transition>
 			<source ref="id9"/>
@@ -342,29 +342,23 @@ the cycle</label>
 (!is_empty() &amp;&amp; x&gt;=MAX_WAIT)</label>
 			<label kind="assignment" x="-1317" y="-1462">enqueue(BASE_FLOOR), 
 set_target_floor(dequeue())</label>
-			<label kind="comments" x="-1317" y="-1904">NOTE: There are either two choices: 
-1. When the queue is full or (the length of 
-the queue is 1 and more and MAX_WAIT 
-time has passed): start the cycle 
-2. In case the above is not true, keep on 
-enqueueing. 
+			<label kind="comments" x="-1394" y="-1887">NOTE: There are either two choices: 
+1. When the queue is full or (the length of the queue is 
+1 and more and MAX_WAIT time has passed): start the cycle 
+2. In case the above is not true, keep on enqueueing. 
 
-So, in this case, no invariant in the location 
-is used. As a result, the x&gt;=MAX_WAIT can 
-be safely negated, without taking into 
-account the "="
+So, in this case, no invariant in the location is used. 
+As a result, the x&gt;=MAX_WAIT can be safely negated, without 
+taking into account the "="
 
-Note that the sync input requests[e]? cannot
-create a deadlock: An extra location might 
-be created, thus splitting the edge
-in two sequential edges. The first with 
-the guard and the second edge with the
-requests[e]? sync. The location 
-"enqueueing" could then by marked
-as "committed". It's clear that this doesn't
-create a deadlock. This was tested, but the 
-extra edge and location didn't outweigh 
-the committed location. As a result, the state
+Note that the sync input requests[e]? cannot create a 
+deadlock: An extra location might be created, thus 
+splitting the edge in two sequential edges. The first with 
+the guard and the second edge with the requests[e]? sync. 
+The location "enqueueing" could then by marked as 
+"committed". It's clear that this doesn't create a deadlock. 
+This was tested, but the extra edge and location didn't 
+outweigh  the committed location. As a result, the state
 space was being enlarged.</label>
 			<nail x="-1326" y="-1521"/>
 		</transition>
@@ -642,7 +636,7 @@ void set_dest_floor()
 			<source ref="id29"/>
 			<target ref="id24"/>
 			<label kind="guard" x="-2728" y="-2686">is_req_to_same_floor()</label>
-			<label kind="comments" x="-2728" y="-2771">IMPROVEMENT (ivo)
+			<label kind="comments" x="-2728" y="-2779">IMPROVEMENT (ivo)
 If the requested floor is 
 equal to the current 
 floor, shortcircuit the 
@@ -660,7 +654,7 @@ cycle and handle as served</label>
 			<label kind="guard" x="-2201" y="-2737">is_dest_reached()</label>
 			<label kind="synchronisation" x="-2201" y="-2720">reach_floor[e]?</label>
 			<label kind="assignment" x="-2202" y="-2703">adjust_current_floor()</label>
-			<label kind="comments" x="-2201" y="-2822">IMPROVEMENT (stefano)
+			<label kind="comments" x="-2201" y="-2830">IMPROVEMENT (stefano)
 Refer to the declaration 
 for the logic. Don't wait 
 "floor_time" for the stop! 
@@ -795,21 +789,19 @@ sync action to be taken</label>
 	<system>system cabin_door, protecting_door, engine, floor_sensors, button, dgc_request_handler, main_control;</system>
 	<queries>
 		<query>
-			<formula>A[] engine(0).e_moving_up imply cabin_door(0).cd_closed
+			<formula>A[] (engine(0).moving_up or engine(0).moving_down) imply (cabin_door(0).closed and protecting_door(0).closed)
 			</formula>
 			<comment>
 			</comment>
 		</query>
 		<query>
-			<formula>A[] ((dgc_request_handler(0).r_dequeued and dgc_request_handler(0).len == 3) imply dgc_request_handler(0).x &gt;= MAX_WAIT)
+			<formula>E&lt;&gt; dgc_request_handler(0).enqueueing and dgc_request_handler(0).is_full() and current_floor[0] == 0
 			</formula>
-			<comment>
-			</comment>
-		</query>
-		<query>
-			<formula>E&lt;&gt; dgc_request_handler(0).r_enqueueing and dgc_request_handler(0).len==MAX_SIZE
-			</formula>
-			<comment>
+			<comment>The formulation of the property is not succint enough. I interpret: "The amount of perceivable requests for one specifc elevator can reach the threshold value". 
+"perceivable" because in essence a button generates the requests and the model could (if enough information available) detect that the number of requests reaches a certain amount already in the button.
+ But because of the fact that the data structures that accumulates the requests is contained in the request_handler, I guess it is assumed that this is not the case.
+"specific": I guess the property holds for just one elevator, and not the total amount of requests in the system (for all elevators). Again for the same reason as previously stated
+
 			</comment>
 		</query>
 		<query>
