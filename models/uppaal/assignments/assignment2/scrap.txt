@@ -1,74 +1,18 @@
-bool up = false;
-id_f target_floor = 0;
+A[] (
+        main_control(0).dest_reached imply 
+            ((main_control(0).target_floor == 0) or (main_control(0).target_floor == 1))
+            or 
+        main_control(1).dest_reached imply 
+            ((main_control(1).target_floor == 2) or (main_control(1).target_floor == 3)) 
+            or
+        main_control(2).dest_reached imply 
+            ((main_control(2).target_floor == 4) or (main_control(2).target_floor == 5) or 
+             (main_control(2).target_floor == 6))
+    )
 
-// function that returns true if the destination floor is JUST ABOUT to be reached
-bool is_dest_reached()
-{
-    if (up == true && (current_floor[e] + 1) >= target_floor)
-        up == false && (current_floor[e] - 1) <= target_floor)
-    {
-        return true;
-    }
-    else 
-    {
-        return false;
-    }
-}
 
-void go_up() 
-{
-    up = true;
-}
 
-void go_down() 
-{
-    up = false;
-}
+    A[] (main_control(0).dest_reached imply (main_control(0).target_floor == 0 or 
+       main_control(0).target_floor = 1 or main_control(0).target_floor = 2 or main_control(0).target_floor = 3))
 
-// returns true if the elevator must go up
-bool is_must_go_up ()
-{
-    if (current_floor[e] < target_floor) 
-    {
-        return true;
-    }
-    else 
-    {
-        return false;
-    }
-}
-
-// convenience method that returns true if the elevator must go down
-bool is_must_go_down ()
-{
-    return !is_must_go_up();
-}
-
-// This function adjusts the current_floor, depending of the movement of direction
-void adjust_current_floor()
-{
-    if (is_must_go_up()) 
-    {
-        current_floor[e]++;
-    }
-    else 
-    {
-        current_floor[e]--;
-    }
-    //register_floor_reached(current_floor[e]);
-}
-
-// Check whether the requested floor is to the same floor
-bool is_req_to_same_floor() 
-{
-    return (target_floor == current_floor[e]);
-}
-
-// Set current floor equal to the target floor and
-// reset target floor because of state-space reasons
-void reset() 
-{
-    current_floor[e] = target_floor;
-    target_floor = 0;
-    up = false;
-}
+    A[] (main_control(0).dest_reached imply ((main_control(0).target_floor == 0) or (main_control(0).target_floor = 3)))
