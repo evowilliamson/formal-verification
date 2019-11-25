@@ -1,18 +1,43 @@
 A[] (
-        main_control(0).dest_reached imply 
-            ((main_control(0).target_floor == 0) or (main_control(0).target_floor == 1))
-            or 
-        main_control(1).dest_reached imply 
-            ((main_control(1).target_floor == 2) or (main_control(1).target_floor == 3)) 
-            or
-        main_control(2).dest_reached imply 
-            ((main_control(2).target_floor == 4) or (main_control(2).target_floor == 5) or 
-             (main_control(2).target_floor == 6))
+        (main_control(0).dest_reached imply 
+            ((main_control(0).current_floor == 0) or (main_control(0).current_floor == 1) or
+             (main_control(0).current_floor == 2) or (main_control(0).current_floor == 3)))
+            and
+        (main_control(1).dest_reached imply 
+            ((main_control(1).current_floor == 0) or (main_control(1).current_floor == 4) or 
+             (main_control(1).current_floor == 5) or (main_control(1).current_floor == 6)
+             (main_control(1).current_floor == 7)))
+            and
+        (main_control(2).dest_reached imply 
+            ((main_control(2).current_floor == 0) or (main_control(2).current_floor == 8) or 
+             (main_control(2).current_floor == 9) or (main_control(2).current_floor == 10)))
     )
 
+A[] (
+        (main_control(0).dest_reached imply 
+            ((main_control(0).current_floor == 0) or (main_control(0).current_floor == 1)))
+            and
+        (main_control(1).dest_reached imply 
+            ((main_control(1).current_floor == 0) or (main_control(1).current_floor == 2) or 
+             (main_control(1).current_floor == 3)))
+            and
+        (main_control(2).dest_reached imply 
+            ((main_control(2).current_floor == 0) or (main_control(2).current_floor == 4) or 
+             (main_control(2).current_floor == 5) or (main_control(2).current_floor == 6)))
+    )
 
-
-    A[] (main_control(0).dest_reached imply (main_control(0).target_floor == 0 or 
-       main_control(0).target_floor = 1 or main_control(0).target_floor = 2 or main_control(0).target_floor = 3))
-
-    A[] (main_control(0).dest_reached imply ((main_control(0).target_floor == 0) or (main_control(0).target_floor = 3)))
+A[] (
+        (main_control(0).dest_reached imply 
+            ((main_control(0).current_floor == 2) or (main_control(0).current_floor == 3) or
+             (main_control(0).current_floor == 4) or (main_control(0).current_floor == 5) or
+             (main_control(0).current_floor == 6)))
+            and
+        (main_control(1).dest_reached imply 
+            ((main_control(1).current_floor == 0) or (main_control(1).current_floor == 1) or
+             (main_control(1).current_floor == 4) or (main_control(1).current_floor == 5) or
+             (main_control(1).current_floor == 6)))
+            and
+        (main_control(2).dest_reached imply 
+            ((main_control(2).current_floor == 0) or (main_control(2).current_floor == 1) or
+             (main_control(2).current_floor == 2) or (main_control(2).current_floor == 3)))
+    )

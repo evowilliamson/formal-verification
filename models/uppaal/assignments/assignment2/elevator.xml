@@ -11,8 +11,18 @@ const int MAX_WAIT = 4;                // maximum amount of wait time before ele
                                        // Don't set MAX_WAIT too high, as this increases the state-space
 */
 
-int a = 100;
+/*
 // Property 4
+const int NO_FLOORS = 7;               // number of floors including the base floor
+const int NO_ELEVATORS = 3;            // number of elevators
+const int MAX_SIZE = 1;                // maximum amount of requests per elevator before it takes off
+const int DOOR_TIME = 1;               // time it takes to close the door
+const int FLOOR_TIME = 1;              // time to travel one floor
+// IMPROVEMENT (stefano):
+const int MAX_WAIT = 1;                // maximum amount of wait time before elevator runs with at least 1 person 
+*/
+
+// Property 4 extreme
 const int NO_FLOORS = 11;               // number of floors including the base floor
 const int NO_ELEVATORS = 3;            // number of elevators
 const int MAX_SIZE = 1;                // maximum amount of requests per elevator before it takes off
@@ -604,7 +614,7 @@ bool is_req_to_same_floor()
 
 // Set current floor equal to the target floor and
 // reset target floor because of state-space reasons
-void reset() 
+void reset_floors() 
 {
     current_floor = target_floor;
     target_floor = 0;
@@ -614,7 +624,8 @@ void reset()
 void get_target_floor() 
 {
     target_floor = target_floor_shared[e];
-}</declaration>
+}
+</declaration>
 		<location id="id22" x="-2218" y="-2847">
 			<name x="-2261" y="-2881">dest_reached</name>
 			<committed/>
@@ -670,13 +681,13 @@ Big state-space reduction</label>
 			<source ref="id22"/>
 			<target ref="id25"/>
 			<label kind="synchronisation" x="-2592" y="-2873">stop[e]!</label>
-			<label kind="assignment" x="-2533" y="-2873">reset()</label>
 		</transition>
 		<transition>
 			<source ref="id29"/>
 			<target ref="id22"/>
 			<label kind="guard" x="-2201" y="-2737">is_dest_reached()</label>
 			<label kind="synchronisation" x="-2201" y="-2720">reach_floor[e]?</label>
+			<label kind="assignment" x="-2201" y="-2703">reset_floors()</label>
 			<label kind="comments" x="-2201" y="-2830">IMPROVEMENT (stefano)
 Refer to the declaration 
 for the logic. Don't wait 
@@ -813,15 +824,37 @@ sync action to be taken</label>
 		<query>
 			<formula>A[] (
         (main_control(0).dest_reached imply 
-            ((main_control(0).target_floor == 0) or (main_control(0).target_floor == 1)))
-            or 
+            ((main_control(0).current_floor == 0) or (main_control(0).current_floor == 1) or
+             (main_control(0).current_floor == 2) or (main_control(0).current_floor == 3)))
+            and
         (main_control(1).dest_reached imply 
-            ((main_control(1).target_floor == 2) or (main_control(1).target_floor == 3)))
-            or
+            ((main_control(1).current_floor == 0) or (main_control(1).current_floor == 4) or 
+             (main_control(1).current_floor == 5) or (main_control(1).current_floor == 6)
+             (main_control(1).current_floor == 7)))
+            and
         (main_control(2).dest_reached imply 
-            ((main_control(2).target_floor == 4) or (main_control(2).target_floor == 5) or 
-             (main_control(2).target_floor == 6)))
+            ((main_control(2).current_floor == 0) or (main_control(2).current_floor == 8) or 
+             (main_control(2).current_floor == 9) or (main_control(2).current_floor == 10)))
     )
+
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>A[] (
+        (main_control(0).dest_reached imply 
+            ((main_control(0).current_floor == 0) or (main_control(0).current_floor == 1)))
+            and
+        (main_control(1).dest_reached imply 
+            ((main_control(1).current_floor == 0) or (main_control(1).current_floor == 2) or 
+             (main_control(1).current_floor == 3)))
+            and
+        (main_control(2).dest_reached imply 
+            ((main_control(2).current_floor == 0) or (main_control(2).current_floor == 4) or 
+             (main_control(2).current_floor == 5) or (main_control(2).current_floor == 6)))
+    )
+
 			</formula>
 			<comment>
 			</comment>
