@@ -1,3 +1,5 @@
+Property 4
+
 good:
 A[] (
         (main_control(0).dest_reached imply 
@@ -81,6 +83,22 @@ A[] dgc_request_handler(0).check_timer imply
 
 (dgc_request_handler(0).check_timer) 
 --> 
+(main_control(0).handle_served)
+
+(dgc_request_handler(0).enqueueing) 
+--> 
+(dgc_request_handler(0).finished)
+
+(dgc_request_handler(0).check_timer) 
+--> 
+(dgc_request_handler(0).finished)
+
+(dgc_request_handler(0).request_ack) 
+--> 
+(main_control(0).dest_reached)
+
+(main_control(0).door_closing) 
+--> 
 (main_control(0).dest_reached)
 
 check_timer
@@ -129,7 +147,160 @@ check_timer
  -->
 (main_control(0))
 
-(button.request_made and button.req_floor != 0)
+(button.request_issued and button.requested_floor != 0)
  -->
-(dgc_request_handler(0).running)
+(
+    main_control(0).dest_reached or 
+    main_control(1).dest_reached or
+    main_control(2).dest_reached
+)
+
+
+
+
+(   dgc_request_handler(0).request_ack and 
+        dgc_request_handler(0).req_floor == 1
+)
+or
+(   dgc_request_handler(1).request_ack and 
+        (   dgc_request_handler(1).req_floor == 2 or    
+            dgc_request_handler(1).req_floor == 3)
+)
+ -->
+(
+    main_control(0).dest_reached and 
+        main_control(0).current_floor == dgc_request_handler(0).req_floor
+) or
+(
+    main_control(1).dest_reached and
+        main_control(1).current_floor == dgc_request_handler(1).req_floor
+) 
+
+
+
+(   dgc_request_handler(0).request_ack and 
+        dgc_request_handler(0).req_floor == 1
+)
+ -->
+(
+    main_control(0).dest_reached and main_control(0).current_floor == 1
+) 
+
+
+(   dgc_request_handler(1).request_ack and 
+        (   dgc_request_handler(1).req_floor == 2 or    
+            dgc_request_handler(1).req_floor == 3)
+)
+ -->
+(
+    main_control(1).handle_served and
+    (   
+        main_control(0).current_floor == 2 or
+        main_control(0).current_floor == 3
+    )
+) 
+
+
+
+
+
+(   dgc_request_handler(1).request_ack and 
+        (   dgc_request_handler(1).req_floor == 2)
+)
+ -->
+(
+    main_control(1).dest_reached and
+    (   
+        main_control(1).current_floor == 2
+    )
+) 
+
+(   dgc_request_handler(0).request_ack and 
+        dgc_request_handler(0).req_floor == 1
+)
+ -->
+(
+    main_control(0).dest_reached and main_control(0).current_floor == 1
+) 
+
+
+(   dgc_request_handler(1).request_ack and 
+        (   dgc_request_handler(1).req_floor == 3)
+)
+ -->
+(
+    main_control(1).dest_reached and
+    (   
+        main_control(1).current_floor == 3
+    )
+) 
+
+
+
+Property 5
+
+
+(   dgc_request_handler(0).request_ack and 
+        dgc_request_handler(0).req_floor == 1
+)
+or
+(   dgc_request_handler(1).request_ack and 
+        (   dgc_request_handler(1).req_floor == 2 or    
+            dgc_request_handler(1).req_floor == 3)
+)
+or
+(   dgc_request_handler(1).request_ack and 
+        (   dgc_request_handler(2).req_floor == 4 or    
+            dgc_request_handler(2).req_floor == 5 or
+            dgc_request_handler(2).req_floor == 6)
+)
+ -->
+(
+    main_control(0).dest_reached and 
+        main_control(0).current_floor == dgc_request_handler(0).req_floor
+) or
+(
+    main_control(1).dest_reached and
+        main_control(1).current_floor == dgc_request_handler(1).req_floor
+) or
+(
+    main_control(2).dest_reached and
+        main_control(2).current_floor == dgc_request_handler(2).req_floor
+)
+
+
+
+
+
+
+
+Property 5, separates
+
+
+(dgc_request_handler(0).request_ack and dgc_request_handler(0).req_floor == 1)
+-->
+(main_control(0).dest_reached and main_control(0).current_floor == 1)
+
+(dgc_request_handler(1).request_ack and dgc_request_handler(1).req_floor == 2)
+-->
+(main_control(1).dest_reached and main_control(1).current_floor == 2)
+
+(dgc_request_handler(1).request_ack and dgc_request_handler(1).req_floor == 3)
+-->
+(main_control(1).dest_reached and main_control(1).current_floor == 3)
+
+(dgc_request_handler(2).request_ack and dgc_request_handler(2).req_floor == 4)
+-->
+(main_control(2).dest_reached and main_control(2).current_floor == 4)
+
+(dgc_request_handler(2).request_ack and dgc_request_handler(2).req_floor == 5)
+-->
+(main_control(2).dest_reached and main_control(2).current_floor == 5)
+
+(dgc_request_handler(2).request_ack and dgc_request_handler(2).req_floor == 6)
+-->
+(main_control(2).dest_reached and main_control(2).current_floor == 6)
+
+
+
 
