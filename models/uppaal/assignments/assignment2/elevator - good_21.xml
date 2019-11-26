@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
-	<declaration>/*const int NO_FLOORS = 4;               // number of floors including the base floor
+	<declaration>const int NO_FLOORS = 4;               // number of floors including the base floor
 const int NO_ELEVATORS = 2;            // number of elevators
 const int MAX_SIZE = 5;                // maximum amount of requests per elevator before it takes off
 const int DOOR_TIME = 1;               // time it takes to close the door
 const int FLOOR_TIME = 1;              // time to travel one floor
 // IMPROVEMENT (stefano):
 const int MAX_WAIT = 4;                // maximum amount of wait time before elevator runs with at least 1 person 
-                                       // Don't set MAX_WAIT too high, as this increases the state-space
-*/
 
 /*
 // Property 4
@@ -21,7 +19,7 @@ const int FLOOR_TIME = 1;              // time to travel one floor
 // IMPROVEMENT (stefano):
 const int MAX_WAIT = 1;                // maximum amount of wait time before elevator runs with at least 1 person 
 */
-
+/*
 // Property 4 extreme
 const int NO_FLOORS = 11;               // number of floors including the base floor
 const int NO_ELEVATORS = 3;            // number of elevators
@@ -30,7 +28,7 @@ const int DOOR_TIME = 1;               // time it takes to close the door
 const int FLOOR_TIME = 1;              // time to travel one floor
 // IMPROVEMENT (stefano):
 const int MAX_WAIT = 1;                // maximum amount of wait time before elevator runs with at least 1 person 
-
+*/
 typedef int[0, NO_FLOORS - 1] id_f;    // floor id from 0 to NO_FLOORS - 1
 typedef int[0, NO_ELEVATORS - 1] id_e; // elevator id from 0 to NO_ELEVATORS - 1
 
@@ -836,7 +834,6 @@ sync action to be taken</label>
             ((main_control(2).current_floor == 0) or (main_control(2).current_floor == 8) or 
              (main_control(2).current_floor == 9) or (main_control(2).current_floor == 10)))
     )
-
 			</formula>
 			<comment>
 			</comment>
@@ -854,7 +851,6 @@ sync action to be taken</label>
             ((main_control(2).current_floor == 0) or (main_control(2).current_floor == 4) or 
              (main_control(2).current_floor == 5) or (main_control(2).current_floor == 6)))
     )
-
 			</formula>
 			<comment>
 			</comment>

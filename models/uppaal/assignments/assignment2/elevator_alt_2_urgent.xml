@@ -7,10 +7,29 @@ const int MAX_SIZE = 5;                // maximum amount of requests per elevato
 const int DOOR_TIME = 1;               // time it takes to close the door
 const int FLOOR_TIME = 1;              // time to travel one floor
 // IMPROVEMENT (stefano):
-const int MAX_WAIT = 4;                // maximum amount of wait time before elevator runs with at least 1 person 
+const int MAX_WAIT = 5;                // maximum amount of wait time before elevator runs with at least 1 person 
                                        // Don't set MAX_WAIT too high, as this increases the state-space
+/*
+// Property 4
+const int NO_FLOORS = 7;               // number of floors including the base floor
+const int NO_ELEVATORS = 3;            // number of elevators
+const int MAX_SIZE = 1;                // maximum amount of requests per elevator before it takes off
+const int DOOR_TIME = 1;               // time it takes to close the door
+const int FLOOR_TIME = 1;              // time to travel one floor
+// IMPROVEMENT (stefano):
+const int MAX_WAIT = 1;                // maximum amount of wait time before elevator runs with at least 1 person 
+*/
 
-
+/*
+// Property 4 extreme
+const int NO_FLOORS = 11;               // number of floors including the base floor
+const int NO_ELEVATORS = 3;            // number of elevators
+const int MAX_SIZE = 1;                // maximum amount of requests per elevator before it takes off
+const int DOOR_TIME = 1;               // time it takes to close the door
+const int FLOOR_TIME = 1;              // time to travel one floor
+// IMPROVEMENT (stefano):
+const int MAX_WAIT = 1;                // maximum amount of wait time before elevator runs with at least 1 person 
+*/
 typedef int[0, NO_FLOORS - 1] id_f;    // floor id from 0 to NO_FLOORS - 1
 typedef int[0, NO_ELEVATORS - 1] id_e; // elevator id from 0 to NO_ELEVATORS - 1
 
@@ -304,12 +323,10 @@ void set_target_floor(id_f floor_no)
 }
 
 </declaration>
-		<location id="id7" x="-1861" y="-1742">
-			<name x="-1955" y="-1768">check_timer</name>
-			<committed/>
+		<location id="id7" x="-1615" y="-1742">
 		</location>
-		<location id="id8" x="-1615" y="-1742">
-			<name x="-1606" y="-1734">checking_eligibility</name>
+		<location id="id8" x="-1861" y="-1742">
+			<name x="-1955" y="-1768">request_ack</name>
 			<committed/>
 		</location>
 		<location id="id9" x="-1861" y="-1521">
@@ -323,10 +340,34 @@ void set_target_floor(id_f floor_no)
 		<location id="id11" x="-1615" y="-1300">
 			<name x="-1640" y="-1283">running</name>
 		</location>
-		<location id="id12" x="-1614" y="-1521">
-			<name x="-1598" y="-1513">enqueueing</name>
+		<location id="id12" x="-1615" y="-1521">
+			<name x="-1599" y="-1513">enqueueing</name>
+			<urgent/>
 		</location>
 		<init ref="id9"/>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id8"/>
+			<label kind="select" x="-1802" y="-1819">sel_floor: id_f</label>
+			<label kind="guard" x="-1802" y="-1802">is_req_for_elevator(sel_floor)</label>
+			<label kind="synchronisation" x="-1802" y="-1785">requests[sel_floor]?</label>
+			<label kind="assignment" x="-1802" y="-1768">enqueue(sel_floor)</label>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id12"/>
+			<label kind="select" x="-1360" y="-1683">sel_floor: id_f</label>
+			<label kind="guard" x="-1360" y="-1649">!is_req_for_elevator(sel_floor)</label>
+			<label kind="synchronisation" x="-1360" y="-1666">requests[sel_floor]?</label>
+			<nail x="-1377" y="-1742"/>
+			<nail x="-1377" y="-1555"/>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-1606" y="-1649">!is_full() &amp;&amp; 
+(is_empty() || x &lt; MAX_WAIT)</label>
+		</transition>
 		<transition>
 			<source ref="id10"/>
 			<target ref="id11"/>
@@ -341,7 +382,7 @@ dequeue()</label>
 			<source ref="id12"/>
 			<target ref="id11"/>
 			<label kind="guard" x="-1343" y="-1453">is_full() || 
-(!is_empty() &amp;&amp; x&gt;=MAX_WAIT)</label>
+(!is_empty() &amp;&amp; x &gt;= MAX_WAIT)</label>
 			<label kind="synchronisation" x="-1343" y="-1419">go[e]!</label>
 			<label kind="assignment" x="-1343" y="-1402">enqueue(BASE_FLOOR), 
 set_target_floor(front()), 
@@ -351,10 +392,10 @@ reset_timer()</label>
 			<nail x="-1351" y="-1300"/>
 		</transition>
 		<transition>
-			<source ref="id7"/>
-			<target ref="id7"/>
-			<label kind="guard" x="-1776" y="-1708">!is_timer_started()</label>
-			<label kind="assignment" x="-1776" y="-1691">start_timer()</label>
+			<source ref="id8"/>
+			<target ref="id8"/>
+			<label kind="guard" x="-1836" y="-1657">!is_timer_started()</label>
+			<label kind="assignment" x="-1836" y="-1640">start_timer()</label>
 			<label kind="comments" x="-2040" y="-1691">IMPROVEMENT (stefano)
 Start the counter after
 the first request is
@@ -366,33 +407,10 @@ the cycle</label>
 			<nail x="-1836" y="-1683"/>
 		</transition>
 		<transition>
-			<source ref="id7"/>
+			<source ref="id8"/>
 			<target ref="id12"/>
 			<label kind="guard" x="-1785" y="-1572">is_timer_started()</label>
 			<nail x="-1861" y="-1564"/>
-		</transition>
-		<transition>
-			<source ref="id8"/>
-			<target ref="id7"/>
-			<label kind="guard" x="-1827" y="-1793">is_req_for_elevator(req_floor)</label>
-			<label kind="assignment" x="-1827" y="-1776">enqueue(req_floor), req_floor = 0</label>
-		</transition>
-		<transition>
-			<source ref="id12"/>
-			<target ref="id8"/>
-			<label kind="select" x="-1606" y="-1674">sel_floor_no: id_f</label>
-			<label kind="guard" x="-1606" y="-1657">!is_full() &amp;&amp; 
-(is_empty() || x&lt;MAX_WAIT)</label>
-			<label kind="synchronisation" x="-1606" y="-1623">requests[sel_floor_no]?</label>
-			<label kind="assignment" x="-1606" y="-1606">req_floor = sel_floor_no</label>
-		</transition>
-		<transition>
-			<source ref="id8"/>
-			<target ref="id12"/>
-			<label kind="guard" x="-1598" y="-1793">!is_req_for_elevator(req_floor)</label>
-			<label kind="assignment" x="-1598" y="-1776">req_floor = 0</label>
-			<nail x="-1351" y="-1742"/>
-			<nail x="-1351" y="-1555"/>
 		</transition>
 		<transition>
 			<source ref="id9"/>
@@ -804,14 +822,34 @@ sync action to be taken</label>
 		<query>
 			<formula>A[] (
         (main_control(0).dest_reached imply 
+            ((main_control(0).current_floor == 0) or (main_control(0).current_floor == 1) or
+             (main_control(0).current_floor == 2) or (main_control(0).current_floor == 3)))
+            and
+        (main_control(1).dest_reached imply 
+            ((main_control(1).current_floor == 0) or (main_control(1).current_floor == 4) or 
+             (main_control(1).current_floor == 5) or (main_control(1).current_floor == 6) or
+             (main_control(1).current_floor == 7)))
+            and
+        (main_control(2).dest_reached imply 
+            ((main_control(2).current_floor == 0) or (main_control(2).current_floor == 8) or 
+             (main_control(2).current_floor == 9) or (main_control(2).current_floor == 10)))
+    )
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>A[] (
+        (main_control(0).dest_reached imply 
             ((main_control(0).current_floor == 0) or (main_control(0).current_floor == 1)))
             and
         (main_control(1).dest_reached imply 
-            ((main_control(1).current_floor == 2) or (main_control(1).current_floor == 3)))
+            ((main_control(1).current_floor == 0) or (main_control(1).current_floor == 2) or 
+             (main_control(1).current_floor == 3)))
             and
         (main_control(2).dest_reached imply 
-            ((main_control(2).current_floor == 4) or (main_control(2).current_floor == 5) or 
-             (main_control(2).current_floor == 6)))
+            ((main_control(2).current_floor == 0) or (main_control(2).current_floor == 4) or 
+             (main_control(2).current_floor == 5) or (main_control(2).current_floor == 6)))
     )
 			</formula>
 			<comment>
@@ -835,13 +873,15 @@ sync action to be taken</label>
 			</comment>
 		</query>
 		<query>
-			<formula>(engine(0).moving_up or engine(0).moving_down) --&gt; cabin_door(0).closed and protecting_door(0).closed
+			<formula>A[] (engine(0).moving_up or engine(0).moving_down) imply (cabin_door(0).closed and protecting_door(0).closed)
 			</formula>
 			<comment>
 			</comment>
 		</query>
 		<query>
-			<formula>A[] (engine(0).moving_up or engine(0).moving_down) imply (cabin_door(0).closed and protecting_door(0).closed)
+			<formula>(dgc_request_handler(0).check_timer) 
+--&gt; 
+(main_control(0).handle_served)
 			</formula>
 			<comment>
 			</comment>
@@ -853,6 +893,14 @@ sync action to be taken</label>
 "perceivable" because in essence a button generates the requests and the model could (if enough information available) detect that the number of requests reaches a certain amount already in the button.
  But because of the fact that the data structures that accumulates the requests is contained in the request_handler, I guess it is assumed that this is not the case.
 "specific": I guess the property holds for just one elevator, and not the total amount of requests in the system (for all elevators). Again for the same reason as previously stated
+			</comment>
+		</query>
+		<query>
+			<formula>(dgc_request_handler(0).request_ack) 
+--&gt; 
+(main_control(0).handle_served)
+			</formula>
+			<comment>
 			</comment>
 		</query>
 		<query>

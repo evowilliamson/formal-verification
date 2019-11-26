@@ -1,3 +1,4 @@
+good:
 A[] (
         (main_control(0).dest_reached imply 
             ((main_control(0).current_floor == 0) or (main_control(0).current_floor == 1) or
@@ -5,14 +6,14 @@ A[] (
             and
         (main_control(1).dest_reached imply 
             ((main_control(1).current_floor == 0) or (main_control(1).current_floor == 4) or 
-             (main_control(1).current_floor == 5) or (main_control(1).current_floor == 6)
+             (main_control(1).current_floor == 5) or (main_control(1).current_floor == 6) or
              (main_control(1).current_floor == 7)))
             and
         (main_control(2).dest_reached imply 
             ((main_control(2).current_floor == 0) or (main_control(2).current_floor == 8) or 
              (main_control(2).current_floor == 9) or (main_control(2).current_floor == 10)))
     )
-
+good too:
 A[] (
         (main_control(0).dest_reached imply 
             ((main_control(0).current_floor == 0) or (main_control(0).current_floor == 1)))
@@ -41,3 +42,94 @@ A[] (
             ((main_control(2).current_floor == 0) or (main_control(2).current_floor == 1) or
              (main_control(2).current_floor == 2) or (main_control(2).current_floor == 3)))
     )
+
+
+A[] not
+    ( 
+        (engine(0).moving_up or engine(0).moving_down) and
+        (cabin_door(0).opened and protecting_door(0).opened)
+    )
+
+button.request_made --> 
+    ((main_control(0).dest_reached and main_control(0).current_floor = button.req_floor) or
+    (main_control(1).dest_reached and main_control(1).current_floor = button.req_floor) or
+    (main_control(2).dest_reached and main_control(2).current_floor = button.req_floor))
+
+
+button.request_made --> (
+    ((main_control(0).dest_reached and main_control(0).current_floor = button.req_floor) or
+    (main_control(1).dest_reached and main_control(1).current_floor = button.req_floor)))
+
+button.request_made --> (main_control(0).dest_reached or main_control(1).dest_reached)
+
+main_control(0).request_received --> main_control(0).dest_reached
+
+
+dgc_request_handler(0).check_timer --> main_control(0).dest_reached
+dgc_request_handler(0).check_timer --> dgc_request_handler(0).running
+dgc_request_handler(0).check_timer --> dgc_request_handler(0).enqueueing
+
+A[] dgc_request_handler(0).check_timer imply 
+
+(dgc_request_handler(0).request_ack and dgc_request_handler(0).len == MAX_SIZE) --> dgc_request_handler(0).running
+(dgc_request_handler(0).request_ack and dgc_request_handler(0).is_full()) --> dgc_request_handler(0).running
+
+
+(dgc_request_handler(0).request_ack and button.req_floor == 2) 
+--> 
+(main_control(0).dest_reached and main_control(0).current_floor == 2)
+
+(dgc_request_handler(0).check_timer) 
+--> 
+(main_control(0).dest_reached)
+
+check_timer
+
+(button.request_made and button.req_floor != 0) 
+--> 
+(main_control(0).dest_reached and main_control(0).current_floor == dgc_request_handler(0))
+
+(button.request_made and button.req_floor == 2) 
+--> 
+(
+(main_control(1).dest_reached and main_control(1).current_floor == 2)
+)
+
+
+(dgc_request_handler(0).request_ack and button.req_floor != 0 && dgc_request_handler(0).len == MAX_SIZE) 
+--> 
+(dgc_request_handler(0).aa == 100)
+
+(dgc_request_handler(0).request_ack and button.req_floor != 0) 
+--> 
+(dgc_request_handler(0).aa == 100)
+
+
+(dgc_request_handler(0).request_ack and button.req_floor != 0) 
+--> 
+(main_control(0).request_received)
+
+(main_control(0).request_received and button.req_floor != 0) 
+--> 
+(main_control(0).dest_reached)
+
+
+(dgc_request_handler(0).request_ack and button.req_floor != 0 ) --> 
+(dgc_request_handler(0).enqueueing)
+
+(dgc_request_handler(0).request_ack and button.req_floor != 0 ) --> 
+(main_control(0).request_received)
+
+
+(button.request_made and button.req_floor != 0)
+ -->
+(main_control(0).dest_reached or main_control(1).dest_reached or main_control(2).dest_reached)
+
+(button.request_made and button.req_floor != 0)
+ -->
+(main_control(0))
+
+(button.request_made and button.req_floor != 0)
+ -->
+(dgc_request_handler(0).running)
+
