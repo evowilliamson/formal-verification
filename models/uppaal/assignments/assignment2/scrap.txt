@@ -239,21 +239,30 @@ or
 
 Property 5, -->
 
-Originating from button
+Originating from button :-(
 
 (button.request_issued and button.requested_floor != 0)
 -->
 (
+    dgc_request_handler(0).req_floor != 0 and
     main_control(0).dest_reached and 
         (main_control(0).current_floor == button.requested_floor)
 ) or
 (
+    dgc_request_handler(1).req_floor != 0 and
     main_control(1).dest_reached and 
         (main_control(1).current_floor == button.requested_floor) 
 )
 
-(button.request_issued and 
-    button.requested_floor >= 1 and button.requested_floor <= 3) 
+
+
+
+// Still the best here!!!
+(   button.requested_floor >= 1 and button.requested_floor <= 3) 
+    and
+(   dgc_request_handler(0).request_ack or 
+    dgc_request_handler(1).request_ack
+)
 -->
 (
     main_control(0).dest_reached and 
@@ -263,33 +272,32 @@ Originating from button
         (main_control(1).current_floor == 2 or main_control(1).current_floor == 3)
 ) 
 
+The reaon that button.request_issued is not included as the initial action is
+that for liveness sake, the situation that a handler gets into the situation 
+where always an incorrect floor number is received, must be avoided. UPPAAL
+sees this an infinite loop and thus it says liveness is not achieved. 
+Using the button.request_issued state as the first part in the livenes check,
+wouldn't make it possible to check for req_floor in the handler.
+
+So, instead, the request_ack state is used as the starting point, but in order
+to include the button in the liveness property check, the button.requested_floor
+is also checked (this variable was already set before)...
+
+
 
 Property 5, separates
 
-
-(dgc_request_handler(0).request_ack and dgc_request_handler(0).req_floor == 1)
+(   button.requested_floor == 1 and dgc_request_handler(0).request_ack)
 -->
-(main_control(0).dest_reached and main_control(0).current_floor == 1)
+(   main_control(0).dest_reached and main_control(0).current_floor == 1) 
 
-(dgc_request_handler(1).request_ack and dgc_request_handler(1).req_floor == 2)
+(   button.requested_floor == 2 and dgc_request_handler(1).request_ack)
 -->
-(main_control(1).dest_reached and main_control(1).current_floor == 2)
+(   main_control(1).dest_reached and main_control(0).current_floor == 2) 
 
-(dgc_request_handler(1).request_ack and dgc_request_handler(1).req_floor == 3)
+(   button.requested_floor == 3 and dgc_request_handler(1).request_ack)
 -->
-(main_control(1).dest_reached and main_control(1).current_floor == 3)
-
-(dgc_request_handler(2).request_ack and dgc_request_handler(2).req_floor == 4)
--->
-(main_control(2).dest_reached and main_control(2).current_floor == 4)
-
-(dgc_request_handler(2).request_ack and dgc_request_handler(2).req_floor == 5)
--->
-(main_control(2).dest_reached and main_control(2).current_floor == 5)
-
-(dgc_request_handler(2).request_ack and dgc_request_handler(2).req_floor == 6)
--->
-(main_control(2).dest_reached and main_control(2).current_floor == 6)
+(   main_control(1).dest_reached and main_control(1).current_floor == 3) 
 
 Property 5, AF
 
