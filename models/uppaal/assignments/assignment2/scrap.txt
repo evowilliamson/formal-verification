@@ -237,41 +237,31 @@ or
 
 
 
-Property 5
+Property 5, -->
 
+Originating from button
 
-(   dgc_request_handler(0).request_ack and 
-        dgc_request_handler(0).req_floor == 1
-)
-or
-(   dgc_request_handler(1).request_ack and 
-        (   dgc_request_handler(1).req_floor == 2 or    
-            dgc_request_handler(1).req_floor == 3)
-)
-or
-(   dgc_request_handler(1).request_ack and 
-        (   dgc_request_handler(2).req_floor == 4 or    
-            dgc_request_handler(2).req_floor == 5 or
-            dgc_request_handler(2).req_floor == 6)
-)
- -->
+(button.request_issued and button.requested_floor != 0)
+-->
 (
     main_control(0).dest_reached and 
-        main_control(0).current_floor == dgc_request_handler(0).req_floor
+        (main_control(0).current_floor == button.requested_floor)
 ) or
 (
-    main_control(1).dest_reached and
-        main_control(1).current_floor == dgc_request_handler(1).req_floor
-) or
-(
-    main_control(2).dest_reached and
-        main_control(2).current_floor == dgc_request_handler(2).req_floor
+    main_control(1).dest_reached and 
+        (main_control(1).current_floor == button.requested_floor) 
 )
 
-
-
-
-
+(button.request_issued and 
+    button.requested_floor >= 1 and button.requested_floor <= 3) 
+-->
+(
+    main_control(0).dest_reached and 
+        (main_control(0).current_floor == 1)
+        or
+    main_control(1).dest_reached and 
+        (main_control(1).current_floor == 2 or main_control(1).current_floor == 3)
+) 
 
 
 Property 5, separates
@@ -301,6 +291,99 @@ Property 5, separates
 -->
 (main_control(2).dest_reached and main_control(2).current_floor == 6)
 
+Property 5, AF
+
+A<> 
+(
+    (main_control(0).dest_reached and main_control(0).target_floor != 0) or
+    (main_control(1).dest_reached and main_control(1).target_floor != 0) or
+    (main_control(2).dest_reached and main_control(2).target_floor != 0)
+)
+
+E<> 
+(
+    (main_control(0).dest_reached and main_control(0).target_floor != 0) or
+    (main_control(1).dest_reached and main_control(1).target_floor != 0) or
+    (main_control(2).dest_reached and main_control(2).target_floor != 0)
+)
+
+
+Property 6
+
+The serve action happens after the doors open. So basically what needs to 
+be checked is that after the serve has happended, the doors are still open
+so that the people can leave the cabin. This is a safety property 
+
+A[] 
+(
+    dgc_request_handler(0).finished imply 
+        (protecting_door(0).opened and cabin_door(0).opened)  or
+    dgc_request_handler(1).finished imply 
+        (protecting_door(1).opened and cabin_door(1).opened)  or
+    dgc_request_handler(2).finished imply
+        (protecting_door(2).opened and cabin_door(2).opened) 
+)
+
+A[] 
+(
+    dgc_request_handler(0).finished imply 
+        (protecting_door(0).opened and cabin_door(0).opened) 
+)
+
+A[] 
+(
+    (dgc_request_handler(0).finished imply 
+        (protecting_door(0).opened and cabin_door(0).opened))
+        or
+    (dgc_request_handler(1).finished imply 
+        (protecting_door(1).opened and cabin_door(1).opened))
+        or
+    (dgc_request_handler(2).finished imply
+        (protecting_door(2).opened and cabin_door(2).opened))
+)
 
 
 
+Property 3.
+
+E<> 
+(
+    ((dgc_request_handler(0).len == MAX_SIZE)
+        and 
+    (main_control(0).current_floor == 0))
+        or
+    ((dgc_request_handler(1).len == MAX_SIZE)
+        and 
+    (main_control(1).current_floor == 0))
+)
+
+E<> 
+(
+    (dgc_request_handler(0).len == (MAX_SIZE)
+        and 
+    (main_control(0).current_floor == 0))    
+)
+
+Property 2.
+
+A[] 
+(
+    (engine(0).moving_up or engine(0).moving_down) 
+        imply 
+    (cabin_door(0).closed and protecting_door(0).closed)
+)
+
+A[] 
+(
+    not
+    (
+        (engine(0).moving_up or engine(0).moving_down) 
+            and 
+        (cabin_door(0).opened or protecting_door(0).opened)
+    )
+)
+
+
+(button.request_issued and button.requested_floor == 1)
+-->
+(main_control(0).dest_reached and main_control(0).current_floor == 1)
