@@ -1,102 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
-	<declaration>/*
-
-Notes: 
-1. Add req_floor = 0 to all except Property 5
-2. Add specialized button with fixed floor generation pattern for Property 5. Others default to original
-3. Adding the f: id_f select construction adds enormous space-state explosion. Make it part of the final perf setup
-4. Adding shortcuit much faster (not really a performance issue, more a functional issue)
-5. Reducing protecting doors
-6. Note the target_floor reset after the stop. This is necessary for the prop 5 alt (AF).
-7. Added the x &lt;= 30 constraints to make the button comply with liveness for all liveness constraints
-*/
-
-const int NO_FLOORS = 4;               // number of floors including the base floor
+	<declaration>const int NO_FLOORS = 4;               // number of floors including the base floor
 const int NO_ELEVATORS = 2;            // number of elevators
 const int MAX_SIZE = 5;                // maximum amount of requests per elevator before it takes off
 const int DOOR_TIME = 1;               // time it takes to close the door
 const int FLOOR_TIME = 1;              // time to travel one floor
-// IMPROVEMENT (stefano):
 const int MAX_WAIT = 5;   
-
-/*
-button out
-const int NO_FLOORS = 3;               // number of floors including the base floor
-const int NO_ELEVATORS =21;            // number of elevators
-const int MAX_SIZE = 5;                // maximum amount of requests per elevator before it takes off
-const int DOOR_TIME = 1;               // time it takes to close the door
-const int FLOOR_TIME = 1;              // time to travel one floor
-// IMPROVEMENT (stefano):
-const int MAX_WAIT = 5;   
-*/
-/*
-
-const int NO_FLOORS = 4;               // number of floors including the base floor
-const int NO_ELEVATORS = 2;            // number of elevators
-const int MAX_SIZE = 5;                // maximum amount of requests per elevator before it takes off
-const int DOOR_TIME = 1;               // time it takes to close the door
-const int FLOOR_TIME = 1;              // time to travel one floor
-// IMPROVEMENT (stefano):
-const int MAX_WAIT = 5;   
-*/
-
-
-/*
-Property 6
-const int NO_FLOORS = 3;               // number of floors including the base floor
-const int NO_ELEVATORS = 2;            // number of elevators
-const int MAX_SIZE = 5;                // maximum amount of requests per elevator before it takes off
-const int DOOR_TIME = 1;               // time it takes to close the door
-const int FLOOR_TIME = 1;              // time to travel one floor
-// IMPROVEMENT (stefano):
-const int MAX_WAIT = 5;                // maximum amount of wait time before elevator runs with at least 1 person 
-                                       // Don't set MAX_WAIT too high, as this increases the state-space
-*/
-
-/*
-// Property 4
-const int NO_FLOORS = 7;               // number of floors including the base floor
-const int NO_ELEVATORS = 3;            // number of elevators
-const int MAX_SIZE = 1;                // maximum amount of requests per elevator before it takes off
-const int DOOR_TIME = 1;               // time it takes to close the door
-const int FLOOR_TIME = 1;              // time to travel one floor
-// IMPROVEMENT (stefano):
-const int MAX_WAIT = 1;                // maximum amount of wait time before elevator runs with at least 1 person 
-*/
-/*
-// Property 4 extreme
-const int NO_FLOORS = 11;               // number of floors including the base floor
-const int NO_ELEVATORS = 3;            // number of elevators
-const int MAX_SIZE = 1;                // maximum amount of requests per elevator before it takes off
-const int DOOR_TIME = 1;               // time it takes to close the door
-const int FLOOR_TIME = 1;              // time to travel one floor
-// IMPROVEMENT (stefano):
-const int MAX_WAIT = 1;                // maximum amount of wait time before elevator runs with at least 1 person 
-*/
-
-/*
-// Property 5, alt 1, --&gt;
-const int NO_FLOORS = 7;               // number of floors including the base floor
-const int NO_ELEVATORS = 3;            // number of elevators
-const int MAX_SIZE = 2;                // maximum amount of requests per elevator before it takes off
-const int DOOR_TIME = 1;               // time it takes to close the door
-const int FLOOR_TIME = 1;              // time to travel one floor
-// IMPROVEMENT (stefano):
-const int MAX_WAIT = 2;                // maximum amount of wait time before elevator runs with at least 1 person 
-*/
-
-/*
-// Property 5, alt 2, AF
-const int NO_FLOORS = 7;               // number of floors including the base floor
-const int NO_ELEVATORS = 3;            // number of elevators
-const int MAX_SIZE = 2;                // maximum amount of requests per elevator before it takes off
-const int DOOR_TIME = 1;               // time it takes to close the door
-const int FLOOR_TIME = 1;              // time to travel one floor
-// IMPROVEMENT (stefano):
-const int MAX_WAIT = 2;                // maximum amount of wait time before elevator runs with at least 1 person 
-*/
 
 typedef int[0, NO_FLOORS - 1] id_f;    // floor id from 0 to NO_FLOORS - 1
 typedef int[0, NO_ELEVATORS - 1] id_e; // elevator id from 0 to NO_ELEVATORS - 1
@@ -928,212 +838,37 @@ sync action to be taken</label>
 	<system>system cabin_door, protecting_door, engine, floor_sensors, button, dgc_request_handler, main_control;</system>
 	<queries>
 		<query>
-			<formula>A[] (
-        (main_control(0).dest_reached imply 
-            ((main_control(0).current_floor == 0) or (main_control(0).current_floor == 1) or
-             (main_control(0).current_floor == 2) or (main_control(0).current_floor == 3)))
-            and
-        (main_control(1).dest_reached imply 
-            ((main_control(1).current_floor == 0) or (main_control(1).current_floor == 4) or 
-             (main_control(1).current_floor == 5) or (main_control(1).current_floor == 6) or
-             (main_control(1).current_floor == 7)))
-            and
-        (main_control(2).dest_reached imply 
-            ((main_control(2).current_floor == 0) or (main_control(2).current_floor == 8) or 
-             (main_control(2).current_floor == 9) or (main_control(2).current_floor == 10)))
-    )
-			</formula>
-			<comment>Property 4 with 11 floors and 3 elevators
-			</comment>
-		</query>
-		<query>
-			<formula>A[] (
-        (main_control(0).dest_reached imply 
-            ((main_control(0).current_floor == 0) or (main_control(0).current_floor == 1)))
-            and
-        (main_control(1).dest_reached imply 
-            ((main_control(1).current_floor == 0) or (main_control(1).current_floor == 2) or 
-             (main_control(1).current_floor == 3)))
-            and
-        (main_control(2).dest_reached imply 
-            ((main_control(2).current_floor == 0) or (main_control(2).current_floor == 4) or 
-             (main_control(2).current_floor == 5) or (main_control(2).current_floor == 6)))
-    )
-			</formula>
-			<comment>Property 4 with 7 floors and 3 elevators
-			</comment>
-		</query>
-		<query>
-			<formula>E&lt;&gt;(A[] true)
-			</formula>
-			<comment>
-			</comment>
-		</query>
-		<query>
-			<formula>A[] (
-        main_control(0).dest_reached imply 
-            (
-                (main_control(0).target_floor == 0) 
-            )
-    )
-			</formula>
-			<comment>
-			</comment>
-		</query>
-		<query>
-			<formula>(engine(0).moving_up or engine(0).moving_down) --&gt; cabin_door(0).closed and protecting_door(0).closed
-			</formula>
-			<comment>
-			</comment>
-		</query>
-		<query>
-			<formula>(button.request_issued and button.requested_floor == 1)
---&gt;
-(main_control(0).dest_reached and main_control(0).current_floor == 1)
-			</formula>
-			<comment>
-			</comment>
-		</query>
-		<query>
-			<formula>A[] 
-(
-    not
-    (
-        (engine(0).moving_up or engine(0).moving_down) 
-            and 
-        (cabin_door(0).opened or protecting_door(0).opened)
-    )
+			<formula>(   button.requested_floor &gt;= 1 and button.requested_floor &lt;= 3) 
+    and
+(   dgc_request_handler(0).request_ack or 
+    dgc_request_handler(1).request_ack
 )
-			</formula>
-			<comment>Property 2:
-
-A[] 
+--&gt;
 (
-    (engine(0).moving_up or engine(0).moving_down) 
-        imply 
-    (cabin_door(0).closed and protecting_door(0).closed)
-)
+    main_control(0).dest_reached and 
+        (main_control(0).current_floor == 1)
+        or
+    main_control(1).dest_reached and 
+        (main_control(1).current_floor == 2 or main_control(1).current_floor == 3)
+) 
 
-A[] 
-(
-    not
-    (
-        (engine(0).moving_up or engine(0).moving_down) 
-            and 
-        (cabin_door(0).opened or protecting_door(0).opened)
-    )
-)
-			</comment>
-		</query>
-		<query>
-			<formula>(dgc_request_handler(0).request_ack and dgc_request_handler(0).req_floor == 1)
---&gt;
-(main_control(0).dest_reached and main_control(0).current_floor == 1)
 			</formula>
-			<comment>Property 5, each floor separate:
+			<comment>Property 5 All floor requests are eventually served, i.e., the elevator reaches its destination. 
 
-(dgc_request_handler(0).request_ack and dgc_request_handler(0).req_floor == 1)
---&gt;
-(main_control(0).dest_reached and main_control(0).current_floor == 1)
+Separate queries for individual elevators (except floor 0):
 
-(dgc_request_handler(1).request_ack and dgc_request_handler(1).req_floor == 2)
+(   button.requested_floor == 1 and dgc_request_handler(0).request_ack)
 --&gt;
-(main_control(1).dest_reached and main_control(1).current_floor == 2)
+(   main_control(0).dest_reached and main_control(0).current_floor == 1) 
 
-(dgc_request_handler(1).request_ack and dgc_request_handler(1).req_floor == 3)
---&gt;
-(main_control(1).dest_reached and main_control(1).current_floor == 3)
-
-(dgc_request_handler(2).request_ack and dgc_request_handler(2).req_floor == 4)
---&gt;
-(main_control(2).dest_reached and main_control(2).current_floor == 4)
-
-(dgc_request_handler(2).request_ack and dgc_request_handler(2).req_floor == 5)
---&gt;
-(main_control(2).dest_reached and main_control(2).current_floor == 5)
-
-(dgc_request_handler(2).request_ack and dgc_request_handler(2).req_floor == 6)
---&gt;
-(main_control(2).dest_reached and main_control(2).current_floor == 6)
-			</comment>
-		</query>
-		<query>
-			<formula>(   button.requested_floor == 2 and dgc_request_handler(1).request_ack)
+(   button.requested_floor == 2 and dgc_request_handler(1).request_ack)
 --&gt;
 (   main_control(1).dest_reached and main_control(0).current_floor == 2) 
 
-			</formula>
-			<comment>Property 5, from button
-			</comment>
-		</query>
-		<query>
-			<formula>(   dgc_request_handler(0).request_ack and 
-        dgc_request_handler(0).req_floor == 1
-)
-or
-(   dgc_request_handler(1).request_ack and 
-        (   dgc_request_handler(1).req_floor == 2 or    
-            dgc_request_handler(1).req_floor == 3)
-)
-or
-(   dgc_request_handler(1).request_ack and 
-        (   dgc_request_handler(2).req_floor == 4 or    
-            dgc_request_handler(2).req_floor == 5 or
-            dgc_request_handler(2).req_floor == 6)
-)
- --&gt;
-(
-    main_control(0).dest_reached and 
-        main_control(0).current_floor == dgc_request_handler(0).req_floor
-) or
-(
-    main_control(1).dest_reached and
-        main_control(1).current_floor == dgc_request_handler(1).req_floor
-) or
-(
-    main_control(2).dest_reached and
-        main_control(2).current_floor == dgc_request_handler(2).req_floor
-)
-			</formula>
-			<comment>Property 5
-			</comment>
-		</query>
-		<query>
-			<formula>E&lt;&gt; 
-(
-    (dgc_request_handler(0).len == (MAX_SIZE)
-        and 
-    (main_control(0).current_floor == 0))    
-)
-			</formula>
-			<comment>Property 3.
-	
-The formulation of the property is not succint enough. I interpret: "The amount of perceivable requests for one specifc elevator can reach the threshold value". 
-"perceivable" because in essence a button generates the requests and the model could (if enough information available) detect that the number of requests reaches a certain amount already in the button.
- But because of the fact that the data structures that accumulates the requests is contained in the request_handler, I guess it is assumed that this is not the case.
-"specific": I guess the property holds for just one elevator, and not the total amount of requests in the system (for all elevators). Again for the same reason as previously stated.
+(   button.requested_floor == 3 and dgc_request_handler(1).request_ack)
+--&gt;
+(   main_control(1).dest_reached and main_control(1).current_floor == 3) 
 
-I also would add an extra condition that states that the main controller is waiting..
-			</comment>
-		</query>
-		<query>
-			<formula>A[] 
-(
-    (dgc_request_handler(0).finished imply 
-        (protecting_door(0).opened and cabin_door(0).opened))
-        or
-    (dgc_request_handler(1).finished imply 
-        (protecting_door(1).opened and cabin_door(1).opened))
-        or
-    (dgc_request_handler(2).finished imply
-        (protecting_door(2).opened and cabin_door(2).opened))
-)
-			</formula>
-			<comment>Property 6
-
-The serve action happens after the doors open. So basically what needs to 
-be checked is that after the serve has happended, the doors are still open
-so that the people can leave the cabin. This is a safety property
 			</comment>
 		</query>
 		<query>

@@ -257,6 +257,17 @@ Originating from button :-(
 
 
 
+(button.request_issued and button.requested_floor == 2)
+-->
+(
+    dgc_request_handler(0).req_floor == 2 and
+    main_control(0).dest_reached and 
+        (main_control(0).current_floor == 2)
+)
+
+
+
+
 // Still the best here!!!
 (   button.requested_floor >= 1 and button.requested_floor <= 3) 
     and
@@ -395,3 +406,14 @@ A[]
 (button.request_issued and button.requested_floor == 1)
 -->
 (main_control(0).dest_reached and main_control(0).current_floor == 1)
+
+
+A[] 
+(
+    main_control(0).handle_served 
+        imply
+    main_control(0).s <= 
+        (main_control(0).floor_distance * FLOOR_TIME) + (2 * DOOR_TIME)
+)
+
+
