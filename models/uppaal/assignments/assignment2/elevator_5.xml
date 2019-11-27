@@ -665,6 +665,7 @@ void get_target_floor()
 			<committed/>
 		</location>
 		<location id="id29" x="-2736" y="-2626">
+			<name x="-2856" y="-2652">request_received</name>
 			<committed/>
 		</location>
 		<location id="id30" x="-2218" y="-2626">
@@ -850,8 +851,7 @@ sync action to be taken</label>
         or
     main_control(1).dest_reached and 
         (main_control(1).current_floor == 2 or main_control(1).current_floor == 3)
-) 
-
+)
 			</formula>
 			<comment>Property 5 All floor requests are eventually served, i.e., the elevator reaches its destination. 
 
@@ -867,8 +867,7 @@ Separate queries for individual elevators (except floor 0):
 
 (   button.requested_floor == 3 and dgc_request_handler(1).request_ack)
 --&gt;
-(   main_control(1).dest_reached and main_control(1).current_floor == 3) 
-
+(   main_control(1).dest_reached and main_control(1).current_floor == 3)
 			</comment>
 		</query>
 		<query>

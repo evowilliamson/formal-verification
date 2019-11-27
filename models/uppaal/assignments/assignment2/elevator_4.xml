@@ -334,9 +334,7 @@ void fake()
     {
         req_floor = 8;
     }
-}
-
-</declaration>
+}</declaration>
 		<location id="id7" x="-1861" y="-1742">
 			<name x="-1955" y="-1768">request_ack</name>
 			<committed/>
@@ -682,6 +680,18 @@ void get_target_floor()
 		</location>
 		<init ref="id31"/>
 		<transition>
+			<source ref="id28"/>
+			<target ref="id23"/>
+			<label kind="guard" x="-2728" y="-2686">is_req_to_same_floor()</label>
+			<label kind="comments" x="-2728" y="-2805">IMPROVEMENT (ivo)
+If the requested floor is 
+equal to the current 
+floor, shortcircuit the 
+cycle and handle as served. 
+Big state-space reduction</label>
+			<nail x="-2736" y="-2703"/>
+		</transition>
+		<transition>
 			<source ref="id22"/>
 			<target ref="id25"/>
 			<label kind="synchronisation" x="-2592" y="-2873">stop[e]!</label>
@@ -721,6 +731,7 @@ sync action to be taken</label>
 		<transition>
 			<source ref="id28"/>
 			<target ref="id26"/>
+			<label kind="guard" x="-2737" y="-2609">!is_req_to_same_floor()</label>
 			<label kind="synchronisation" x="-2737" y="-2592">close_door[e]!</label>
 		</transition>
 		<transition>

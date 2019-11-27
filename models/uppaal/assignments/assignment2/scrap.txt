@@ -116,13 +116,14 @@ or
 
 (
     dgc_request_handler(1).request_received and 
-    (dgc_request_handler(1).req_floor != 0)
+    (dgc_request_handler(1).req_floor >= 4 and 
+     dgc_request_handler(1).req_floor <= 6)
 ) 
 -->
 (
     main_control(1).dest_reached and 
-    ((main_control(1).current_floor >= 4 and main_control(1).current_floor <= 6) and
-    main_control(1).current_floor == dgc_request_handler(1).req_floor)
+    (((main_control(1).current_floor >= 4 and main_control(1).current_floor <= 6) 
+    or main_control(1).current_floor == 0))
 ) 
 
 
