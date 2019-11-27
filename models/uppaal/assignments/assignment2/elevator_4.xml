@@ -327,14 +327,7 @@ void set_target_floor(id_f floor_no)
 {
     target_floor_shared[e] = floor_no;
 }
-
-void fake() 
-{
-    if (e == 1 and req_floor == 4) 
-    {
-        req_floor = 8;
-    }
-}</declaration>
+</declaration>
 		<location id="id7" x="-1861" y="-1742">
 			<name x="-1955" y="-1768">request_ack</name>
 			<committed/>
@@ -408,7 +401,7 @@ the cycle</label>
 			<source ref="id8"/>
 			<target ref="id7"/>
 			<label kind="guard" x="-1827" y="-1793">is_req_for_elevator(req_floor)</label>
-			<label kind="assignment" x="-1870" y="-1776">fake(), enqueue(req_floor), req_floor = 0</label>
+			<label kind="assignment" x="-1870" y="-1776">enqueue(req_floor), req_floor = 0</label>
 		</transition>
 		<transition>
 			<source ref="id12"/>
@@ -836,7 +829,7 @@ sync action to be taken</label>
 	<system>system cabin_door, protecting_door, engine, floor_sensors, button, dgc_request_handler, main_control;</system>
 	<queries>
 		<query>
-			<formula>A[] 
+			<formula>A[]
 (
     (main_control(0).dest_reached imply 
         (main_control(0).current_floor == 0 or

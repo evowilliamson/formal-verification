@@ -839,41 +839,34 @@ sync action to be taken</label>
 	<system>system cabin_door, protecting_door, engine, floor_sensors, button, dgc_request_handler, main_control;</system>
 	<queries>
 		<query>
-			<formula>(   button.requested_floor &gt;= 1 and button.requested_floor &lt;= 3) 
-    and
-(   dgc_request_handler(0).request_ack or 
-    dgc_request_handler(1).request_ack
+			<formula>(   
+    (   dgc_request_handler(0).request_received and 
+        (
+            dgc_request_handler(0).req_floor == 0 or
+            dgc_request_handler(0).req_floor == 1
+        )
+    ) or
+    (
+        dgc_request_handler(1).request_received and
+        (
+            dgc_request_handler(1).req_floor == 2 or
+            dgc_request_handler(1).req_floor == 3
+        )
+    )
 )
 --&gt;
 (
     main_control(0).dest_reached and 
-        (main_control(0).current_floor == 1)
+        (main_control(0).current_floor == 0 or
+         main_control(0).current_floor == 1)
         or
     main_control(1).dest_reached and 
-        (main_control(1).current_floor == 2 or main_control(1).current_floor == 3)
-)
+        (main_control(1).current_floor == 2 or 
+         main_control(1).current_floor == 3)
+) 
 			</formula>
 			<comment>Property 5 All floor requests are eventually served, i.e., the elevator reaches its destination. 
 
-Separate queries for individual elevators (except floor 0):
-
-(   button.requested_floor == 1 and dgc_request_handler(0).request_ack)
---&gt;
-(   main_control(0).dest_reached and main_control(0).current_floor == 1) 
-
-(   button.requested_floor == 2 and dgc_request_handler(1).request_ack)
---&gt;
-(   main_control(1).dest_reached and main_control(0).current_floor == 2) 
-
-(   button.requested_floor == 3 and dgc_request_handler(1).request_ack)
---&gt;
-(   main_control(1).dest_reached and main_control(1).current_floor == 3)
-			</comment>
-		</query>
-		<query>
-			<formula>A[] not deadlock
-			</formula>
-			<comment>
 			</comment>
 		</query>
 	</queries>
