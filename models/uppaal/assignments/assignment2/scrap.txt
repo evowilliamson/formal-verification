@@ -15,6 +15,93 @@ A[] (
             ((main_control(2).current_floor == 0) or (main_control(2).current_floor == 8) or 
              (main_control(2).current_floor == 9) or (main_control(2).current_floor == 10)))
     )
+
+
+
+
+
+
+Property 4
+
+good:
+A[] 
+(
+    (main_control(0).dest_reached imply main_control(0).current_floor == 1) or
+    (main_control(0).dest_reached imply main_control(0).current_floor == 2) or
+    (main_control(0).dest_reached imply main_control(0).current_floor == 3) or
+    (main_control(1).dest_reached imply main_control(1).current_floor == 4) or
+    (main_control(1).dest_reached imply main_control(1).current_floor == 5) or 
+    (main_control(1).dest_reached imply main_control(1).current_floor == 6) or
+    (main_control(1).dest_reached imply main_control(1).current_floor == 7) or
+    (main_control(2).dest_reached imply main_control(2).current_floor == 8) or 
+    (main_control(2).dest_reached imply main_control(2).current_floor == 9) or 
+    (main_control(2).dest_reached imply main_control(2).current_floor == 10)
+)
+
+A[] 
+(
+    (main_control(0).dest_reached imply 
+        (main_control(0).current_floor == 0 or         // ignore floor 0
+            (main_control(0).current_floor >= 1 and 
+             main_control(0).current_floor <= 3 and 
+             button.generated[main_control(0).current_floor] == true))) and
+    (main_control(1).dest_reached imply                // ignore floor 0
+        (main_control(1).current_floor == 0 or
+            (main_control(1).current_floor >= 4 and 
+             main_control(1).current_floor <= 7 and
+             button.generated[main_control(1).current_floor] == true))) and
+    (main_control(2).dest_reached imply                // ignore floor 0 
+        (main_control(2).current_floor == 0 or
+            (main_control(2).current_floor >= 8 and 
+             main_control(2).current_floor <= 10 and 
+             button.generated[main_control(2).current_floor] == true)))
+)
+
+A[] 
+(
+    (main_control(0).dest_reached imply 
+        (main_control(0).current_floor == 0 or         // ignore floor 0
+            (main_control(0).current_floor >= 1 and 
+             main_control(0).current_floor <= 3 and 
+             button.generated[main_control(0).current_floor] == true))) and
+    (main_control(1).dest_reached imply                // ignore floor 0
+        (main_control(1).current_floor == 0 or
+            (main_control(1).current_floor >= 4 and 
+             main_control(1).current_floor <= 7 and
+             button.generated[main_control(1).current_floor] == true))) and
+    (main_control(2).dest_reached imply                // ignore floor 0 
+        (main_control(2).current_floor == 0 or
+            (main_control(2).current_floor >= 8 and 
+             main_control(2).current_floor <= 10 and 
+             button.generated[main_control(2).current_floor] == true)))
+)
+
+
+
+A[] 
+(
+    (dgc_request_handler(0).request_received and 
+     dgc_request_handler(0) != 0) 
+        imply ()
+    (main_control(0).dest_reached and main_control(0).current_floor == )
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 good too:
 A[] (
         (main_control(0).dest_reached imply 
