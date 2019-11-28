@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
-	<declaration>const int NO_FLOORS = 11;               // number of floors including the base floor
+	<declaration>const int NO_FLOORS = 8;               // number of floors including the base floor
 const int NO_ELEVATORS = 3;            // number of elevators
 const int MAX_SIZE = 5;                // maximum amount of requests per elevator before it takes off
 const int DOOR_TIME = 1;               // time it takes to close the door
@@ -846,20 +846,18 @@ sync action to be taken</label>
 			</comment>
 		</query>
 		<query>
-			<formula>
-(   
-    (dgc_request_handler(0).request_received and 
-        (dgc_request_handler(0).req_floor &gt;= 0 and
-	     dgc_request_handler(0).req_floor &lt;= 3)
-    )
+			<formula>(   
+    (   dgc_request_handler(0).request_received and 
+        (
+            dgc_request_handler(0).req_floor == 0
+        )
+    ) 
 )
 --&gt;
 (
-    (main_control(0).dest_reached and 
-        (main_control(0).current_floor &gt;= 0 and 
-	     main_control(0).current_floor &lt;= 3))        
+    main_control(0).dest_reached and 
+        (main_control(0).current_floor == 0)			
 )
-
 			</formula>
 			<comment>Property 5: All floor requests are eventually served, i.e., the elevator reaches its destination.
 			</comment>
