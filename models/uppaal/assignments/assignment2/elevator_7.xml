@@ -543,6 +543,11 @@ req_floor = 0</label>
 			<target ref="id19"/>
 			<label kind="synchronisation" x="-450" y="-185">close_door[i]?</label>
 			<label kind="assignment" x="-450" y="-168">x := 0</label>
+			<label kind="comments" x="-493" y="-365">The description specifies that every every floor of every 
+elevator has its own protecting door. Physically, this is
+true, but because of performance reason it was decided that 
+every elevator has its own protecting door. Modelling-wise,
+this doesn't put any restriction on the use-case</label>
 		</transition>
 	</template>
 	<template>
@@ -694,7 +699,7 @@ void set_floor_distance()
 			<source ref="id29"/>
 			<target ref="id24"/>
 			<label kind="guard" x="-2822" y="-2728">is_req_to_same_floor()</label>
-			<label kind="comments" x="-2643" y="-2830">IMPROVEMENT (ivo)
+			<label kind="comments" x="-2652" y="-2813">IMPROVEMENT (ivo)
 If the requested floor is 
 equal to the current 
 floor, shortcircuit the 
@@ -856,14 +861,10 @@ set_floor_distance()</label>
     main_control(0).s &lt;= 
         (main_control(0).floor_distance * FLOOR_TIME) + (2 * DOOR_TIME)
 )
-
 			</formula>
-			<comment>Property 7 The time needed to serve a request is bounded by the product of the distance in
-number of floors by the time needed to travel the distance of one floor plus twice the time it
-takes to open or close the door. More formally the property is defined as follows. Let p be
-the time to open or close the door. Let t be the time needed to cover the distance between two
-floors. Let s be the service time. Let d be the distance in number of floors. Then, the property
-is expressed as:
+			<comment>Property 7 The time needed to serve a request is bounded by the product of the distance in number of floors by the time needed to travel the distance of one floor plus twice the time it
+takes to open or close the door. More formally the property is defined as follows. Let p be the time to open or close the door. Let t be the time needed to cover the distance between two
+floors. Let s be the service time. Let d be the distance in number of floors. Then, the property is expressed as:
 s &lt;= d * t + 2 * p
 			</comment>
 		</query>

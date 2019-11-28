@@ -33,27 +33,7 @@ chan go[id_e], served[id_e];
 
 // The floor to which the main control is requested to go to.
 meta id_f target_floor_shared[id_e];
-
-/*
-bool floors_reached_dest[id_f];
-
-void register_floor_reached(int floor_no) 
-{
-    floors_reached_dest[floor_no] = true;
-}
-
-bool is_all_floors_reached() 
-{
-    int i = 1;
-    for (i = 1; i &lt; NO_FLOORS; i++) 
-    {
-        if (floors_reached_dest[i] == false) 
-        {
-            return false;
-        }
-    }
-    return true;
-}*/</declaration>
+</declaration>
 	<template>
 		<name>engine</name>
 		<parameter>id_e i</parameter>
@@ -547,6 +527,11 @@ the cycle</label>
 			<target ref="id18"/>
 			<label kind="synchronisation" x="-450" y="-185">close_door[i]?</label>
 			<label kind="assignment" x="-450" y="-168">x := 0</label>
+			<label kind="comments" x="-425" y="-374">The description specifies that every every floor of every 
+elevator has its own protecting door. Physically, this is
+true, but because of performance reason it was decided that 
+every elevator has its own protecting door. Modelling-wise,
+this doesn't put any restriction on the use-case</label>
 		</transition>
 	</template>
 	<template>
@@ -610,7 +595,6 @@ void adjust_current_floor()
     {
         current_floor--;
     }
-    //register_floor_reached(current_floor);
 }
 
 // Check whether the requested floor is to the same floor

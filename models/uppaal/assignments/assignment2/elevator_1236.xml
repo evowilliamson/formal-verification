@@ -19,9 +19,7 @@ const int NO_ELEVATORS = 2;            // number of elevators
 const int MAX_SIZE = 5;                // maximum amount of requests per elevator before it takes off
 const int DOOR_TIME = 1;               // time it takes to close the door
 const int FLOOR_TIME = 1;              // time to travel one floor
-// IMPROVEMENT (stefano):
 const int MAX_WAIT = 5;                // maximum amount of wait time before elevator runs with at least 1 person 
-
 
 typedef int[0, NO_FLOORS - 1] id_f;    // floor id from 0 to NO_FLOORS - 1
 typedef int[0, NO_ELEVATORS - 1] id_e; // elevator id from 0 to NO_ELEVATORS - 1
@@ -48,27 +46,7 @@ chan go[id_e], served[id_e];
 
 // The floor to which the main control is requested to go to.
 meta id_f target_floor_shared[id_e];
-
-/*
-bool floors_reached_dest[id_f];
-
-void register_floor_reached(int floor_no) 
-{
-    floors_reached_dest[floor_no] = true;
-}
-
-bool is_all_floors_reached() 
-{
-    int i = 1;
-    for (i = 1; i &lt; NO_FLOORS; i++) 
-    {
-        if (floors_reached_dest[i] == false) 
-        {
-            return false;
-        }
-    }
-    return true;
-}*/</declaration>
+</declaration>
 	<template>
 		<name>engine</name>
 		<parameter>id_e i</parameter>
@@ -548,6 +526,11 @@ the cycle</label>
 			<target ref="id18"/>
 			<label kind="synchronisation" x="-450" y="-185">close_door[i]?</label>
 			<label kind="assignment" x="-450" y="-168">x := 0</label>
+			<label kind="comments" x="-433" y="-374">The description specifies that every every floor of every 
+elevator has its own protecting door. Physically, this is
+true, but because of performance reason it was decided that 
+every elevator has its own protecting door. Modelling-wise,
+this doesn't put any restriction on the use-case</label>
 		</transition>
 	</template>
 	<template>
@@ -571,11 +554,13 @@ bool is_dest_reached()
     }
 }
 
+// Convenience method that sets a local variable
 void go_up() 
 {
     up = true;
 }
 
+// Convenience method that sets a local variable
 void go_down() 
 {
     up = false;
@@ -611,7 +596,6 @@ void adjust_current_floor()
     {
         current_floor--;
     }
-    //register_floor_reached(current_floor);
 }
 
 // Check whether the requested floor is to the same floor
@@ -629,6 +613,8 @@ void reset_floors()
     up = false;
 }
 
+// This function assigns the meta variable to the local variable
+// in order to be used in different states
 void get_target_floor() 
 {
     target_floor = target_floor_shared[e];
@@ -638,15 +624,15 @@ void get_target_floor()
 			<name x="-2261" y="-2881">dest_reached</name>
 			<committed/>
 		</location>
-		<location id="id23" x="-2898" y="-2703">
-			<name x="-3017" y="-2711">handle_served</name>
+		<location id="id23" x="-2924" y="-2703">
+			<name x="-3043" y="-2711">handle_served</name>
 			<committed/>
 		</location>
-		<location id="id24" x="-2898" y="-2771">
-			<name x="-3008" y="-2779">door_opening</name>
+		<location id="id24" x="-2924" y="-2771">
+			<name x="-3034" y="-2779">door_opening</name>
 		</location>
-		<location id="id25" x="-2898" y="-2847">
-			<name x="-2974" y="-2855">stopped</name>
+		<location id="id25" x="-2924" y="-2847">
+			<name x="-3000" y="-2855">stopped</name>
 			<committed/>
 		</location>
 		<location id="id26" x="-2583" y="-2626">
@@ -657,20 +643,21 @@ void get_target_floor()
 			<committed/>
 		</location>
 		<location id="id28" x="-2736" y="-2626">
+			<name x="-2856" y="-2652">request_received</name>
 			<committed/>
 		</location>
 		<location id="id29" x="-2218" y="-2626">
 			<name x="-2201" y="-2652">moving</name>
 		</location>
-		<location id="id30" x="-2898" y="-2541">
-			<name x="-2881" y="-2549">init_door_opening</name>
+		<location id="id30" x="-2924" y="-2541">
+			<name x="-2907" y="-2549">init_door_opening</name>
 		</location>
-		<location id="id31" x="-3026" y="-2541">
-			<name x="-3043" y="-2524">idle</name>
+		<location id="id31" x="-3052" y="-2541">
+			<name x="-3069" y="-2524">idle</name>
 			<committed/>
 		</location>
-		<location id="id32" x="-2898" y="-2626">
-			<name x="-2966" y="-2635">waiting</name>
+		<location id="id32" x="-2924" y="-2626">
+			<name x="-2992" y="-2635">waiting</name>
 		</location>
 		<init ref="id31"/>
 		<transition>
@@ -710,17 +697,17 @@ sync action to be taken</label>
 		<transition>
 			<source ref="id23"/>
 			<target ref="id32"/>
-			<label kind="synchronisation" x="-2890" y="-2677">served[e]!</label>
+			<label kind="synchronisation" x="-2916" y="-2677">served[e]!</label>
 		</transition>
 		<transition>
 			<source ref="id24"/>
 			<target ref="id23"/>
-			<label kind="synchronisation" x="-2889" y="-2754">door_open[e]?</label>
+			<label kind="synchronisation" x="-2915" y="-2754">door_open[e]?</label>
 		</transition>
 		<transition>
 			<source ref="id25"/>
 			<target ref="id24"/>
-			<label kind="synchronisation" x="-2889" y="-2822">open_door[e]!</label>
+			<label kind="synchronisation" x="-2915" y="-2822">open_door[e]!</label>
 		</transition>
 		<transition>
 			<source ref="id28"/>
@@ -749,7 +736,7 @@ sync action to be taken</label>
 		<transition>
 			<source ref="id32"/>
 			<target ref="id28"/>
-			<label kind="synchronisation" x="-2864" y="-2618">go[e]?</label>
+			<label kind="synchronisation" x="-2890" y="-2618">go[e]?</label>
 			<label kind="assignment" x="-2864" y="-2601">get_target_floor()</label>
 		</transition>
 		<transition>
@@ -765,12 +752,12 @@ sync action to be taken</label>
 		<transition>
 			<source ref="id30"/>
 			<target ref="id32"/>
-			<label kind="synchronisation" x="-3009" y="-2592">door_open[e]?</label>
+			<label kind="synchronisation" x="-3035" y="-2592">door_open[e]?</label>
 		</transition>
 		<transition>
 			<source ref="id31"/>
 			<target ref="id30"/>
-			<label kind="synchronisation" x="-3009" y="-2533">open_door[e]!</label>
+			<label kind="synchronisation" x="-3035" y="-2533">open_door[e]!</label>
 		</transition>
 	</template>
 	<template>
@@ -830,6 +817,12 @@ sync action to be taken</label>
 	<system>system cabin_door, protecting_door, engine, floor_sensors, button, dgc_request_handler, main_control;</system>
 	<queries>
 		<query>
+			<formula>A[] not deadlock
+			</formula>
+			<comment>Property 1: The elevator control unit is deadlock-free
+			</comment>
+		</query>
+		<query>
 			<formula>A[] 
 (
     not
@@ -840,7 +833,7 @@ sync action to be taken</label>
     )
 )
 			</formula>
-			<comment>Property 2 The elevator never travels with its door open.
+			<comment>Property 2: The elevator never travels with its door open.
 			</comment>
 		</query>
 		<query>
@@ -851,15 +844,7 @@ sync action to be taken</label>
     (main_control(0).current_floor == 0))    
 )
 			</formula>
-			<comment>Property 3 The amount of requests can reach the threshold value (in the description of Task 1
-the value is 5) when the elevator is on the ground floor
-	
-The formulation of the property is not succint enough. I interpret: "The amount of perceivable requests for one specifc elevator can reach the threshold value". 
-"perceivable" because in essence a button generates the requests and the model could (if enough information available) detect that the number of requests reaches a certain amount already in the button.
- But because of the fact that the data structures that accumulates the requests is contained in the request_handler, I guess it is assumed that this is not the case.
-"specific": I guess the property holds for just one elevator, and not the total amount of requests in the system (for all elevators). Again for the same reason as previously stated.
-
-I also would add an extra condition that states that the main controller is waiting..
+			<comment>Property 3: The amount of requests can reach the threshold value (in the description of Task 1 the value is 5) when the elevator is on the ground floor
 			</comment>
 		</query>
 		<query>
@@ -875,17 +860,7 @@ I also would add an extra condition that states that the main controller is wait
         (protecting_door(2).opened and cabin_door(2).opened))
 )
 			</formula>
-			<comment>Property 6
-
-The serve action happens after the doors open. So basically what needs to 
-be checked is that after the serve has happended, the doors are still open
-so that the people can leave the cabin. This is a safety property
-			</comment>
-		</query>
-		<query>
-			<formula>A[] not deadlock
-			</formula>
-			<comment>Property 1 The elevator control unit is deadlock-free
+			<comment>Property 6: Whenever a request is served, the passengers will be able to leave the cabin
 			</comment>
 		</query>
 	</queries>
