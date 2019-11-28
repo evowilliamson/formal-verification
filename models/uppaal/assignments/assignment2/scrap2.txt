@@ -10,22 +10,41 @@ A[]
 
 (   
     (   dgc_request_handler(0).request_received and 
-        (
-            dgc_request_handler(0).req_floor => 0 and
-			dgc_request_handler(0).req_floor <= 3
-        )
+        (dgc_request_handler(0).req_floor => 0 and
+         dgc_request_handler(0).req_floor <= 3)
     ) or
     (
         dgc_request_handler(1).request_received and
-        (
-            dgc_request_handler(1).req_floor >= 4 and
-			dgc_request_handler(1).req_floor <= 7
-        )
+        (dgc_request_handler(1).req_floor >= 4 and
+         dgc_request_handler(1).req_floor <= 7)
     ) or
     (   dgc_request_handler(2).request_received and 
+        (dgc_request_handler(2).req_floor >= 8 and
+         dgc_request_handler(2).req_floor <= 10)
+    ) 
+)
+-->
+(
+    (main_control(0).dest_reached and 
+        (main_control(0).current_floor => 0 and 
+         main_control(0).current_floor <= 3)) or
+    (main_control(1).dest_reached and 
+        (main_control(1).current_floor => 4 and 
+         main_control(1).current_floor <= 7)) or
+    (main_control(2).dest_reached and 
+        (main_control(2).current_floor => 8 and 
+         main_control(2).current_floor <= 10))
+)
+
+
+
+
+
+(   
+    (   dgc_request_handler(0).request_received and 
         (
-            dgc_request_handler(2).req_floor >= 8 and
-			dgc_request_handler(2).req_floor <= 10
+            dgc_request_handler(0).req_floor => 0 and
+            dgc_request_handler(0).req_floor <= 3
         )
     ) 
 )
@@ -33,14 +52,11 @@ A[]
 (
     (main_control(0).dest_reached and 
         (main_control(0).current_floor => 0 and 
-		 main_control(0).current_floor <= 3)) or
-    (main_control(1).dest_reached and 
-    	(main_control(1).current_floor => 4 and 
-		 main_control(1).current_floor <= 7) or
-    (main_control(2).dest_reached and 
-    	(main_control(2).current_floor => 8 and 
-		 main_control(2).current_floor <= 10) or
+         main_control(0).current_floor <= 3))
 )
+
+
+
 
     4 floors, 4 elevators
 
@@ -52,6 +68,110 @@ A[]
      0          0
      1          1
      2          2
-	 3          3
+     3          3
 
 
+
+
+
+(   
+    (   dgc_request_handler(0).request_received and 
+        (
+            dgc_request_handler(0).req_floor == 0
+        )
+    ) or
+    (
+        dgc_request_handler(1).request_received and
+        (
+            dgc_request_handler(1).req_floor == 1
+        )
+    ) or
+    (   dgc_request_handler(2).request_received and 
+        (
+            dgc_request_handler(2).req_floor == 2
+        )
+    ) or	
+    (   dgc_request_handler(3).request_received and 
+        (
+            dgc_request_handler(3).req_floor == 3
+        )
+    )	
+)
+-->
+(
+    main_control(0).dest_reached and 
+        (main_control(0).current_floor == 0)
+        or
+    main_control(1).dest_reached and 
+        (main_control(1).current_floor == 1)
+        or
+    main_control(2).dest_reached and 
+        (main_control(2).current_floor == 2)	
+        or
+    main_control(3).dest_reached and 
+        (main_control(3).current_floor == 3)			
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(   
+    (dgc_request_handler(0).request_received and 
+        (dgc_request_handler(0).req_floor >= 0 and
+	     dgc_request_handler(0).req_floor <= 3)
+    ) or (dgc_request_handler(1).request_received and (dgc_request_handler(1).req_floor >= 4 and dgc_request_handler(1).req_floor <= 7))
+)
+-->
+(
+    (main_control(0).dest_reached and 
+        (main_control(0).current_floor >= 0 and 
+	     main_control(0).current_floor <= 3)) 
+    or (main_control(1).dest_reached and (main_control(1).current_floor => 4 and main_control(1).current_floor <= 7))
+)
+
+ 
+
+
+(   
+    (dgc_request_handler(0).request_received and 
+        (dgc_request_handler(0).req_floor >= 0 and
+	     dgc_request_handler(0).req_floor <= 3)
+    ) or
+    (
+        dgc_request_handler(1).request_received and
+        (dgc_request_handler(1).req_floor >= 4 and
+         dgc_request_handler(1).req_floor <= 7)
+    ) or
+    (   dgc_request_handler(2).request_received and 
+        (dgc_request_handler(2).req_floor >= 8 and
+         dgc_request_handler(2).req_floor <= 10)
+    ) 
+)
+-->
+(
+    (main_control(0).dest_reached and 
+        (main_control(0).current_floor >= 0 and 
+	     main_control(0).current_floor <= 3)) 
+    or
+    (main_control(1).dest_reached and 
+        (main_control(1).current_floor >= 4 and 
+	     main_control(1).current_floor <= 7))
+    or
+    (main_control(2).dest_reached and 
+        (main_control(2).current_floor >= 8 and 
+	     main_control(2).current_floor <= 10))         
+)
+
+ 

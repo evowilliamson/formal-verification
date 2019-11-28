@@ -846,43 +846,19 @@ sync action to be taken</label>
 			</comment>
 		</query>
 		<query>
-			<formula>
-(   
+			<formula>(   
     (   dgc_request_handler(0).request_received and 
         (
-            dgc_request_handler(0).req_floor == 0
+            dgc_request_handler(0).req_floor =&gt; 0 and
+            dgc_request_handler(0).req_floor &lt;= 3
         )
-    ) or
-    (
-        dgc_request_handler(1).request_received and
-        (
-            dgc_request_handler(1).req_floor == 1
-        )
-    ) or
-    (   dgc_request_handler(2).request_received and 
-        (
-            dgc_request_handler(2).req_floor == 2
-        )
-    ) or	
-    (   dgc_request_handler(3).request_received and 
-        (
-            dgc_request_handler(3).req_floor == 3
-        )
-    )	
+    ) 
 )
 --&gt;
 (
-    main_control(0).dest_reached and 
-        (main_control(0).current_floor == 0)
-        or
-    main_control(1).dest_reached and 
-        (main_control(1).current_floor == 1)
-        or
-    main_control(2).dest_reached and 
-        (main_control(2).current_floor == 2)	
-        or
-    main_control(3).dest_reached and 
-        (main_control(3).current_floor == 3)			
+    (main_control(0).dest_reached and 
+        (main_control(0).current_floor =&gt; 0 and 
+         main_control(0).current_floor &lt;= 3))
 )
 
 			</formula>
