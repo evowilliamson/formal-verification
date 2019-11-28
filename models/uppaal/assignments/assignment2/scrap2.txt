@@ -1,146 +1,57 @@
-clock x;
-bool timer_started = false;
+A[] 
+(
+    not
+    (
+        (engine(0).moving_up or engine(0).moving_down) 
+            and 
+        (cabin_door(0).opened or protecting_door(0).opened)
+    )
+)
 
-// Local queue storing the requests.
-id_f list[MAX_SIZE + 1]; // Leave room for the base floor, the elevator has to go back after the trip
-int[0, MAX_SIZE + 1] len = 0;
+(   
+    (   dgc_request_handler(0).request_received and 
+        (
+            dgc_request_handler(0).req_floor => 0 and
+			dgc_request_handler(0).req_floor <= 3
+        )
+    ) or
+    (
+        dgc_request_handler(1).request_received and
+        (
+            dgc_request_handler(1).req_floor >= 4 and
+			dgc_request_handler(1).req_floor <= 7
+        )
+    ) or
+    (   dgc_request_handler(2).request_received and 
+        (
+            dgc_request_handler(2).req_floor >= 8 and
+			dgc_request_handler(2).req_floor <= 10
+        )
+    ) 
+)
+-->
+(
+    (main_control(0).dest_reached and 
+        (main_control(0).current_floor => 0 and 
+		 main_control(0).current_floor <= 3)) or
+    (main_control(1).dest_reached and 
+    	(main_control(1).current_floor => 4 and 
+		 main_control(1).current_floor <= 7) or
+    (main_control(2).dest_reached and 
+    	(main_control(2).current_floor => 8 and 
+		 main_control(2).current_floor <= 10) or
+)
 
-int try_out_floor = 0;
+    4 floors, 4 elevators
 
-// local requested floor
-int req_floor;
-const int BASE_FLOOR = 0;
-
-// Put an element at the end of the queue
-void enqueue(id_f element)
-{
-    list[len++] = element;
-}
-
-// Remove the front element of the queue
-void dequeue()
-{
-    int i = 0;
-    len -= 1;
-    while (i < len)
-    {
-        list[i] = list[i + 1];
-        i++;
-	}
-    list[i] = 0;
-}
-
-// Returns the front element of the queue
-id_f front()
-{
-   return list[0];
-}
-
-// Returns true if the queue has a size of 0
-bool is_empty ()
-{
-	return len == 0;
-}
-
-// Returns true if the queue is full
-bool is_full ()
-{
-	return len == MAX_SIZE;
-}
-
-// Returns true if either the queueu is full, or at least one request
-// is present and atleast max_time has passed
-bool is_ready_to_go()
-{
- 	return true; 
-}
-
-//
-// Round function for two integers. According to the online-help functions should be
-// available, but to no avail, couldn't be found. So create it here.
-int round_int_division(int dividend, int divisor)
-{
-    return (dividend + (divisor / 2)) / divisor;
-    // https://stackoverflow.com/questions/2422712/rounding-integer-division-instead-of-truncating
-}
-
-// Check whether the current elevator has affinity to process the floor 
-int group_size = 0;
-int elevator_number = 0;
-
-bool is_req_for_elevator(id_f floor_no)
-{
-    if ((floor_no / round_int_division(NO_FLOORS, NO_ELEVATORS)) == NO_ELEVATORS)
-    {
-        return (NO_ELEVATORS - 1 == e);
-    } 
-    else 
-    {
-        return (floor_no / round_int_division(NO_FLOORS, NO_ELEVATORS)) == e;
-    }
-    // round_int_division(NO_FLOORS, NO_ELEVATORS)   ===>  group_size
-
-    /*
-    Stefano test 11 floors, 3 elevators
-
-    group_size = (11 + (3/2)) / 3 = 12 / 3 = 4
+    group_size = (4 + (3/2)) / 4 = 5 / 1 = 1
     elevator = floor_no / groups_size
     
     floor      elevator
     -------------------
      0          0
-     1          0
-     2          0
-     3          0
-     4          1
-     5          1
-     6          1
-     7          1
-     8          2
-     9          2
-    10          2
+     1          1
+     2          2
+	 3          3
 
-    Property 4 verification:
-    7 floors, 3 elevators
-
-    group_size = (7 + (3/2)) / 3 = 8 / 3 = 2
-    elevator = floor_no / groups_size
-    
-    floor      elevator
-    -------------------
-     0          0
-     1          0
-     2          1
-     3          1
-     4          2
-     5          2
-     6          2
-
-    */
-}
-
-// Check whether the timer has been started
-bool is_timer_started()
-{
-    return timer_started;
-}
-
-// Start the timer after the first request has been received
-void start_timer() 
-{
-    x = 0;
-    timer_started = true;
-}
-
-// Reset the timer. This means setting the timer_started boolean to false
-void reset_timer() 
-{
-    timer_started = false;
-}
-
-// Function that sets the target floor, based on the dequeued requested floor
-void set_target_floor(id_f floor_no)
-{
-    target_floor_shared[e] = floor_no;
-}
 
