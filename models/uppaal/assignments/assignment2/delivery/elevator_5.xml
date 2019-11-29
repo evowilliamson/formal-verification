@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
-	<declaration>const int NO_FLOORS = 11;               // number of floors including the base floor
-const int NO_ELEVATORS = 3;            // number of elevators
+	<declaration>const int NO_FLOORS = 4;               // number of floors including the base floor
+const int NO_ELEVATORS = 2;            // number of elevators
 const int MAX_SIZE = 5;                // maximum amount of requests per elevator before it takes off
 const int DOOR_TIME = 1;               // time it takes to close the door
 const int FLOOR_TIME = 1;              // time to travel one floor
@@ -274,6 +274,7 @@ bool is_req_for_elevator(id_f floor_no)
      7          2
      8          2
 
+   Assignment 1 reference setup
     4 floors, 2 elevators
 
     group_size = (4 + (3/2)) / 2 = 5 / 2 = 2
@@ -286,16 +287,6 @@ bool is_req_for_elevator(id_f floor_no)
      2          1
      3          1
 
-    3 floors, 2 elevators
-
-    group_size = (3 + (3/2)) / 2 = 4 / 2 = 2
-    elevator = floor_no / groups_size
-    
-    floor      elevator
-    -------------------
-     0          0
-     1          0
-     2          1
 
     */
 }
@@ -399,7 +390,7 @@ the cycle</label>
 			<source ref="id9"/>
 			<target ref="id8"/>
 			<label kind="guard" x="-1827" y="-1793">is_req_for_elevator(req_floor)</label>
-			<label kind="assignment" x="-1827" y="-1776">enqueue(req_floor), req_floor = 0</label>
+			<label kind="assignment" x="-1827" y="-1776">enqueue(req_floor)</label>
 		</transition>
 		<transition>
 			<source ref="id13"/>
@@ -832,34 +823,33 @@ sync action to be taken</label>
 	<system>system cabin_door, protecting_door, engine, floor_sensors, button, dgc_request_handler, main_control;</system>
 	<queries>
 		<query>
-			<formula>A[] 
-(
-    not
-    (
-        (engine(0).moving_up or engine(0).moving_down) 
-            and 
-        (cabin_door(0).opened or protecting_door(0).opened)
-    )
-)
-			</formula>
-			<comment>Property 2: The elevator never travels with its door open
-			</comment>
-		</query>
-		<query>
 			<formula>(   
     (   dgc_request_handler(0).request_received and 
         (
+            dgc_request_handler(0).req_floor == 0 or
             dgc_request_handler(0).req_floor == 1
         )
-    ) 
+    ) or
+    (
+        dgc_request_handler(1).request_received and
+        (
+            dgc_request_handler(1).req_floor == 2 or
+            dgc_request_handler(1).req_floor == 3
+        )
+    )
 )
 --&gt;
 (
     main_control(0).dest_reached and 
-        (main_control(0).current_floor == 1)			
+        (main_control(0).current_floor == 0 or
+         main_control(0).current_floor == 1)
+        or
+    main_control(1).dest_reached and 
+        (main_control(1).current_floor == 2 or 
+         main_control(1).current_floor == 3)
 )
 			</formula>
-			<comment>Property 5: All floor requests are eventually served, i.e., the elevator reaches its destination.
+			<comment>Property 5 All floor requests are eventually served, i.e., the elevator reaches its destination.
 			</comment>
 		</query>
 	</queries>
