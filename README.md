@@ -1,4 +1,5 @@
 
+
 This repository comprises material collected and constructed during the course **System Validation and Testing (Formal Verification)**, as taught at Open Universiteit as part of my Master of Software Engineering.
 
 ### References
@@ -20,6 +21,7 @@ The following books, scientific articles and other references where used and are
 [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf) | M. Huth & M. Ryan | Book about logic-based verification|
 [Fairness in CTL](https://github.com/evowilliamson/formal-verification/blob/master/resources/Fairness%20in%20CTL.pdf) | JP. Katoen | Presentation of a lecture on fairness in relation to LTL and CTL|
 [Model Checking with Strong Fairness](https://github.com/evowilliamson/formal-verification/blob/master/resources/Model%20Checking%20with%20Strong%20Fairness.pdf) | Y. Kesten et al. | A coherent framework for symbolic model checking of linear-time temporal logic ( LTL ) properties over finite state reactive systems, taking full fairness constraints into consideration|
+[Model Based Testing with Labelled Transition Systems](https://github.com/evowilliamson/formal-verification/blob/master/resources/2006-Tretmans-MBTwithLTS.pdf) |J. Tretmans | Academic paper that describes a model based testing theory where models are expressed as labelled transition systems, and compliance is defined with the ‘ioco’ implementation relation |
 
 ### Study notes
 
@@ -42,6 +44,7 @@ I've maintained notes of my study progress for myself and for other people inter
 | 11/6/2019 | Started reading chapter 3 in the textbook [Model Checking](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Model-Checking%20(Personal%20digital%20copy).pdf). Used the [Youtube CTL* video](https://www.youtube.com/watch?v=_2E5Q3CZ7g4&t=1343s) and [Youtube CTL video](https://www.youtube.com/watch?v=Blh060Hgbm8) to get more clarification about CTL and CTL*|
 | 11/6/2019 | Read [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), paragraph 3.6. Algorithms for model checking are given in this paragraph. Special attention to paragraph 3.6.2 which explains well the concept of fairness|
 | 11/17/2019 | Finished reading [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), chapter 3 excluding 3.7. |
+| 01/01/2020 | Finished reading [Model Based Testing with Labelled Transition Systems](https://github.com/evowilliamson/formal-verification/blob/master/resources/2006-Tretmans-MBTwithLTS.pdf), until paragraph 3.4, input & outputs |
 
 
 ## Lecture notes
