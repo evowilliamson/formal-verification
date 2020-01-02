@@ -45,18 +45,10 @@ I've maintained notes of my study progress for myself and for other people inter
 | 11/6/2019 | Read [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), paragraph 3.6. Algorithms for model checking are given in this paragraph. Special attention to paragraph 3.6.2 which explains well the concept of fairness|
 | 11/17/2019 | Finished reading [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), chapter 3 excluding 3.7. |
 | 01/01/2020 | Finished reading [Model Based Testing with Labelled Transition Systems](https://github.com/evowilliamson/formal-verification/blob/master/resources/2006-Tretmans-MBTwithLTS.pdf), until paragraph 3.4, input & outputs |
+| 01/02/2020 | Finished reading [Model Based Testing with Labelled Transition Systems](https://github.com/evowilliamson/formal-verification/blob/master/resources/2006-Tretmans-MBTwithLTS.pdf), until paragraph 4.1 |
 
 
 ## Lecture notes
 
 [Temporal logics](https://github.com/evowilliamson/formal-verification/blob/master/temporal_logics.md)
 
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbMTgyOTM3MDgwLC0xMzY4MzY5OTEzLC0xMD
-EwNjc0ODU0LDIwMzU3NTQ0NDYsLTE0MDQ5Nzc0NTUsLTE3OTY3
-NTM4NTQsLTE2MDk2MDI3ODMsLTY1NzUyNDc0MiwtMTYxMjk1Nz
-MsMTYxODk1MzExLC02NTQzNDM2NTgsMTIzNzgzNDAzMSwtMjEz
-OTI3NzkxNywtNTk5NzkwMDAxLDEwNDEyNjkzMDMsMTY3MTcyND
-AzLDEyMzI0NTYzMjIsLTEzOTgyNzczNzcsMjAwNzIzMDU0Miwt
-MjQ2MTg1ODYwXX0=
--->
