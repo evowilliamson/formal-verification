@@ -46,6 +46,7 @@ I've maintained notes of my study progress for myself and for other people inter
 | 11/17/2019 | Finished reading [Logic in computer science](https://github.com/evowilliamson/model-checking-research/blob/master/resources/Logic%20in%20computer%20science(Personal%20digital%20copy).pdf), chapter 3 excluding 3.7. |
 | 01/01/2020 | Finished reading [Model Based Testing with Labelled Transition Systems](https://github.com/evowilliamson/formal-verification/blob/master/resources/2006-Tretmans-MBTwithLTS.pdf), until paragraph 3.4, input & outputs |
 | 01/02/2020 | Finished reading [Model Based Testing with Labelled Transition Systems](https://github.com/evowilliamson/formal-verification/blob/master/resources/2006-Tretmans-MBTwithLTS.pdf), until paragraph 4.1 |
+| 01/02/2020 | Finished reading [Model Based Testing with Labelled Transition Systems](https://github.com/evowilliamson/formal-verification/blob/master/resources/2006-Tretmans-MBTwithLTS.pdf), paragraph 4. |
 
 
 ## Lecture notes
