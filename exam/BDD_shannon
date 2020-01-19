@@ -1,0 +1,6 @@
+f0 = (a & b) | (c ^ !d)
+f1 = (!b & a) | c
+
+!f0 | f1
+
+Make BDDs and composition based on above formula
